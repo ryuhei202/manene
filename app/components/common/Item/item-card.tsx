@@ -8,23 +8,20 @@ type TProps = {
 
 export default function ItemCard({ imagePaths, children }: TProps) {
   return (
-    <div>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "row",
-          p: 1,
-          m: 1,
-          bgcolor: "background.paper",
-          borderRadius: 3,
-        }}
-      >
-        <ExpandableImage
-          defaultImageSrc={imagePaths.defaultPath}
-          expandedImageSrc={imagePaths.expandedPath}
-        />
-        {children}
-      </Box>
-    </div>
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        borderBottom: 1,
+        p: 1,
+        bgcolor: "background.paper",
+      }}
+    >
+      <ExpandableImage
+        defaultImageSrc={imagePaths.defaultPath}
+        expandedImageSrc={imagePaths.expandedPath}
+      />
+      <Box sx={{ ml: 3, width: "auto" }}>{children}</Box>
+    </Box>
   );
 }
