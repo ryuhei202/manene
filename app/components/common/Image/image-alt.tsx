@@ -1,9 +1,9 @@
 type TProps = {
   src: string;
   onClick?: () => void;
-  className?: string;
+  style?: React.CSSProperties;
 };
 
-export default function ImageAlt({ src, onClick, className }: TProps) {
-  return <img src={src} onClick={onClick} className={className} />;
+export default function ImageAlt({ src, onClick, style }: TProps) {
+  return <img src={src} onClick={onClick} style={style} />;
 }

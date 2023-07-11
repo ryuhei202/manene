@@ -28,9 +28,8 @@ export default function ExpandableImage({
   };
   return (
     <div>
-      {!isExpanded ? (
-        <ImageAlt src={defaultImageSrc} onClick={handleClickOpenModal} />
-      ) : (
+        style={{ height: 90, width: 70 }}
+      />
         <Modal
           open={isExpanded}
           onClose={handleClickCloseModal}
