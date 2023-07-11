@@ -7,13 +7,7 @@ type TProps = {
   className?: string;
 };
 
-export default function ExpandableImage({ imagePath, className }: TProps) {
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-  };
+export default function ExpandableImage({ imagePath }: TProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleClickOpenModal = () => {
     setIsExpanded(true);
@@ -26,7 +20,8 @@ export default function ExpandableImage({ imagePath, className }: TProps) {
       <ImageAlt
         src={imagePath}
         onClick={handleClickOpenModal}
-        style={{ height: 90, width: 70 }}
+        height={90}
+        width={70}
       />
       {isExpanded && (
         <Modal
@@ -36,12 +31,9 @@ export default function ExpandableImage({ imagePath, className }: TProps) {
           aria-describedby="modal-modal-description"
         >
           <Box>
-            {/* <Box sx={style}>
-              <ImageAlt src={expandedImageSrc} />
-            </Box> */}
             <Box
               sx={{
-                position: "absolute" as "absolute",
+                position: "absolute",
                 top: "50%",
                 left: "50%",
                 transform: "translate(-50%, -50%)",
@@ -51,14 +43,14 @@ export default function ExpandableImage({ imagePath, className }: TProps) {
                 justifyContent: "center",
               }}
             >
-              <ImageAlt src={imagePath} />
+              <ImageAlt src={imagePath} height={450} width={350} />
             </Box>
             <Button
               variant="contained"
               color="primary"
               onClick={handleClickCloseModal}
               sx={{
-                position: "absolute" as "absolute",
+                position: "absolute",
                 top: "80%",
                 left: "50%",
                 transform: "translate(-50%, -80%)",
