@@ -1,6 +1,6 @@
 import { useState } from "react";
 import ImageAlt from "./image-alt";
-import { Box, Modal } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 
 type TProps = {
   defaultImageSrc: string;
@@ -28,16 +28,52 @@ export default function ExpandableImage({
   };
   return (
     <div>
+      <ImageAlt
+        src={defaultImageSrc}
+        onClick={handleClickOpenModal}
         style={{ height: 90, width: 70 }}
       />
+      {isExpanded && (
         <Modal
           open={isExpanded}
           onClose={handleClickCloseModal}
           aria-labelledby="modal-modal-title"
           aria-describedby="modal-modal-description"
         >
-          <Box sx={style}>
-            <ImageAlt src={expandedImageSrc} />
+          <Box>
+            {/* <Box sx={style}>
+              <ImageAlt src={expandedImageSrc} />
+            </Box> */}
+            <Box
+              sx={{
+                position: "absolute" as "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                maxWidth: "80vw",
+                maxHeight: "80vh",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            >
+              <ImageAlt src={expandedImageSrc} />
+            </Box>
+            <Button
+              variant="contained"
+              color="primary"
+              onClick={handleClickCloseModal}
+              sx={{
+                position: "absolute" as "absolute",
+                top: "80%",
+                left: "50%",
+                transform: "translate(-50%, -80%)",
+                textAlign: "center",
+                mt: 3,
+                width: 160,
+              }}
+            >
+              閉じる
+            </Button>
           </Box>
         </Modal>
       )}
