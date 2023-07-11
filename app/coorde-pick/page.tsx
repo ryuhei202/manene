@@ -8,10 +8,8 @@ const imagePaths = {
 
 export default function CoordePick() {
   return (
-    <div>
-      <ItemCard imagePaths={imagePaths}>
-        <div>Hello</div>
-      </ItemCard>
-    </div>
+    <ItemCard imagePaths={imagePaths}>
+      <div>棚名: kiizankiizan</div>
+    </ItemCard>
   );
 }
