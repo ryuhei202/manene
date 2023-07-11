@@ -39,7 +39,6 @@ export default function ExpandableImage({
         >
           <Box sx={style}>
             <ImageAlt src={expandedImageSrc} />
-            {/* <button onClick={handleClickCloseModal}>閉じる</button> */}
           </Box>
         </Modal>
       )}
