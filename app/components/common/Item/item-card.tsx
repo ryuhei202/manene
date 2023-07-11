@@ -2,11 +2,11 @@ import { Box } from "@mui/material";
 import ExpandableImage from "../Image/expandable-image";
 
 type TProps = {
-  imagePaths: { defaultPath: string; expandedPath: string };
+  imagePath: string;
   children: React.ReactNode;
 };
 
-export default function ItemCard({ imagePaths, children }: TProps) {
+export default function ItemCard({ imagePath, children }: TProps) {
   return (
     <Box
       sx={{
@@ -17,10 +17,7 @@ export default function ItemCard({ imagePaths, children }: TProps) {
         bgcolor: "background.paper",
       }}
     >
-      <ExpandableImage
-        defaultImageSrc={imagePaths.defaultPath}
-        expandedImageSrc={imagePaths.expandedPath}
-      />
+      <ExpandableImage imagePath={imagePath} />
       <Box sx={{ ml: 3, width: "auto" }}>{children}</Box>
     </Box>
   );

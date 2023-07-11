@@ -3,16 +3,11 @@ import ImageAlt from "./image-alt";
 import { Box, Button, Modal } from "@mui/material";
 
 type TProps = {
-  defaultImageSrc: string;
-  expandedImageSrc: string;
+  imagePath: string;
   className?: string;
 };
 
-export default function ExpandableImage({
-  defaultImageSrc,
-  expandedImageSrc,
-  className,
-}: TProps) {
+export default function ExpandableImage({ imagePath, className }: TProps) {
   const style = {
     position: "absolute" as "absolute",
     top: "50%",
@@ -29,7 +24,7 @@ export default function ExpandableImage({
   return (
     <div>
       <ImageAlt
-        src={defaultImageSrc}
+        src={imagePath}
         onClick={handleClickOpenModal}
         style={{ height: 90, width: 70 }}
       />
@@ -56,7 +51,7 @@ export default function ExpandableImage({
                 justifyContent: "center",
               }}
             >
-              <ImageAlt src={expandedImageSrc} />
+              <ImageAlt src={imagePath} />
             </Box>
             <Button
               variant="contained"
