@@ -4,11 +4,11 @@ type TCoordePicksIndexResponse = {
   id: number;
   size: string;
   item_image_url: string;
-  m_cate_small_name: string;
-  m_color_name: string;
-  m_brand_name: string;
-  m_location_name: string;
-  is_picked: boolean;
+  mCateSmallName: string;
+  mColorName: string;
+  mBrandName: string;
+  mLocationName: string;
+  isPicked: boolean;
 }[];
 
 type TParams = {
