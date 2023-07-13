@@ -1,29 +1,37 @@
-## 環境
-UIツールはMUI
+# 開発ツール
+### Visual Studio Codeインストール
+https://code.visualstudio.com/
 
-```bash
-node -v
-v16.19.1
-```
+### 拡張機能
+* prettier(コードフォーマッタ)
+ 設定からFormat On Saveにチェクを入れる
+* Code Spell Checker(スペルチェッカー)
 
-## Getting Started
+### nodenvのインストール
+以下を参考に
 
-下記コマンドで、サーバーを立ち上げる:
+[M1 MacにNode.jsをインストールする方法と使い方（Node.jsバージョン管理) - Qiita](https://qiita.com/98hiro35/items/e192e4ef844474aa2ace) 
 
-```bash
-yarn dev
-```
+nodenvがインストールできたら、
 
-[http://localhost:3000](http://localhost:3000) で、サーバーが立ち上がっているか、ブラウザで確認。
+`nodenv install 18.16.0`
 
-下記コマンドでbundleを作成
+でnodeの18.16.0をインストール
 
-```bash
-yarn build
-```
+### yarnインストール 
+`brew install yarn`
 
-サーバーを立ち上げて、ステージング環境と同じ状態を確認できる
+以下を参考に
 
-```bash
-yarn start
-```
+[M1 Macのセットアップ・メモ](https://zenn.dev/catnose99/scraps/e1a2c41e9bf09c)
+
+### リポジトリのクローン
+ターミナル上で、
+
+`git clone https://github.com/KiizanKiizan/Manene.git`
+
+### ローカルで立ち上げる
+`yarn dev`
+
+
+
