@@ -10,12 +10,12 @@ export default function BarcodeInput({
   onClickSetChartId,
   onClickCloseBarcodeModal,
 }: TProps) {
-  const [tChartId, setTChartId] = useState<string>("");
+  const [id, setId] = useState<string>("");
 
   const handleChangeTChartId = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setTChartId(e.target.value);
+    setId(e.target.value);
   };
 
   return (
@@ -29,21 +29,22 @@ export default function BarcodeInput({
         border: 1,
       }}
       width="80vw"
-      height="20vh"
+      height="17vh"
+      textAlign="center"
     >
-      <Typography margin={2}>バーコードのIDを入力</Typography>
+      <Typography margin={2} textAlign="left">
+        バーコードのIDを入力
+      </Typography>
       <TextField
         type="number"
         variant="standard"
         sx={{ width: "80%" }}
         onChange={handleChangeTChartId}
-        value={tChartId}
+        value={id}
       />
-      <Box>
+      <Box margin="10px" textAlign="right">
         <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
-        <Button onClick={() => onClickSetChartId(parseInt(tChartId))}>
-          OK
-        </Button>
+        <Button onClick={() => onClickSetChartId(parseInt(id))}>OK</Button>
       </Box>
     </Box>
   );
