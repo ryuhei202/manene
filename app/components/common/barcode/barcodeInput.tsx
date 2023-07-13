@@ -1,32 +1,22 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { cookies } from "next/dist/client/components/headers";
-import React, { ChangeEvent, ChangeEventHandler, useState } from "react";
+import React, { useState } from "react";
 
 type TProps = {
   onClickSetChartId: (chartId: number) => void;
   onClickCloseBarcodeModal: () => void;
 };
 
-export default function BarcodeInput(
-  {
-    //   onClickSetChartId,
-    //   onClickCloseBarcodeModal,
-  }
-) {
+export default function BarcodeInput({
+  onClickSetChartId,
+  onClickCloseBarcodeModal,
+}: TProps) {
   const [tChartId, setTChartId] = useState<string>("");
-  const [error, setError] = useState<string>("");
 
   const handleChangeTChartId = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setTChartId(e.target.value);
-    if (typeof e.target.value !== "number") {
-      setError("数値のみを入力してください");
-    }
   };
-
-  console.log(tChartId);
-  console.log(error);
 
   return (
     <Box
@@ -43,14 +33,17 @@ export default function BarcodeInput(
     >
       <Typography margin={2}>バーコードのIDを入力</Typography>
       <TextField
+        type="number"
         variant="standard"
         sx={{ width: "80%" }}
         onChange={handleChangeTChartId}
         value={tChartId}
       />
       <Box>
-        <Button>キャンセル</Button>
-        <Button>OK</Button>
+        <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
+        <Button onClick={() => onClickSetChartId(parseInt(tChartId))}>
+          OK
+        </Button>
       </Box>
     </Box>
   );
