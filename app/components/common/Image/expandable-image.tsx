@@ -1,6 +1,6 @@
 import { useState } from "react";
-import ImageAlt from "./image-alt";
 import { Box, Button, Modal } from "@mui/material";
+import Image from "next/image";
 
 type TProps = {
   imagePath: string;
@@ -17,7 +17,8 @@ export default function ExpandableImage({ imagePath }: TProps) {
   };
   return (
     <div>
-      <ImageAlt
+      <Image
+        alt=""
         src={imagePath}
         onClick={handleClickOpenModal}
         height={90}
@@ -27,8 +28,8 @@ export default function ExpandableImage({ imagePath }: TProps) {
         <Modal
           open={isExpanded}
           onClose={handleClickCloseModal}
-          aria-labelledby="modal-modal-title"
-          aria-describedby="modal-modal-description"
+          aria-labelledby="modal-expand-image"
+          aria-describedby="modal-expand-clothImage"
         >
           <Box>
             <Box
@@ -43,7 +44,7 @@ export default function ExpandableImage({ imagePath }: TProps) {
                 justifyContent: "center",
               }}
             >
-              <ImageAlt src={imagePath} height={450} width={350} />
+              <Image alt="" src={imagePath} height={450} width={350} />
             </Box>
             <Button
               variant="contained"
