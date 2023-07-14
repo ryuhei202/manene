@@ -43,7 +43,7 @@ export default function BarcodeInput({
         value={id}
       />
       <Box margin="10px" textAlign="right">
-        <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
+        <Button onClick={onClickCloseBarcodeModal}>キャンセル</Button>
         <Button onClick={() => onClickSetId(parseInt(id))}>OK</Button>
       </Box>
     </Box>
