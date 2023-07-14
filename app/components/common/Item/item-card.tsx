@@ -1,3 +1,4 @@
+"use client";
 import { Box } from "@mui/material";
 import ExpandableImage from "../Image/expandable-image";
 import React from "react";
