@@ -1,5 +1,5 @@
 "use client";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useState } from "react";
 import { QrReader } from "react-qr-reader";
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
@@ -16,27 +16,38 @@ export default function QrCodeReader({ onScan }: TProps) {
     setIsOpenBarcodeInput(!isOpenBarcodeInput);
   };
 
-  console.log(isOpenBarcodeInput);
   return (
     <>
       {!isOpenBarcodeInput ? (
         <>
-          <QrReader
-            constraints={{ facingMode: "user" }}
-            onResult={(result, error) => {
-              if (result) {
-                onScan(parseInt(result.getText()));
-                console.log(result.text);
-              }
-
-              if (error) {
-                // eslint-disable-next-line no-console
-                console.info(error);
-              }
+          <Box
+            sx={{
+              height: "100vh",
+              width: "100vw",
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
             }}
-            containerStyle={{ width: "100%" }}
-          />
-          {/* <p>{data?.text}</p> */}
+          >
+            <QrReader
+              constraints={{ facingMode: "user" }}
+              onResult={(result, error) => {
+                if (result) {
+                  onScan(parseInt(result.getText()));
+                }
+
+                if (error) {
+                  // eslint-disable-next-line no-console
+                  console.info(error);
+                }
+              }}
+              containerStyle={{
+                height: "50vh",
+                width: "90%",
+              }}
+              videoStyle={{ width: "" }}
+            />
+          </Box>
           <Button
             onClick={handleClickSwitchModal}
             sx={{
@@ -44,7 +55,6 @@ export default function QrCodeReader({ onScan }: TProps) {
               position: "absolute",
               bottom: "2.5%",
               right: "5%",
-              // transform: "translate(-5%, 5%)",
               width: "40px",
               height: "40px",
               minWidth: "40px",
