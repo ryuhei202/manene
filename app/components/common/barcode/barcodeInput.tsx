@@ -1,15 +1,24 @@
 "use client";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+} from "@mui/material";
 import React, { useState } from "react";
 
 type TProps = {
   onClickSetId: (id: number) => void;
   onClickCloseBarcodeModal: () => void;
+  isOpen: boolean;
 };
 
 export default function BarcodeInput({
   onClickSetId,
   onClickCloseBarcodeModal,
+  isOpen,
 }: TProps) {
   const [id, setId] = useState<string>("");
 
@@ -20,33 +29,22 @@ export default function BarcodeInput({
   };
 
   return (
-    <Box
-      sx={{
-        position: "absolute",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-        maxHeight: "50vh",
-        border: 1,
-      }}
-      width="80vw"
-      height="17vh"
-      textAlign="center"
-    >
-      <Typography margin={2} textAlign="left">
-        バーコードのIDを入力
-      </Typography>
-      <TextField
-        type="number"
-        variant="standard"
-        sx={{ width: "80%" }}
-        onChange={handleChangeTChartId}
-        value={id}
-      />
-      <Box margin="10px" textAlign="right">
+    <Dialog open={isOpen} onClose={onClickCloseBarcodeModal}>
+      <DialogTitle>バーコードのIDを入力</DialogTitle>
+      <DialogContent>
+        <TextField
+          autoFocus
+          type="number"
+          variant="standard"
+          fullWidth
+          onChange={handleChangeTChartId}
+          value={id}
+        />
+      </DialogContent>
+      <DialogActions>
         <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
         <Button onClick={() => onClickSetId(parseInt(id))}>OK</Button>
-      </Box>
-    </Box>
+      </DialogActions>
+    </Dialog>
   );
 }
