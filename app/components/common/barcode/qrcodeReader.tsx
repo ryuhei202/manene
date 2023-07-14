@@ -42,7 +42,6 @@ export default function QrCodeReader({ onScan }: TProps) {
                 }
               }}
               containerStyle={{
-                height: "50vh",
                 width: "90%",
               }}
               videoStyle={{ width: "" }}
