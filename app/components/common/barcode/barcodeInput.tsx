@@ -2,12 +2,12 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
 
 type TProps = {
-  onClickSetChartId: (chartId: number) => void;
+  onClickSetId: (id: number) => void;
   onClickCloseBarcodeModal: () => void;
 };
 
 export default function BarcodeInput({
-  onClickSetChartId,
+  onClickSetId,
   onClickCloseBarcodeModal,
 }: TProps) {
   const [id, setId] = useState<string>("");
@@ -44,7 +44,7 @@ export default function BarcodeInput({
       />
       <Box margin="10px" textAlign="right">
         <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
-        <Button onClick={() => onClickSetChartId(parseInt(id))}>OK</Button>
+        <Button onClick={() => onClickSetId(parseInt(id))}>OK</Button>
       </Box>
     </Box>
   );
