@@ -30,7 +30,7 @@ export default function QrCodeReader({ onScan }: TProps) {
             }}
           >
             <QrReader
-              constraints={{ facingMode: "user" }}
+              constraints={{ facingMode: "environment" }}
               onResult={(result, error) => {
                 if (result) {
                   onScan(parseInt(result.getText()));
@@ -42,7 +42,11 @@ export default function QrCodeReader({ onScan }: TProps) {
                 }
               }}
               containerStyle={{
-                width: "90%",
+                width: "100%",
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
               }}
               videoStyle={{ width: "" }}
             />
