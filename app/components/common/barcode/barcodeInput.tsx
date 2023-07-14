@@ -42,7 +42,7 @@ export default function BarcodeInput({
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={() => onClickCloseBarcodeModal}>キャンセル</Button>
+        <Button onClick={onClickCloseBarcodeModal}>キャンセル</Button>
         <Button onClick={() => onClickSetId(parseInt(id))}>OK</Button>
       </DialogActions>
     </Dialog>
