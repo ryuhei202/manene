@@ -2,7 +2,7 @@
 import { Button } from "@mui/material";
 import { useState } from "react";
 import { QrReader } from "react-qr-reader";
-import KeyboardAltIcon from "@mui/icons-material/KeyboardAlt";
+import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import BarcodeInput from "./barcodeInput";
 
 type TProps = {
@@ -37,14 +37,27 @@ export default function QrCodeReader({ onScan }: TProps) {
             containerStyle={{ width: "100%" }}
           />
           {/* <p>{data?.text}</p> */}
-          <Button onClick={handleClickSwitchModal}>
-            <KeyboardAltIcon />
+          <Button
+            onClick={handleClickSwitchModal}
+            sx={{
+              backgroundColor: "#1976d2",
+              position: "absolute",
+              bottom: "2.5%",
+              right: "5%",
+              // transform: "translate(-5%, 5%)",
+              width: "40px",
+              height: "40px",
+              minWidth: "40px",
+            }}
+          >
+            <KeyboardAltOutlinedIcon sx={{ color: "white" }} />
           </Button>
         </>
       ) : (
         <BarcodeInput
           onClickSetId={onScan}
           onClickCloseBarcodeModal={handleClickSwitchModal}
+          isOpen={isOpenBarcodeInput}
         />
       )}
     </>
