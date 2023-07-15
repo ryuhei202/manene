@@ -1,15 +1,15 @@
 import { useGetRequest } from "../useGetRequest";
 
-type TCoordePicksIndexResponse = {
+export type TCoordePicksIndexResponse = {
   id: number;
   size: string;
-  item_image_url: string;
+  itemImageUrl: string;
   mCateSmallName: string;
   mColorName: string;
   mBrandName: string;
   mLocationName: string;
   isPicked: boolean;
-}[];
+};
 
 type TParams = {
   tChartId: number;
@@ -17,7 +17,7 @@ type TParams = {
 
 export default function useCoordePicksIndex(params: TParams) {
   const { data, error, isLoading } = useGetRequest<
-    TCoordePicksIndexResponse,
+    TCoordePicksIndexResponse[],
     { tChartId: number }
   >({ path: "coorde_picks", params: params });
 
