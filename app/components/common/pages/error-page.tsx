@@ -1,3 +1,4 @@
+"use client";
 import { Alert, AlertTitle } from "@mui/material";
 
 type TProps = {
