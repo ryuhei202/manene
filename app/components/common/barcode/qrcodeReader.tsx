@@ -11,7 +11,6 @@ type TProps = {
 
 export default function QrCodeReader({ onScan }: TProps) {
   const [isOpenBarcodeInput, setIsOpenBarcodeInput] = useState(false);
-
   const handleClickSwitchModal = () => {
     setIsOpenBarcodeInput(!isOpenBarcodeInput);
   };
@@ -48,7 +47,7 @@ export default function QrCodeReader({ onScan }: TProps) {
                 left: "50%",
                 transform: "translate(-50%, -50%)",
               }}
-              videoStyle={{ width: "" }}
+              videoStyle={{ width: "100%" }}
             />
           </Box>
           <Button
@@ -56,8 +55,8 @@ export default function QrCodeReader({ onScan }: TProps) {
             sx={{
               backgroundColor: "#1976d2",
               position: "absolute",
-              bottom: "2.5%",
-              right: "5%",
+              bottom: "12vh",
+              right: "12.5vw",
               width: "40px",
               height: "40px",
               minWidth: "40px",
