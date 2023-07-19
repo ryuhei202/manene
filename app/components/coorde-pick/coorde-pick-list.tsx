@@ -1,6 +1,6 @@
 "use client";
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
-import { AppBar, Box, Fab, Typography } from "@mui/material";
+import { AppBar, Box, Fab, Typography, useTheme } from "@mui/material";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
@@ -15,18 +15,8 @@ export default function CoordePickList({
   tChartItems,
   onClickBackQrReader,
 }: TProps) {
-  const testData: TCoordePicksIndexResponse[] = [
-    {
-      id: 497215,
-      size: "S",
-      mCateSmallName: "無地Tシャツ",
-      mColorName: "カーキ",
-      mBrandName: "LUCIANO-c",
-      mLocationName: "F-01-下",
-      itemImageUrl: "",
-      isPicked: false,
-    },
-  ];
+  const theme = useTheme();
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -37,7 +27,7 @@ export default function CoordePickList({
         </AppBar>
       </Box>
       <Box>
-        {testData
+        {tChartItems
           .filter(
             (tChartItem: TCoordePicksIndexResponse) =>
               tChartItem.isPicked === false
@@ -55,7 +45,7 @@ export default function CoordePickList({
         <Fab
           size="large"
           sx={{
-            backgroundColor: "#1976d2",
+            backgroundColor: theme.palette.primary.main,
             position: "absolute",
             bottom: "12vh",
             right: "12.5vw",
@@ -68,7 +58,7 @@ export default function CoordePickList({
         <Fab
           size="large"
           sx={{
-            backgroundColor: "#1976d2",
+            backgroundColor: theme.palette.primary.main,
             position: "absolute",
             bottom: "12vh",
             left: "12.5vw",
