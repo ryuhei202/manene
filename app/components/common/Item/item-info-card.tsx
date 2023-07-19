@@ -1,4 +1,6 @@
+"use client";
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
+import { Box, Typography } from "@mui/material";
 
 type TItemInfo = Omit<TCoordePicksIndexResponse, "itemImageUrl" | "isPicked">;
 
@@ -6,30 +8,32 @@ type TProps = {
   itemInfo: TItemInfo;
 };
 
-// const testData: TItemInfo = {
-//   id: 497215,
-//   size: "S",
-//   mCateSmallName: "無地Tシャツ",
-//   mColorName: "カーキ",
-//   mBrandName: "LUCIANO-c",
-//   mLocationName: "F-01-下",
-// };
-
 export default function ItemInfoCard({ itemInfo }: TProps) {
   return (
     <>
-      <div>
-        <p>棚名: {itemInfo.mLocationName}</p>
-      </div>
-      <div>
-        <p>{itemInfo.id}</p>
-        <p>{itemInfo.mBrandName}</p>
-      </div>
-      <div>
-        <p>{itemInfo.size}</p>
-        <p>{itemInfo.mCateSmallName}</p>
-        <p>{itemInfo.mColorName}</p>
-      </div>
+      <Typography component="div" display={"flex"} fontSize={"h5.fontSize"}>
+        <Box>棚名</Box>
+        <Box sx={{ mx: 1 }}>:</Box>
+        <Box>{itemInfo.mLocationName}</Box>
+      </Typography>
+      <Typography
+        component="div"
+        sx={{
+          display: "flex",
+          justifyContent: "flex-start",
+          fontSize: 17,
+        }}
+      >
+        <Box mr={1.5}>{itemInfo.id}</Box>
+        <Box>{itemInfo.mBrandName}</Box>
+      </Typography>
+      <Typography component="div" display={"flex"} fontSize={17}>
+        <Box>{itemInfo.size}</Box>
+        <Box mx={0.5}>/</Box>
+        <Box>{itemInfo.mCateSmallName}</Box>
+        <Box mx={0.5}>/</Box>
+        <Box>{itemInfo.mColorName}</Box>
+      </Typography>
     </>
   );
 }

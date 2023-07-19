@@ -1,4 +1,5 @@
 "use client";
+import { Height } from "@mui/icons-material";
 import { Alert, AlertTitle } from "@mui/material";
 
 type TProps = {
@@ -7,7 +8,15 @@ type TProps = {
 
 export default function ErrorPage({ massage }: TProps) {
   return (
-    <Alert severity="error">
+    <Alert
+      severity="error"
+      sx={{
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
       <AlertTitle>Error</AlertTitle>
       {massage}
     </Alert>

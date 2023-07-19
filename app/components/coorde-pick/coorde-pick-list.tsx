@@ -19,9 +19,9 @@ export default function CoordePickList({
 
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="static">
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" m={1.5}>
             コーデピック
           </Typography>
         </AppBar>

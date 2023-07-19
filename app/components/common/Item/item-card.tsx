@@ -13,14 +13,14 @@ export default function ItemCard({ imagePath, children }: TProps) {
     <Box
       sx={{
         display: "flex",
-        flexDirection: "row",
+        alignItems: "center",
         borderBottom: 1,
-        p: 1,
+        p: 0.5,
         bgcolor: "background.paper",
       }}
     >
       <ExpandableImage imagePath={imagePath} />
-      <Box sx={{ ml: 3, width: "auto" }}>{children}</Box>
+      <Box sx={{ ml: 1.5 }}>{children}</Box>
     </Box>
   );
 }
