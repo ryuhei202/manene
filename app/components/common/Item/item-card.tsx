@@ -20,7 +20,7 @@ export default function ItemCard({ imagePath, children }: TProps) {
       }}
     >
       <ExpandableImage imagePath={imagePath} />
-      <Box sx={{ ml: 2 }}>{children}</Box>
+      <Box sx={{ ml: 1.5 }}>{children}</Box>
     </Box>
   );
 }
