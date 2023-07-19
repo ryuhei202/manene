@@ -15,29 +15,17 @@ export default function CoordePickList({
   tChartItems,
   onClickBackQrReader,
 }: TProps) {
-  const testData: TCoordePicksIndexResponse[] = [
-    {
-      id: 497215,
-      size: "S",
-      mCateSmallName: "無地Tシャツ",
-      mColorName: "カーキ",
-      mBrandName: "LUCIANO-c",
-      mLocationName: "F-01-下",
-      itemImageUrl: "",
-      isPicked: false,
-    },
-  ];
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
+      <Box>
         <AppBar position="static">
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+          <Typography variant="h6" m={1.5}>
             コーデピック
           </Typography>
         </AppBar>
       </Box>
       <Box>
-        {testData
+        {tChartItems
           .filter(
             (tChartItem: TCoordePicksIndexResponse) =>
               tChartItem.isPicked === false
