@@ -17,12 +17,12 @@ export default function ExpandableImage({ imagePath }: TProps) {
     setIsExpanded(false);
   };
   return (
-    <div>
+    <>
       <Image
         alt=""
         src={imagePath}
         onClick={handleClickOpenModal}
-        height={90}
+        height={100}
         width={70}
       />
       {isExpanded && (
@@ -65,6 +65,6 @@ export default function ExpandableImage({ imagePath }: TProps) {
           </Box>
         </Modal>
       )}
-    </div>
+    </>
   );
 }
