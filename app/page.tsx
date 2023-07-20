@@ -4,8 +4,6 @@ import styles from "./page.module.css";
 
 export default function Home() {
   const onClickError = () => {
-    // eslint-disable-next-line no-console
-    console.log(process.env.NEXT_PUBLIC_ENV);
     throw new Error("エラーが発生しました！");
   };
 
