@@ -5,6 +5,8 @@ const { withSentryConfig } = require("@sentry/nextjs");
 const nextConfig = {
   sentry: {
     hideSourceMaps: true,
+    disableServerWebpackPlugin: process.env.NEXT_PUBLIC_ENV === "development",
+    disableClientWebpackPlugin: process.env.NEXT_PUBLIC_ENV === "development",
   },
 };
 
