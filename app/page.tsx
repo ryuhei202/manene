@@ -1,12 +1,7 @@
-"use client";
-import Image from "next/image";
-import styles from "./page.module.css";
+import Image from 'next/image'
+import styles from './page.module.css'
 
 export default function Home() {
-  const onClickError = () => {
-    throw new Error("エラーが発生しました！");
-  };
-
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -20,7 +15,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{" "}
+            By{' '}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -95,7 +90,6 @@ export default function Home() {
           </p>
         </a>
       </div>
-      <button onClick={onClickError}>エラー！</button>
     </main>
-  );
+  )
 }
