@@ -11,25 +11,27 @@ import React, { useState } from "react";
 
 type TProps = {
   onClickSetId: (id: number) => void;
-  onClickCloseBarcodeModal: () => void;
+  onClose: () => void;
   isOpen: boolean;
 };
 
-export default function BarcodeInput({
+export default function BarcodeInputDialog({
   onClickSetId,
-  onClickCloseBarcodeModal,
+  onClose,
   isOpen,
 }: TProps) {
-  const [id, setId] = useState<string>("");
+  const [id, setId] = useState<number>();
 
-  const handleChangeTChartId = (
+  const handleChangeChartId = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setId(e.target.value);
+    setId(
+      isNaN(parseInt(e.target.value)) ? undefined : parseInt(e.target.value)
+    );
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClickCloseBarcodeModal}>
+    <Dialog open={isOpen} onClose={onClose}>
       <DialogTitle>バーコードのIDを入力</DialogTitle>
       <DialogContent>
         <TextField
@@ -37,13 +39,15 @@ export default function BarcodeInput({
           type="number"
           variant="standard"
           fullWidth
-          onChange={handleChangeTChartId}
-          value={id}
+          onChange={handleChangeChartId}
+          value={id ?? ""}
         />
       </DialogContent>
       <DialogActions>
-        <Button onClick={onClickCloseBarcodeModal}>キャンセル</Button>
-        <Button onClick={() => onClickSetId(parseInt(id))}>OK</Button>
+        <Button onClick={onClose}>キャンセル</Button>
+        <Button onClick={() => onClickSetId(id as number)} disabled={!id}>
+          OK
+        </Button>
       </DialogActions>
     </Dialog>
   );
