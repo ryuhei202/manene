@@ -4,17 +4,12 @@ import { AppBar, Box, Fab, Typography, useTheme } from "@mui/material";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
-import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 
 type TProps = {
   tChartItems: TCoordePicksIndexResponse[];
-  onClickBackQrReader: () => void;
 };
 
-export default function CoordePickList({
-  tChartItems,
-  onClickBackQrReader,
-}: TProps) {
+export default function CoordePickList({ tChartItems }: TProps) {
   const theme = useTheme();
 
   return (
@@ -52,19 +47,6 @@ export default function CoordePickList({
           }}
         >
           <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
-        </Fab>
-      </Box>
-      <Box onClick={onClickBackQrReader}>
-        <Fab
-          size="large"
-          sx={{
-            backgroundColor: theme.palette.primary.main,
-            position: "absolute",
-            bottom: "12vh",
-            left: "12.5vw",
-          }}
-        >
-          <KeyboardBackspaceIcon fontSize="large" sx={{ color: "white" }} />
         </Fab>
       </Box>
     </>
