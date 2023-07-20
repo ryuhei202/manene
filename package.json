@@ -14,6 +14,7 @@
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@mui/material": "^5.13.7",
+    "@sentry/nextjs": "^7.59.3",
     "@tanstack/react-query": "^4.29.19",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
@@ -28,7 +29,7 @@
     "typescript": "5.1.6"
   },
   "devDependencies": {
-    "@playwright/test": "^1.35.1",   
+    "@playwright/test": "^1.35.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "husky": "^8.0.3",
     "lint-staged": "^13.2.3"
