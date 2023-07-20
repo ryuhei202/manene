@@ -4,7 +4,7 @@ import { AppBar, Typography } from "@mui/material";
 import MenuAccordion from "./components/common/accordion/menu-accordion";
 import LinkButton from "./components/common/button/link-button";
 
-export default function home() {
+export default function HomePage() {
   return (
     <>
       <AppBar position="static">
