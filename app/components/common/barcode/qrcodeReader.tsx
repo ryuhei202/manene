@@ -7,10 +7,10 @@ import BarcodeInputDialog from "./barcode-input-dialog";
 
 type TProps = {
   onScan: (id: number) => void;
-  onScanSetNan: () => void;
+  onScanSetResultNan: () => void;
 };
 
-export default function QrCodeReader({ onScan, onScanSetNan }: TProps) {
+export default function QrCodeReader({ onScan, onScanSetResultNan }: TProps) {
   const [isOpenBarcodeInput, setIsOpenBarcodeInput] = useState(false);
   const handleClickSwitchModal = () => {
     setIsOpenBarcodeInput(!isOpenBarcodeInput);
@@ -33,7 +33,7 @@ export default function QrCodeReader({ onScan, onScanSetNan }: TProps) {
             onResult={(result, error) => {
               if (result) {
                 isNaN(parseInt(result.getText()))
-                  ? onScanSetNan()
+                  ? onScanSetResultNan()
                   : onScan(parseInt(result.getText()));
               }
 
