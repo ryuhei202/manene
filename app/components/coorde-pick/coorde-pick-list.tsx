@@ -20,19 +20,14 @@ export default function CoordePickList({ tChartItems }: TProps) {
         </AppBar>
       </Box>
       <Box>
-        {tChartItems
-          .filter(
-            (tChartItem: TCoordePicksIndexResponse) =>
-              tChartItem.isPicked === false
-          )
-          .map((unPickedTChartItem: TCoordePicksIndexResponse) => (
-            <ItemCard
-              key={unPickedTChartItem.id}
-              imagePath={unPickedTChartItem.itemImageUrl}
-            >
-              <ItemInfoCard itemInfo={unPickedTChartItem} />
-            </ItemCard>
-          ))}
+        {tChartItems.map((unPickedTChartItem: TCoordePicksIndexResponse) => (
+          <ItemCard
+            key={unPickedTChartItem.id}
+            imagePath={unPickedTChartItem.itemImageUrl}
+          >
+            <ItemInfoCard itemInfo={unPickedTChartItem} />
+          </ItemCard>
+        ))}
       </Box>
       <Box>
         <Fab
