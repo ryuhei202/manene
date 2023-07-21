@@ -8,10 +8,7 @@ type TProps = {
   onClickBackQrReader: () => void;
 };
 
-export default function ChartItemFetcher({
-  tChartId,
-  onClickBackQrReader,
-}: TProps) {
+export default function ChartItemFetcher({ tChartId }: TProps) {
   const {
     data: tChartItemsData,
     error: tChartItemsError,
@@ -19,10 +16,5 @@ export default function ChartItemFetcher({
   } = useCoordePicksIndex({ tChartId });
   if (tChartItemsError) return <ErrorPage massage={tChartItemsError.message} />;
   if (!tChartItemsData || isLoading) return <LoadingPage />;
-  return (
-    <CoordePickList
-      tChartItems={tChartItemsData}
-      onClickBackQrReader={onClickBackQrReader}
-    />
-  );
+  return <CoordePickList tChartItems={tChartItemsData} />;
 }
