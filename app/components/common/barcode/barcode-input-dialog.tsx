@@ -45,7 +45,16 @@ export default function BarcodeInputDialog({
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose}>キャンセル</Button>
-        <Button onClick={() => onClickSetId(id as number)} disabled={!id}>
+        <Button
+          onClick={() => {
+            if (id === undefined)
+              throw new Error(
+                "idがundefinedの状態でonclickが発火しようとされています。"
+              );
+            onClickSetId(id);
+          }}
+          disabled={id === undefined}
+        >
           OK
         </Button>
       </DialogActions>
