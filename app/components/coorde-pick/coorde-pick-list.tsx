@@ -1,6 +1,6 @@
 "use client";
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
-import { AppBar, Box, Fab, Typography, useTheme } from "@mui/material";
+import { AppBar, Box, Fab, Typography } from "@mui/material";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
@@ -10,8 +10,6 @@ type TProps = {
 };
 
 export default function CoordePickList({ tChartItems }: TProps) {
-  const theme = useTheme();
-
   return (
     <>
       <Box>
@@ -22,19 +20,14 @@ export default function CoordePickList({ tChartItems }: TProps) {
         </AppBar>
       </Box>
       <Box>
-        {tChartItems
-          .filter(
-            (tChartItem: TCoordePicksIndexResponse) =>
-              tChartItem.isPicked === false
-          )
-          .map((unPickedTChartItem: TCoordePicksIndexResponse) => (
-            <ItemCard
-              key={unPickedTChartItem.id}
-              imagePath={unPickedTChartItem.itemImageUrl}
-            >
-              <ItemInfoCard itemInfo={unPickedTChartItem} />
-            </ItemCard>
-          ))}
+        {tChartItems.map((unPickedTChartItem: TCoordePicksIndexResponse) => (
+          <ItemCard
+            key={unPickedTChartItem.id}
+            imagePath={unPickedTChartItem.itemImageUrl}
+          >
+            <ItemInfoCard itemInfo={unPickedTChartItem} />
+          </ItemCard>
+        ))}
       </Box>
       <Box>
         <Fab
