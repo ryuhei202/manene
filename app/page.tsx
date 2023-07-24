@@ -1,7 +1,12 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
 
 export default function Home() {
+  console.log(process.env.NEXT_PUBLIC_KIIZAN_IP);
+  console.log(process.env.NEXT_PUBLIC_VPN);
+  console.log(process.env.NEXT_PUBLIC_SUMMAR_VPN);
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -15,7 +20,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -91,5 +96,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
