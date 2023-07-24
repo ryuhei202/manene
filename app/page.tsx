@@ -3,6 +3,9 @@ import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
+  console.log(process.env.NODE_ENV);
+  console.log(process.env.NEXT_PUBLIC_ENV);
+  console.log(process.env.NEXT_PUBLIC_SENTRY_PROJECT);
   const onClickError = () => {
     throw new Error("error");
   };
