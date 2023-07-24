@@ -5,7 +5,6 @@ import LoadingPage from "../common/pages/loading-page";
 
 type TProps = {
   tChartId: number;
-  onClickBackQrReader: () => void;
 };
 
 export default function ChartItemFetcher({ tChartId }: TProps) {
