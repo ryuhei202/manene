@@ -31,8 +31,6 @@ export default function QrCodeReader({ onScan }: TProps) {
     p: 4,
   };
 
-  console.log(isMessageDialogOpen);
-
   return (
     <>
       <Box
