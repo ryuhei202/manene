@@ -6,9 +6,6 @@ export default function Home() {
   const onClickError = () => {
     throw new Error("error");
   };
-  console.log(process.env.NEXT_PUBLIC_ENV);
-  console.log(process.env.VPN_2);
-  console.log("aiueo");
   return (
     <main className={styles.main}>
       <div className={styles.description}>
