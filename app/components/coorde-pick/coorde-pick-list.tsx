@@ -1,6 +1,6 @@
 "use client";
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
-import { AppBar, Box, Fab, Typography, useTheme } from "@mui/material";
+import { Box, Fab, useTheme } from "@mui/material";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
@@ -14,13 +14,6 @@ export default function CoordePickList({ tChartItems }: TProps) {
 
   return (
     <>
-      <Box>
-        <AppBar position="static">
-          <Typography variant="h6" m={1.5}>
-            コーデピック
-          </Typography>
-        </AppBar>
-      </Box>
       <Box>
         {tChartItems
           .filter(
