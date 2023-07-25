@@ -1,11 +1,15 @@
 import { NextResponse, type NextRequest } from "next/server";
-
+const allowedVpn = [];
+for (let i = 0; i < 10; i++) {
+  allowedVpn.push(process.env[`NEXT_PUBLIC_VPN_${i}`]);
+}
 // IPを許可するIPアドレスのリスト
 const allowedIPs: string[] = [
   process.env.NEXT_PUBLIC_KIIZAN_IP ?? "", // キーザンオフィス
-  process.env.NEXT_PUBLIC_VPN ?? "", //VPN
+  ...allowedVpn.map((VPN) => {
+    return VPN ?? "";
+  }),
 ];
-
 export function middleware(request: NextRequest) {
   if (process.env.NODE_ENV !== "production") return;
   const clientIP = request.ip || request.headers.get("x-forwarded-host");
