@@ -8,6 +8,7 @@ export default function Home() {
   };
   console.log(process.env.VPN_1);
   console.log(process.env.VPN_2);
+  console.log("aiueo");
   return (
     <main className={styles.main}>
       <div className={styles.description}>
