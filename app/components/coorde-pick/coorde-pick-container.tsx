@@ -1,7 +1,7 @@
 "use client";
 import { useState } from "react";
 import ChartItemFetcher from "./chart-item-fetcher";
-import QrCodeReader from "../common/barcode/qrCodeReader";
+import QrCodeReader from "../common/barcode/qr-code-reader";
 
 export default function CoordPickContainer() {
   const [tChartId, setTChartId] = useState<number>();
