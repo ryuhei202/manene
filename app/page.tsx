@@ -95,7 +95,7 @@ export default function Home() {
           </p>
         </a>
       </div>
-      <button onClick={onClickError}>エラー！</button>
+      <button onClick={onClickError}>デプロイ完了</button>
     </main>
   );
 }
