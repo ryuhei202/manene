@@ -6,7 +6,7 @@ export default function Home() {
   const onClickError = () => {
     throw new Error("error");
   };
-  console.log(process.env.VPN_1);
+  console.log(process.env.NEXT_PUBLIC_ENV);
   console.log(process.env.VPN_2);
   console.log("aiueo");
   return (
