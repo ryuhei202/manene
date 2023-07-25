@@ -6,6 +6,7 @@ export default function Home() {
   const onClickError = () => {
     throw new Error("error");
   };
+  console.log(process.env.VPN_1);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
