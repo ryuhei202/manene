@@ -7,6 +7,7 @@ export default function Home() {
     throw new Error("error");
   };
   console.log(process.env.VPN_1);
+  console.log(process.env.VPN_2);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
