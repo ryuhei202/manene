@@ -1,22 +1,13 @@
 "use client";
-import { useState } from "react";
-import ChartItemFetcher from "./chart-item-fetcher";
 import QrCodeReader from "../common/barcode/qr-code-reader";
+import { useRouter } from "next/navigation";
 
 export default function CoordPickContainer() {
-  const [tChartId, setTChartId] = useState<number>();
+  const router = useRouter();
 
   const handleSetTChartId = (id: number): void => {
-    setTChartId(id);
+    router.push(`/coorde_pick/${id}`);
   };
 
-  return (
-    <>
-      {!tChartId ? (
-        <QrCodeReader onScan={handleSetTChartId} />
-      ) : (
-        <ChartItemFetcher tChartId={tChartId} />
-      )}
-    </>
-  );
+  return <QrCodeReader onScan={handleSetTChartId} />;
 }
