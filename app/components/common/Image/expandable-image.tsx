@@ -16,6 +16,12 @@ export default function ExpandableImage({ imagePath }: TProps) {
   const handleClickCloseModal = () => {
     setIsExpanded(false);
   };
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
   return (
     <>
       <Image
@@ -29,30 +35,19 @@ export default function ExpandableImage({ imagePath }: TProps) {
         <Modal
           open={isExpanded}
           onClose={handleClickCloseModal}
+          disableAutoFocus={true}
           aria-labelledby="modal-expand-image"
           aria-describedby="modal-expand-clothImage"
         >
-          <Box>
-            <Box
-              sx={{
-                top: "50%",
-                left: "50%",
-                transform: "translate(-50%, -50%)",
-                maxWidth: "80vw",
-                maxHeight: "80vh",
-                display: "flex",
-                justifyContent: "center",
-              }}
-            >
-              <Image alt="" src={imagePath} height={450} width={350} />
-            </Box>
+          <Box sx={style}>
+            <Image alt="" src={imagePath} height={500} width={350} />
             <Button
               variant="contained"
               color="primary"
               onClick={handleClickCloseModal}
               sx={{
                 position: "absolute",
-                top: "80%",
+                top: "110%",
                 left: "50%",
                 transform: "translate(-50%, -80%)",
                 textAlign: "center",
