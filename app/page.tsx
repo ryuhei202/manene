@@ -1,11 +1,13 @@
+/* eslint-disable no-console */
 "use client";
 import Image from "next/image";
 import styles from "./page.module.css";
 
 export default function Home() {
-  const onClickError = () => {
-    throw new Error("error");
-  };
+  console.log(`NODE_ENV:${process.env.NODE_ENV}`);
+  console.log(`NEXT_PUBLIC_KIIZAN_IP:${process.env.NEXT_PUBLIC_KIIZAN_IP}`);
+  console.log(`NEXT_PUBLIC_VPN_1:${process.env.NEXT_PUBLIC_VPN_1}`);
+
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -94,7 +96,6 @@ export default function Home() {
           </p>
         </a>
       </div>
-      <button onClick={onClickError}>デプロイ完了</button>
     </main>
   );
 }
