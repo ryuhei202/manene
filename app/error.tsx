@@ -3,7 +3,7 @@
 import { Box, Container } from "@mui/material";
 import { useEffect } from "react";
 
-export default function ReservationError({
+export default function ErrorPage({
   error,
   reset,
 }: {
