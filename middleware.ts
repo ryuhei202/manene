@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 const allowedVpn = [];
 for (let i = 0; i < 10; i++) {
-  allowedVpn.push(process.env[`NEXT_PUBLIC_VPN_${i}`]);
+  allowedVpn.push(process.env[`NEXT_PUBLIC_VPN_${i + 1}`]);
 }
 // IPを許可するIPアドレスのリスト
 const allowedIPs: string[] = [
