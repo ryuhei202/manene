@@ -3,9 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3001",
+    "dev:proxy": "next dev & local-ssl-proxy --key localhost-key.pem --cert localhost.pem --source 3001 --target 3001",
     "build": "next build",
-    "start": "next start",
+    "start": "HTTPS=true next start -p 3001",
     "lint": "next lint",
     "test:e2e": "playwright test",
     "prepare": "husky install"
@@ -13,12 +14,15 @@
   "dependencies": {
     "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
-    "@mui/material": "^5.13.7",
+    "@mui/icons-material": "^5.14.0",
+    "@mui/material": "^5.14.0",
     "@sentry/nextjs": "^7.59.3",
     "@tanstack/react-query": "^4.29.19",
     "@types/node": "20.3.3",
     "@types/react": "18.2.14",
     "@types/react-dom": "18.2.6",
+    "@zxing/browser": "^0.1.4",
+    "@zxing/library": "^0.20.0",
     "axios": "^1.4.0",
     "axios-case-converter": "^1.1.0",
     "eslint": "8.44.0",
@@ -26,13 +30,15 @@
     "next": "13.4.8",
     "react": "18.2.0",
     "react-dom": "18.2.0",
+    "react-qr-reader": "^3.0.0-beta-1",
     "typescript": "5.1.6"
   },
   "devDependencies": {
     "@playwright/test": "^1.35.1",
     "@typescript-eslint/eslint-plugin": "^5.61.0",
     "husky": "^8.0.3",
-    "lint-staged": "^13.2.3"
+    "lint-staged": "^13.2.3",
+    "local-ssl-proxy": "^2.0.5"
   },
   "lint-staged": {
     "src/**/*.{js,jsx,ts,tsx,json,css,scss,md}": [

@@ -1,101 +1,36 @@
-/* eslint-disable no-console */
 "use client";
-import Image from "next/image";
-import styles from "./page.module.css";
 
-export default function Home() {
-  console.log(`NODE_ENV:${process.env.NODE_ENV}`);
-  console.log(`NEXT_PUBLIC_KIIZAN_IP:${process.env.NEXT_PUBLIC_KIIZAN_IP}`);
-  console.log(`NEXT_PUBLIC_VPN_1:${process.env.NEXT_PUBLIC_VPN_1}`);
+import MenuAccordion from "./components/common/accordion/menu-accordion";
+import LinkButton from "./components/common/button/link-button";
 
+export default function HomePage() {
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          test1&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    <>
+      <MenuAccordion title={"運営"}>
+        <LinkButton buttonName={"アイテムサイズ計測"} path="" />
+        <LinkButton buttonName={"クリーニングコスト登録"} path="" />
+      </MenuAccordion>
+      <MenuAccordion title={"返却検品"}>
+        <LinkButton buttonName={"返却検品登録"} path="" />
+        <LinkButton buttonName={"返却検品中操作"} path="" />
+        <LinkButton buttonName={"返却検品管理"} path="" />
+        <LinkButton buttonName={"忘れ物登録"} path="" />
+      </MenuAccordion>
+      <MenuAccordion title={"コーデ作成"}>
+        <LinkButton buttonName={"コーデバリデーション"} path="" />
+        <LinkButton buttonName={"コーデピック"} path="/coorde_pick" />
+      </MenuAccordion>
+      <MenuAccordion title={"アイテム管理"}>
+        <LinkButton buttonName={"アイテム登録"} path="" />
+        <LinkButton buttonName={"アイテム詳細表示"} path="" />
+        <LinkButton buttonName={"アイテムステータス一括変更"} path="" />
+        <LinkButton buttonName={"廃棄登録"} path="" />
+        <LinkButton buttonName={"廃棄判定"} path="" />
+      </MenuAccordion>
+      <MenuAccordion title={"棚管理"}>
+        <LinkButton buttonName={"棚移動"} path="" />
+        <LinkButton buttonName={"棚卸し"} path="" />
+      </MenuAccordion>
+    </>
   );
 }
