@@ -4,8 +4,8 @@ import { HostUrl } from "../model/Host-url";
 import { customAxios } from "../model/api/shared/custom-axios";
 
 export const usePostRequest = <
-  TReaponse,
   TParams = object,
+  TResponse = object,
   TError = AxiosError
 >({
   path,
@@ -17,7 +17,7 @@ export const usePostRequest = <
   headers?: object;
 }) => {
   const { mutate, error, isLoading, isSuccess } = useMutation<
-    AxiosResponse<TReaponse>,
+    AxiosResponse<TResponse>,
     TError,
     TParams | undefined
   >([path], (lateParams?: TParams) =>

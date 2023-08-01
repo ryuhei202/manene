@@ -11,8 +11,8 @@ type TParams = {
 
 export default function useLostArticlesCreate() {
   const { mutate, error, isLoading, isSuccess } = usePostRequest<
-    TLostArticlesCreateResponse,
-    TParams
+    TParams,
+    TLostArticlesCreateResponse
   >({ path: "inspection/lost_articles" });
 
   return { mutate, error, isLoading, isSuccess };
