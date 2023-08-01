@@ -8,6 +8,7 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
+import { useEffect } from "react";
 
 type TProps = {
   lostArticlesUserInfo: TUserInfo;
@@ -28,6 +29,10 @@ export default function LostArticlesDialogs({
   onCloseCompleteDialog,
   lostArticlesId,
 }: TProps) {
+  useEffect(() => {
+    swichOpenConfirmDialog();
+  }, []);
+
   return (
     <>
       <Dialog open={isOpenConfirmDialog} fullWidth={true}>
