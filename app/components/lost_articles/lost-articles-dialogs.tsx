@@ -13,7 +13,13 @@ type TProps = {
   lostArticlesUserInfo: TUserInfo;
   message: string;
   onClose: () => void;
-  onClickOkButton: (memberId: number, message: string) => void;
+  onClickOkButton: ({
+    memberId,
+    message,
+  }: {
+    memberId: number;
+    message: string;
+  }) => void;
   lostArticlesId?: number;
 };
 
@@ -39,7 +45,10 @@ export default function LostArticlesDialogs({
               <Button onClick={onClose}>キャンセル</Button>
               <Button
                 onClick={() =>
-                  onClickOkButton(lostArticlesUserInfo.id, message)
+                  onClickOkButton({
+                    memberId: lostArticlesUserInfo.id,
+                    message,
+                  })
                 }
               >
                 OK
