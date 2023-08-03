@@ -18,52 +18,42 @@ export default function LostArticlesForm({
   return (
     <>
       <Box
-        display={"flex"}
-        flexDirection={"column"}
-        alignItems={"center"}
-        height={"100vh"}
-        justifyContent={"space-between"}
+        display="flex"
+        flexDirection="column"
+        alignItems="center"
+        height="100vh"
+        justifyContent="space-between"
       >
-        <Box
-          width={"90%"}
-          display={"flex"}
-          flexDirection={"column"}
-          margin={"5%"}
-        >
-          <Typography marginBottom={"5%"}>パートナーID</Typography>
+        <Box width="90%" display="flex" flexDirection="column" margin="5%">
+          <Typography marginBottom="5%">パートナーID</Typography>
           <TextField
             id="outlined-basic"
             variant="outlined"
             type="number"
             onChange={onChangeSetMemberId}
             value={memberId ?? ""}
-            fullWidth={true}
-          ></TextField>
+            fullWidth
+          />
         </Box>
-        <Box
-          width={"90%"}
-          display={"flex"}
-          flexDirection={"column"}
-          margin={"5%"}
-        >
-          <Typography marginBottom={"5%"}>伝言メモ</Typography>
+        <Box width="90%" display="flex" flexDirection="column" margin="5%">
+          <Typography marginBottom="5%">伝言メモ</Typography>
           <TextField
             id="outlined-multiline-flexible"
             variant="outlined"
             onChange={onChangeSetMessage}
             value={message ?? ""}
-            fullWidth={true}
+            fullWidth
             multiline
             rows={5}
-          ></TextField>
+          />
         </Box>
         <Box flexGrow={1}></Box>
         <Box
-          width={"95%"}
-          display={"flex"}
-          flexDirection={"column"}
-          marginTop={"auto"}
-          marginBottom={"10%"}
+          width="95%"
+          display="flex"
+          flexDirection="column"
+          marginTop="auto"
+          marginBottom="10%"
         >
           <Button
             onClick={onClickOpenLostArticlesFetcherVisible}
