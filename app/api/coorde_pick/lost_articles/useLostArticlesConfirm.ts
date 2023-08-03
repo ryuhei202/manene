@@ -1,6 +1,6 @@
 import { useGetRequest } from "../../useGetRequest";
 
-type TLostArticlesConfirmResponse = {
+export type TLostArticlesConfirmResponse = {
   id: number;
   name: string;
 };
