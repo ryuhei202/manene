@@ -8,57 +8,57 @@ import {
   DialogTitle,
   Typography,
 } from "@mui/material";
-import { useEffect } from "react";
 
 type TProps = {
   lostArticlesUserInfo: TUserInfo;
   message: string;
-  isOpenConfirmDialog: boolean;
-  swichOpenConfirmDialog: () => void;
+  onClose: () => void;
   onClickOkButton: (memberId: number, message: string) => void;
-  onCloseCompleteDialog: () => void;
   lostArticlesId?: number;
 };
 
 export default function LostArticlesDialogs({
   lostArticlesUserInfo,
   message,
-  isOpenConfirmDialog,
-  swichOpenConfirmDialog,
+  onClose,
   onClickOkButton,
-  onCloseCompleteDialog,
   lostArticlesId,
 }: TProps) {
-  useEffect(() => {
-    swichOpenConfirmDialog();
-  }, []);
-
   return (
     <>
-      <Dialog open={isOpenConfirmDialog} fullWidth={true}>
-        <DialogTitle>登録しますか？</DialogTitle>
-        <DialogContent>
-          <Typography>パートナーID: {lostArticlesUserInfo.id}</Typography>
-          <Typography>名前: {lostArticlesUserInfo.name}</Typography>
-          <Typography>伝言メモ: {message}</Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={swichOpenConfirmDialog}>キャンセル</Button>
-          <Button
-            onClick={() => onClickOkButton(lostArticlesUserInfo.id, message)}
-          >
-            OK
-          </Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog open={!!lostArticlesId} onClose={onCloseCompleteDialog}>
-        <DialogTitle>忘れ物を登録しました</DialogTitle>
-        <DialogContent>
-          <Typography>
-            忘れ物(ID : {lostArticlesId})の登録が完了しました
-          </Typography>
-        </DialogContent>
+      <Dialog open onClose={onClose} fullWidth>
+        {!lostArticlesId ? (
+          <>
+            <DialogTitle>登録しますか？</DialogTitle>
+            <DialogContent>
+              <Typography>パートナーID: {lostArticlesUserInfo.id}</Typography>
+              <Typography>名前: {lostArticlesUserInfo.name}</Typography>
+              <Typography>伝言メモ: {message}</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={onClose}>キャンセル</Button>
+              <Button
+                onClick={() =>
+                  onClickOkButton(lostArticlesUserInfo.id, message)
+                }
+              >
+                OK
+              </Button>
+            </DialogActions>
+          </>
+        ) : (
+          <>
+            <DialogTitle>忘れ物を登録しました</DialogTitle>
+            <DialogContent>
+              <Typography>
+                忘れ物(ID : {lostArticlesId})の登録が完了しました
+              </Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={onClose}>OK</Button>
+            </DialogActions>
+          </>
+        )}
       </Dialog>
     </>
   );
