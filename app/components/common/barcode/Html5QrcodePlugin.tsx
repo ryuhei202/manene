@@ -15,6 +15,7 @@ type TConfigArgs = {
   qrbox?: number | QrDimensions | QrDimensionFunction;
   aspectRatio?: number;
   disableFlip?: boolean;
+  facingMode?: string;
 };
 type TProps = TConfigArgs & {
   qrCodeSuccessCallback: QrcodeSuccessCallback;
@@ -28,12 +29,19 @@ const Html5QrcodePlugin = ({
   qrbox,
   aspectRatio,
   disableFlip,
+  facingMode,
   qrCodeSuccessCallback,
   qrCodeErrorCallback,
 }: TProps) => {
   useEffect(() => {
     // when component mounts
-    const config: TConfigArgs = { fps, qrbox, aspectRatio, disableFlip };
+    const config: TConfigArgs = {
+      fps,
+      qrbox,
+      aspectRatio,
+      disableFlip,
+      facingMode,
+    };
 
     // Suceess callback is required.
     if (!qrCodeSuccessCallback) {

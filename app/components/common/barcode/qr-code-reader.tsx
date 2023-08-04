@@ -44,6 +44,7 @@ export default function QrCodeReader({ onScan }: TProps) {
         qrbox={{ width: 250, height: 250 }}
         disableFlip={false}
         qrCodeSuccessCallback={onNewScanResult}
+        facingMode={"environment"}
       />
       <Modal
         open={dialogMessage !== ""}
