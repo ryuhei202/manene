@@ -9,7 +9,7 @@ const nextConfig = {
     disableClientWebpackPlugin: process.env.NEXT_PUBLIC_ENV === "development",
   },
   images: {
-    domains: ["stg.leeap.jp"],
+    domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN],
   },
 };
 
