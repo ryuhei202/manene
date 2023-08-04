@@ -12,7 +12,9 @@ import {
 type TProps = {
   lostArticlesUserInfo: TUserInfo;
   message: string;
+  isLoading: boolean;
   onClose: () => void;
+  onComplete: () => void;
   onClickOkButton: ({
     memberId,
     message,
@@ -20,20 +22,22 @@ type TProps = {
     memberId: number;
     message: string;
   }) => void;
-  lostArticlesId?: number;
+  lostArticleId?: number;
 };
 
 export default function LostArticlesDialogs({
   lostArticlesUserInfo,
   message,
+  isLoading,
   onClose,
+  onComplete,
   onClickOkButton,
-  lostArticlesId,
+  lostArticleId,
 }: TProps) {
   return (
     <>
       <Dialog open onClose={onClose} fullWidth>
-        {!lostArticlesId ? (
+        {!lostArticleId ? (
           <>
             <DialogTitle>登録しますか？</DialogTitle>
             <DialogContent>
@@ -50,6 +54,7 @@ export default function LostArticlesDialogs({
                     message,
                   })
                 }
+                disabled={isLoading}
               >
                 OK
               </Button>
@@ -60,11 +65,11 @@ export default function LostArticlesDialogs({
             <DialogTitle>忘れ物を登録しました</DialogTitle>
             <DialogContent>
               <Typography>
-                忘れ物(ID : {lostArticlesId})の登録が完了しました
+                忘れ物(ID : {lostArticleId})の登録が完了しました
               </Typography>
             </DialogContent>
             <DialogActions>
-              <Button onClick={onClose}>OK</Button>
+              <Button onClick={onComplete}>OK</Button>
             </DialogActions>
           </>
         )}

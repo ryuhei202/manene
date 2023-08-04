@@ -1,18 +1,19 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
+import { on } from "stream";
 
 type TProps = {
   memberId?: number;
   message?: string;
-  onChangeSetMemberId: () => void;
-  onChangeSetMessage: () => void;
+  onChangeMemberId: (numberId: number) => void;
+  onChangeMessage: (message: string) => void;
   onClickOpenLostArticlesFetcherVisible: () => void;
 };
 
 export default function LostArticlesForm({
   memberId,
   message,
-  onChangeSetMemberId,
-  onChangeSetMessage,
+  onChangeMemberId,
+  onChangeMessage,
   onClickOpenLostArticlesFetcherVisible,
 }: TProps) {
   return (
@@ -30,7 +31,9 @@ export default function LostArticlesForm({
             id="outlined-basic"
             variant="outlined"
             type="number"
-            onChange={onChangeSetMemberId}
+            onChange={(e) => {
+              onChangeMemberId(parseInt(e.target.value));
+            }}
             value={memberId ?? ""}
             fullWidth
           />
@@ -40,7 +43,9 @@ export default function LostArticlesForm({
           <TextField
             id="outlined-multiline-flexible"
             variant="outlined"
-            onChange={onChangeSetMessage}
+            onChange={(e) => {
+              onChangeMessage(e.target.value);
+            }}
             value={message ?? ""}
             fullWidth
             multiline
@@ -58,6 +63,7 @@ export default function LostArticlesForm({
           <Button
             onClick={onClickOpenLostArticlesFetcherVisible}
             variant="contained"
+            disabled={!memberId || !message}
           >
             登録する
           </Button>
