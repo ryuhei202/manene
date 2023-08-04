@@ -1,6 +1,6 @@
 import useLostArticlesConfirm from "@/app/api/coorde_pick/lost_articles/useLostArticlesConfirm";
+import { CircularProgress, Dialog } from "@mui/material";
 import LostArticlesDialogs from "./lost-articles-dialogs";
-import { Box, CircularProgress, Dialog } from "@mui/material";
 
 type TProps = {
   memberId: number;
