@@ -61,7 +61,15 @@ const Html5QrcodePlugin = ({
         console.error("Failed to clear html5QrcodeScanner. ", error);
       });
     };
-  }, []);
+  }, [
+    aspectRatio,
+    disableFlip,
+    facingMode,
+    fps,
+    qrCodeErrorCallback,
+    qrCodeSuccessCallback,
+    qrbox,
+  ]);
 
   return <div id={qrcodeRegionId} />;
 };
