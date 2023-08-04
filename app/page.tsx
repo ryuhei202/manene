@@ -1,11 +1,17 @@
 "use client";
 
+import { AppBar, Typography } from "@mui/material";
 import MenuAccordion from "./components/common/accordion/menu-accordion";
 import LinkButton from "./components/common/button/link-button";
 
 export default function HomePage() {
   return (
     <>
+      <AppBar position="static">
+        <Typography variant="h6" m={1.5}>
+          メニュー
+        </Typography>
+      </AppBar>
       <MenuAccordion title={"運営"}>
         <LinkButton buttonName={"アイテムサイズ計測"} path="" />
         <LinkButton buttonName={"クリーニングコスト登録"} path="" />
