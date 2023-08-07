@@ -3,7 +3,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 type TProps = {
   memberId?: number;
   message?: string;
-  onChangeMemberId: (numberId: number) => void;
+  onChangeMemberId: (numberId?: number) => void;
   onChangeMessage: (message: string) => void;
   onClickOpenLostArticlesFetcherVisible: () => void;
 };
@@ -31,7 +31,8 @@ export default function LostArticlesForm({
             variant="outlined"
             type="number"
             onChange={(e) => {
-              onChangeMemberId(parseInt(e.target.value));
+              const memberId = parseInt(e.target.value);
+              onChangeMemberId(isNaN(memberId) ? undefined : memberId);
             }}
             value={memberId ?? ""}
             fullWidth
