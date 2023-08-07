@@ -1,8 +1,8 @@
 "use client";
 import useLostArticlesCreate from "@/app/api/coorde_pick/lost_articles/useLostArticlesCreate";
 import { useState } from "react";
-import LostArticlesConfirmFetcher from "./lost_articles-confirm-fetcher";
-import LostArticlesForm from "./lost_articles-form";
+import LostArticlesConfirmFetcher from "./lost-articles-confirm-fetcher";
+import LostArticlesForm from "./lost-articles-form";
 
 export default function LostArticlesContainer() {
   const [memberId, setMemberId] = useState<number>();
