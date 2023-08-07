@@ -56,17 +56,6 @@ test.describe("必要項目が入力されていないと登録ボタンが押�
 test("登録ボタンを押したら、確認ダイアログが正しく表示される", async ({
   page,
 }) => {
-  await page.route(
-    "https://stg-admin.uwear.jp/igoue_admin/app_api/inspection/lost_articles/confirm",
-    async (route) => {
-      // // const method = route.request().method();
-      // if ("GET" === method) {
-      const json = { id: 111, name: "テストさん" };
-      await route.fulfill({ json });
-    }
-    // }
-  );
-
   await page.locator("id=outlined-basic").type("280094");
   await page.locator("id=outlined-multiline-flexible").type("てすとてすと");
 
