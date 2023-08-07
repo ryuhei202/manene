@@ -58,7 +58,6 @@ export default function LostArticlesConfirmFetcher({
         onClose={onClose}
         onComplete={onComplete}
         onClickOkButton={onClickOkButton}
-        key={lostArticleId}
       />
     </>
   );
