@@ -11,7 +11,6 @@ type TProps = {
 
 export default function QrCodeReaderDialog({
   onScan,
-
   onClose,
   isOpen,
 }: TProps) {
