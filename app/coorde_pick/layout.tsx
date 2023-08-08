@@ -1,5 +1,5 @@
-import { AppBar, Typography } from "@mui/material";
 import React from "react";
+import Header from "../components/common/pages/header";
 
 export default function CoordePickLayout({
   children, // will be a page or nested layout
@@ -8,11 +8,7 @@ export default function CoordePickLayout({
 }) {
   return (
     <section>
-      <AppBar position="static">
-        <Typography variant="h6" m={1.5}>
-          コーデピック
-        </Typography>
-      </AppBar>
+      <Header title="コーデピック" />
       {children}
     </section>
   );
