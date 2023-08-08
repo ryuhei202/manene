@@ -18,7 +18,7 @@ type TParams = {
   itemId: number;
 };
 
-export default function UseItemLocationsItemScan(params: TParams) {
+export default function useItemLocationsItemScan(params: TParams) {
   const { data, error, isLoading } = useGetRequest<
     TItemLocationsItemScan,
     TParams
