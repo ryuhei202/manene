@@ -8,6 +8,9 @@ const nextConfig = {
     disableServerWebpackPlugin: process.env.NEXT_PUBLIC_ENV === "development",
     disableClientWebpackPlugin: process.env.NEXT_PUBLIC_ENV === "development",
   },
+  images: {
+    domains: [process.env.NEXT_PUBLIC_IMAGE_DOMAIN],
+  },
 };
 
 const sentryWebpackPluginOptions = {

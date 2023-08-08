@@ -1,9 +1,9 @@
 "use client";
 import { Box, Button, Modal, Typography, useTheme } from "@mui/material";
 import { useState } from "react";
-import { QrReader } from "react-qr-reader";
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
 import BarcodeInputDialog from "./barcode-input-dialog";
+import Html5QrcodePlugin from "./Html5QrcodePlugin";
 
 type TProps = {
   onScan: (id: number) => void;
@@ -11,12 +11,12 @@ type TProps = {
 
 export default function QrCodeReader({ onScan }: TProps) {
   const [isBarcodeInputOpen, setIsBarcodeInputOpen] = useState(false);
-  const [isMessageDialogOpen, setIsMessageDialogOpen] = useState(false);
+  const [dialogMessage, setDialogMessage] = useState<string>("");
   const handleClickSwitchModal = () => {
     setIsBarcodeInputOpen(!isBarcodeInputOpen);
   };
   const handleCloseModal = () => {
-    setIsMessageDialogOpen(false);
+    setDialogMessage("");
   };
   const theme = useTheme();
   const style = {
@@ -30,56 +30,35 @@ export default function QrCodeReader({ onScan }: TProps) {
     boxShadow: 24,
     p: 4,
   };
+  const onNewScanResult = (decodedText: string) => {
+    const chartId = JSON.parse(decodedText).chartId;
+    isNaN(chartId)
+      ? setDialogMessage("再度バーコードを読み取って下さい。")
+      : onScan(parseInt(chartId));
+  };
 
   return (
     <>
-      <Box
-        sx={{
-          height: "100vh",
-          width: "100vw",
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-        }}
+      <Html5QrcodePlugin
+        fps={10}
+        qrbox={{ width: 250, height: 250 }}
+        disableFlip={false}
+        qrCodeSuccessCallback={onNewScanResult}
+        facingMode={"environment"}
+      />
+      <Modal
+        open={dialogMessage !== ""}
+        onClose={handleCloseModal}
+        disableAutoFocus={true}
       >
-        <QrReader
-          constraints={{ facingMode: "environment" }}
-          onResult={(result, error) => {
-            if (result) {
-              isNaN(parseInt(result.getText()))
-                ? setIsMessageDialogOpen(true)
-                : onScan(parseInt(result.getText()));
-            }
+        <Box sx={style}>
+          <Typography variant="h6" component="h2">
+            読み取り失敗
+          </Typography>
+          <Typography sx={{ mt: 2 }}>{dialogMessage}</Typography>
+        </Box>
+      </Modal>
 
-            if (error) {
-              // eslint-disable-next-line no-console
-              console.info(error);
-            }
-          }}
-          containerStyle={{
-            width: "100%",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-          }}
-          videoStyle={{ width: "100%" }}
-        />
-        <Modal
-          open={isMessageDialogOpen}
-          onClose={handleCloseModal}
-          disableAutoFocus={true}
-        >
-          <Box sx={style}>
-            <Typography variant="h6" component="h2">
-              読み取り失敗
-            </Typography>
-            <Typography sx={{ mt: 2 }}>
-              再度バーコードを読み取って下さい。
-            </Typography>
-          </Box>
-        </Modal>
-      </Box>
       <Button
         onClick={handleClickSwitchModal}
         sx={{
