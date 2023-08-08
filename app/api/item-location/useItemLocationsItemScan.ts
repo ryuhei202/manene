@@ -1,6 +1,6 @@
 import { useGetRequest } from "../useGetRequest";
 
-export type TItemLocationsItemScan = {
+export type TItemLocationsItemScanResponse = {
   id: number;
   size: string;
   itemImageUrl: string;
@@ -20,7 +20,7 @@ type TParams = {
 
 export default function useItemLocationsItemScan(params: TParams) {
   const { data, error, isLoading } = useGetRequest<
-    TItemLocationsItemScan,
+    TItemLocationsItemScanResponse,
     TParams
   >({ path: "item_locations/item_scan", params: params });
 

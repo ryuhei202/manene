@@ -1,4 +1,4 @@
-import { TItemLocationsItemScan as itemInfo } from "@/app/api/item-location/useItemLocationsItemScan";
+import { TItemLocationsItemScanResponse as itemInfo } from "@/app/api/item-location/useItemLocationsItemScan";
 import { Box, Card, CardContent, Typography, styled } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
