@@ -1,6 +1,6 @@
 import { useGetRequest } from "../useGetRequest";
 
-type TItemLocationsItemScan = {
+export type TItemLocationsItemScan = {
   id: number;
   size: string;
   itemImageUrl: string;
