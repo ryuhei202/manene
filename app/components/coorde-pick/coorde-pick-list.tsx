@@ -8,6 +8,7 @@ import { useCallback, useEffect, useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCodeReaderDialog from "../common/barcode/qr-code-reader-dialog";
+import LoadingPage from "../common/pages/loading-page";
 
 type TProps = {
   tChartId: number;
@@ -47,9 +48,11 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
 
   useEffect(() => {
     addEventListener("popstate", blockBrowserBack);
-  }, []);
+  }, [blockBrowserBack]);
 
-  return (
+  return isLoading ? (
+    <LoadingPage />
+  ) : (
     <>
       <Box>
         {chartItems.map((chartItem: TCoordePicksIndexResponse) => (
@@ -76,11 +79,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
             <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
           </Button>
         </Fab>
-        <QrCodeReaderDialog
-          isOpen={isDialogOpen}
-          onScan={handleScan}
-          // onClose={}
-        />
+        <QrCodeReaderDialog isOpen={isDialogOpen} onScan={handleScan} />
       </Box>
     </>
   );
