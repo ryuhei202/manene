@@ -23,8 +23,8 @@ export default function ItemMiniCard({ Item }: TProps) {
           setIsOpenItemDetailFetcher(true);
         }}
         sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 100px)",
+          borderRadius: 0,
+          boxShadow: 0,
         }}
       >
         <SCardContent>
