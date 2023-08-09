@@ -22,7 +22,7 @@ export default function useItemLocationsItemScan(params: TParams) {
   const { data, error, isLoading } = useGetRequest<
     TItemLocationsItemScan,
     TParams
-  >({ path: "item_locations/item_scan", params: params });
+  >({ path: "item_locations/item_scan", params });
 
   return { data, error, isLoading };
 }
