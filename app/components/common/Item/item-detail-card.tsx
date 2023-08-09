@@ -48,7 +48,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table">
                 <TableHead
                   sx={{
-                    bgcolor: "blue",
+                    bgcolor: "#1976d2",
                   }}
                 >
                   <TableRow sx={{ color: "white" }}>
@@ -91,7 +91,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table">
                 <TableHead
                   sx={{
-                    bgcolor: "blue",
+                    bgcolor: "#1976d2",
                   }}
                 >
                   <TableRow>
@@ -121,7 +121,7 @@ export default function ItemDetailCard({
                       },
                     }}
                   >
-                    {partSizes.slice(3, 5).map((partSize) => {
+                    {partSizes.slice(3, 6).map((partSize) => {
                       return (
                         <TableCell key={partSize.partSize} align="center">
                           {partSize.partSize}
@@ -134,7 +134,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table" sx={{ height: "100%" }}>
                 <TableHead
                   sx={{
-                    bgcolor: "blue",
+                    bgcolor: "#1976d2",
                   }}
                 >
                   <TableRow>
@@ -175,7 +175,7 @@ export default function ItemDetailCard({
                 <Table key={row.label} aria-label="simple table">
                   <TableHead
                     sx={{
-                      bgcolor: "blue",
+                      bgcolor: "#1976d2",
                     }}
                   >
                     <TableRow>
