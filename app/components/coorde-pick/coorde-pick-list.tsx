@@ -11,6 +11,19 @@ type TProps = {
 
 export default function CoordePickList({ tChartItems }: TProps) {
   const theme = useTheme();
+  const pathname = usePathname();
+  const handleClickOpenBarcodeDialog = () => {
+    setIsDialogOpen(true);
+    history.pushState("", "", pathname);
+  };
+
+  const blockBrowserBack = useCallback(() => {
+    setIsDialogOpen(false);
+  }, []);
+
+  useEffect(() => {
+    addEventListener("popstate", blockBrowserBack);
+  }, []);
 
   return (
     <>
