@@ -38,7 +38,7 @@ export default function LostArticlesDialogs({
     <>
       <Dialog open onClose={onClose} fullWidth>
         {!lostArticleId ? (
-          <>
+          <div id="lost-articles-confirm-dialogs">
             <DialogTitle>登録しますか？</DialogTitle>
             <DialogContent>
               <Typography>パートナーID: {lostArticlesUserInfo.id}</Typography>
@@ -59,9 +59,9 @@ export default function LostArticlesDialogs({
                 OK
               </Button>
             </DialogActions>
-          </>
+          </div>
         ) : (
-          <>
+          <div id="lost-articles-complete-dialogs">
             <DialogTitle>忘れ物を登録しました</DialogTitle>
             <DialogContent>
               <Typography>
@@ -71,7 +71,7 @@ export default function LostArticlesDialogs({
             <DialogActions>
               <Button onClick={onComplete}>OK</Button>
             </DialogActions>
-          </>
+          </div>
         )}
       </Dialog>
     </>
