@@ -1,22 +1,46 @@
 "use client";
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
-import { Box, Fab, useTheme } from "@mui/material";
+import useCoordePicksPick from "@/app/api/coorde_pick/useCoordePicksPick";
+import QrCode2Icon from "@mui/icons-material/QrCode2";
+import { Box, Button, Fab, useTheme } from "@mui/material";
+import { usePathname } from "next/navigation";
+import { useCallback, useEffect, useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
-import QrCode2Icon from "@mui/icons-material/QrCode2";
+import QrCodeReaderDialog from "../common/barcode/qr-code-reader-dialog";
 
 type TProps = {
+  tChartId: number;
   tChartItems: TCoordePicksIndexResponse[];
 };
 
-export default function CoordePickList({ tChartItems }: TProps) {
+export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   const theme = useTheme();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const pathname = usePathname();
   const handleClickOpenBarcodeDialog = () => {
     setIsDialogOpen(true);
     history.pushState("", "", pathname);
   };
 
+  const [chartItems, setChartItems] =
+    useState<TCoordePicksIndexResponse[]>(tChartItems);
+
+  const { mutate, isLoading } = useCoordePicksPick();
+  const handleScan = (targetItemId: number) => {
+    if (tChartId && targetItemId)
+      mutate(
+        { tChartId, targetItemId },
+        {
+          onError: (error) => {
+            alert(error);
+          },
+          onSuccess: (data) => {
+            setChartItems(data.data);
+          },
+        }
+      );
+  };
   const blockBrowserBack = useCallback(() => {
     setIsDialogOpen(false);
   }, []);
@@ -28,19 +52,11 @@ export default function CoordePickList({ tChartItems }: TProps) {
   return (
     <>
       <Box>
-        {tChartItems
-          .filter(
-            (tChartItem: TCoordePicksIndexResponse) =>
-              tChartItem.isPicked === false
-          )
-          .map((unPickedTChartItem: TCoordePicksIndexResponse) => (
-            <ItemCard
-              key={unPickedTChartItem.id}
-              imagePath={unPickedTChartItem.itemImageUrl}
-            >
-              <ItemInfoCard itemInfo={unPickedTChartItem} />
-            </ItemCard>
-          ))}
+        {chartItems.map((chartItem: TCoordePicksIndexResponse) => (
+          <ItemCard key={chartItem.id} imagePath={chartItem.itemImageUrl}>
+            <ItemInfoCard itemInfo={chartItem} />
+          </ItemCard>
+        ))}
       </Box>
       <Box>
         <Fab
@@ -52,8 +68,15 @@ export default function CoordePickList({ tChartItems }: TProps) {
             right: "12.5vw",
           }}
         >
-          <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
+          <Button onClick={handleClickOpenBarcodeDialog}>
+            <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
+          </Button>
         </Fab>
+        <QrCodeReaderDialog
+          isOpen={isDialogOpen}
+          onScan={handleScan}
+          // onClose={}
+        />
       </Box>
     </>
   );
