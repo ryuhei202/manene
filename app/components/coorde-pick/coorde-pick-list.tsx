@@ -3,11 +3,11 @@ import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksI
 import useCoordePicksPick from "@/app/api/coorde_pick/useCoordePicksPick";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
 import { Box, Button, Fab, useTheme } from "@mui/material";
-import { usePathname } from "next/navigation";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCodeReaderDialog from "../common/barcode/qr-code-reader-dialog";
+import useDisableBrowserBack from "../common/custom-hook/useDisableBrowserBack";
 import LoadingPage from "../common/pages/loading-page";
 
 type TProps = {
@@ -17,12 +17,10 @@ type TProps = {
 
 export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   const theme = useTheme();
-  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
-  const pathname = usePathname();
-
   const [chartItems, setChartItems] =
     useState<TCoordePicksIndexResponse[]>(tChartItems);
-
+  const { isDialogOpen, setIsDialogOpen, handleClickOpenBarcodeDialog } =
+    useDisableBrowserBack();
   const { mutate, isLoading } = useCoordePicksPick();
   const handleScan = (targetItemId: number) => {
     if (tChartId && targetItemId)
@@ -39,17 +37,6 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
         }
       );
   };
-  const handleClickOpenBarcodeDialog = () => {
-    setIsDialogOpen(true);
-    history.pushState("", "", pathname);
-  };
-  const blockBrowserBack = useCallback(() => {
-    setIsDialogOpen(false);
-  }, []);
-
-  useEffect(() => {
-    addEventListener("popstate", blockBrowserBack);
-  }, [blockBrowserBack]);
 
   return isLoading ? (
     <LoadingPage />
