@@ -48,7 +48,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table">
                 <TableHead
                   sx={{
-                    bgcolor: "#1976d2",
+                    bgcolor: "primary.main",
                   }}
                 >
                   <TableRow sx={{ color: "white" }}>
@@ -91,7 +91,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table">
                 <TableHead
                   sx={{
-                    bgcolor: "#1976d2",
+                    bgcolor: "primary.main",
                   }}
                 >
                   <TableRow>
@@ -134,7 +134,7 @@ export default function ItemDetailCard({
               <Table aria-label="simple table" sx={{ height: "100%" }}>
                 <TableHead
                   sx={{
-                    bgcolor: "#1976d2",
+                    bgcolor: "primary.main",
                   }}
                 >
                   <TableRow>
@@ -175,7 +175,7 @@ export default function ItemDetailCard({
                 <Table key={row.label} aria-label="simple table">
                   <TableHead
                     sx={{
-                      bgcolor: "#1976d2",
+                      bgcolor: "primary.main",
                     }}
                   >
                     <TableRow>
