@@ -3,11 +3,7 @@ import { AxiosError, AxiosResponse } from "axios";
 import { customAxios } from "../model/api/shared/custom-axios";
 import { HostUrl } from "../model/Host-url";
 
-export const usePatchRequest = <
-  TParams = object,
-  TResponse = object,
-  TError = AxiosError
->({
+export const usePatchRequest = <TParams = object, TResponse = object>({
   path,
   params,
   headers,
@@ -18,7 +14,7 @@ export const usePatchRequest = <
 }) => {
   const { mutate, error, isLoading, isSuccess } = useMutation<
     AxiosResponse<TResponse>,
-    TError,
+    AxiosError,
     TParams | undefined
   >([path], (lateParams?: TParams) =>
     customAxios().patch(
