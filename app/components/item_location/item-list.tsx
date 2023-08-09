@@ -1,5 +1,5 @@
 import { TItemLocationsItemScanResponse as itemInfo } from "@/app/api/item-location/useItemLocationsItemScan";
-import ItemMiniCard from "./item-mini-card";
+import ItemMiniCard from "../common/Item/item-mini-card";
 import { Box } from "@mui/material";
 
 type TProps = {
