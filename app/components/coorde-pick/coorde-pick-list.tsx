@@ -53,7 +53,11 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
     <>
       <Box>
         {chartItems.map((chartItem: TCoordePicksIndexResponse) => (
-          <ItemCard key={chartItem.id} imagePath={chartItem.itemImageUrl}>
+          <ItemCard
+            key={chartItem.id}
+            imagePath={chartItem.itemImageUrl}
+            isItemPicked={chartItem.isPicked}
+          >
             <ItemInfoCard itemInfo={chartItem} />
           </ItemCard>
         ))}
