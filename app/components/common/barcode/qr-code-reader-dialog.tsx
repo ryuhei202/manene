@@ -14,10 +14,12 @@ export default function QrCodeReaderDialog({
   isOpen,
 }: TProps) {
   return (
-    <Dialog open={isOpen} onClose={onClose}>
-      <DialogContent>
-        <QrCodeReader onScan={onScan} />
-      </DialogContent>
-    </Dialog>
+    <>
+      <Dialog fullScreen open={isOpen} onClose={onClose}>
+        <DialogContent>
+          <QrCodeReader onScan={onScan} />
+        </DialogContent>
+      </Dialog>
+    </>
   );
 }
