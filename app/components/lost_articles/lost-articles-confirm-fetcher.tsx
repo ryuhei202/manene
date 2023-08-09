@@ -5,7 +5,10 @@ import LostArticlesDialogs from "./lost-articles-dialogs";
 type TProps = {
   memberId: number;
   message: string;
+  lostArticleId?: number;
+  isLoading: boolean;
   onClose: () => void;
+  onComplete: () => void;
   onClickOkButton: ({
     memberId,
     message,
@@ -18,15 +21,31 @@ type TProps = {
 export default function LostArticlesConfirmFetcher({
   memberId,
   message,
+  lostArticleId,
+  isLoading,
   onClose,
+  onComplete,
   onClickOkButton,
 }: TProps) {
-  const { data, error, isLoading } = useLostArticlesConfirm({ memberId });
+  const { data, error } = useLostArticlesConfirm({ memberId });
   if (error) {
     return <Dialog open>{error.message}</Dialog>;
   }
-  if (isLoading || !data) {
-    return <CircularProgress color="primary" />;
+  if (!data) {
+    return (
+      <Dialog
+        open
+        PaperProps={{
+          style: {
+            backgroundColor: "transparent",
+            boxShadow: "none",
+            overflow: "hidden",
+          },
+        }}
+      >
+        <CircularProgress color="primary" />
+      </Dialog>
+    );
   }
 
   return (
@@ -34,7 +53,10 @@ export default function LostArticlesConfirmFetcher({
       <LostArticlesDialogs
         lostArticlesUserInfo={data}
         message={message}
+        lostArticleId={lostArticleId}
+        isLoading={isLoading}
         onClose={onClose}
+        onComplete={onComplete}
         onClickOkButton={onClickOkButton}
       />
     </>
