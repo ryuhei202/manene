@@ -26,7 +26,6 @@ export default function ItemDetailCard({
   itemDetails,
 }: TProps) {
   return (
-    <Dialog fullScreen open>
       <Box padding={"7%"}>
         <Box
           sx={{
@@ -200,6 +199,5 @@ export default function ItemDetailCard({
           </TableContainer>
         </Box>
       </Box>
-    </Dialog>
   );
 }
