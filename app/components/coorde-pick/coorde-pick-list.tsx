@@ -19,10 +19,6 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   const theme = useTheme();
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const pathname = usePathname();
-  const handleClickOpenBarcodeDialog = () => {
-    setIsDialogOpen(true);
-    history.pushState("", "", pathname);
-  };
 
   const [chartItems, setChartItems] =
     useState<TCoordePicksIndexResponse[]>(tChartItems);
@@ -38,9 +34,14 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
           },
           onSuccess: (data) => {
             setChartItems(data.data);
+            setIsDialogOpen(false);
           },
         }
       );
+  };
+  const handleClickOpenBarcodeDialog = () => {
+    setIsDialogOpen(true);
+    history.pushState("", "", pathname);
   };
   const blockBrowserBack = useCallback(() => {
     setIsDialogOpen(false);
