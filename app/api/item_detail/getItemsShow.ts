@@ -1,6 +1,7 @@
-import { useGetRequest } from "../useGetRequest";
+import getNoCacheData from "../getNoCacheData";
 
-type TGetItemsShow = {
+type TParams = { id: number };
+export type TGetItemsShowResponse = {
   id: number;
   usedCount: number;
   itemCode: string;
@@ -71,15 +72,8 @@ type TGetItemsShow = {
   } | null;
 };
 
-type TParams = {
-  id: number;
-};
-
-export default function useItemsShow(params: TParams) {
-  const { id } = params;
-  const { data, error, isLoading } = useGetRequest<TGetItemsShow, TParams>({
-    path: `items/${id}`,
-    params,
+export default async function getItemsShow(params: TParams) {
+  return await getNoCacheData<TGetItemsShowResponse>({
+    path: `items/${params.id}`,
   });
-  return { data, error, isLoading };
 }
