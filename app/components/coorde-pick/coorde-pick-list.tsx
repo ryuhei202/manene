@@ -2,7 +2,7 @@
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
 import useCoordePicksPick from "@/app/api/coorde_pick/useCoordePicksPick";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
-import { Box, Button, Fab, useTheme } from "@mui/material";
+import { Box, Fab, useTheme } from "@mui/material";
 import { useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
@@ -62,10 +62,9 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
             bottom: "12vh",
             right: "12.5vw",
           }}
+          onClick={handleClickOpenBarcodeDialog}
         >
-          <Button onClick={handleClickOpenBarcodeDialog}>
-            <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
-          </Button>
+          <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
         </Fab>
         <QrCodeReaderDialog isOpen={isDialogOpen} onScan={handleScan} />
       </Box>
