@@ -31,12 +31,10 @@ export default function QrCodeReader({ onScan }: TProps) {
     p: 4,
   };
   const onNewScanResult = (decodedText: string) => {
-    const id = JSON.parse(decodedText).chartId
-      ? JSON.parse(decodedText).chartId
-      : decodedText;
-    isNaN(id)
+    const chartId = JSON.parse(decodedText).chartId;
+    isNaN(chartId)
       ? setDialogMessage("再度バーコードを読み取って下さい。")
-      : onScan(parseInt(id));
+      : onScan(parseInt(chartId));
   };
 
   return (
