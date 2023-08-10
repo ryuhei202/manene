@@ -1,4 +1,4 @@
-import { TItemLocationsItemScan as TItemInfo } from "@/app/api/item-location/useItemLocationsItemScan";
+import { TItemLocationsItemScanResponse as TItemInfo } from "@/app/api/item-location/useItemLocationsItemScan";
 import { Box, Card, CardContent, Typography, styled } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
@@ -24,8 +24,8 @@ export default function ItemMiniCard({ Item }: TProps) {
           setIsOpenItemDetailFetcher(true);
         }}
         sx={{
-          display: "grid",
-          gridTemplateColumns: "repeat(4, 100px)",
+          borderRadius: 0,
+          boxShadow: 0,
         }}
       >
         <SCardContent>
