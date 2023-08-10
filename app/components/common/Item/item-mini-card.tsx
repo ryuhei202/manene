@@ -2,6 +2,7 @@ import { TItemLocationsItemScan as TItemInfo } from "@/app/api/item-location/use
 import { Box, Card, CardContent, Typography, styled } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
+import ItemDetailFetcher from "../../item_location/item-detail-fetcher";
 
 type TProps = {
   Item: TItemInfo;
@@ -45,8 +46,8 @@ export default function ItemMiniCard({ Item }: TProps) {
 
       {isOpenItemDetailFetcher && (
         <ItemDetailFetcher
-          ItemId={Item.id}
-          onClose={() => {
+          itemId={Item.id}
+          onClickClose={() => {
             setIsOpenItemDetailFetcher(false);
           }}
         />
