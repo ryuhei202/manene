@@ -1,5 +1,4 @@
 "use client";
-
 import useItemLocationsItemScan, {
   TItemLocationsItemScanResponse,
 } from "@/app/api/item-location/useItemLocationsItemScan";
@@ -30,6 +29,6 @@ export default function ItemLocationFetcher({
   }, [data, onSetItem, onUnSetItemId]);
 
   if (error) return <ErrorDialog message={error.message} />;
-  if (isLoading) return <LoadingDialog />;
+  if (isLoading || !data) return <LoadingDialog />;
   return <></>;
 }
