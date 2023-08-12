@@ -20,12 +20,6 @@ export default function ItemLocationContainer() {
   const [locationId, setLocationId] = useState<number>();
 
   const {
-    isDialogOpen: isItemScanDialogOpen,
-    handleClickCloseDialog: handleClickItemScanCloseDialog,
-    handleClickOpenDialog: handleClickItemScanOpenDialog,
-  } = useDisableBrowserBack();
-
-  const {
     isDialogOpen: isLocationScanDialogOpen,
     handleClickCloseDialog: handleClickLocationScanCloseDialog,
     handleClickOpenDialog: handleClickLocationScanOpenDialog,
@@ -98,12 +92,7 @@ export default function ItemLocationContainer() {
           marginBottom: "30px",
         }}
       >
-        <ItemRegister
-          isOpen={isItemScanDialogOpen}
-          onClickCloseDialog={handleClickItemScanCloseDialog}
-          onClickOpenDialog={handleClickItemScanOpenDialog}
-          onScan={onScanItemId}
-        />
+        <ItemRegister onScan={onScanItemId} />
 
         <LocationRegister
           locationId={locationId}
