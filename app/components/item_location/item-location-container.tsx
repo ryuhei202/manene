@@ -33,7 +33,7 @@ export default function ItemLocationContainer() {
 
   const onScanItemId = (id: number) => {
     canAddSelectedItem(id)
-      ? alert("このアイテムは既にに読み取り済みです")
+      ? alert("このアイテムは既に読み取り済みです")
       : setItemId(id);
   };
 
