@@ -37,9 +37,14 @@ export default function ItemMiniCard({ Item }: TProps) {
           ></Image>
           <Box>
             <Typography fontSize={10}>{Item.id}</Typography>
-            <Typography fontSize={10}>サイズ:{Item.size}</Typography>
+            {Item.size && (
+              <Typography fontSize={10}>サイズ:{Item.size}</Typography>
+            )}
+
             <Typography fontSize={10}>小カテ:{Item.mCateSmall.name}</Typography>
-            <Typography fontSize={10}>棚:{Item.mLocation.name}</Typography>
+            {Item.mLocation && (
+              <Typography fontSize={10}>棚:{Item.mLocation.name}</Typography>
+            )}
           </Box>
         </SCardContent>
       </Card>
