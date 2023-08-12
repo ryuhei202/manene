@@ -1,8 +1,42 @@
-import { expect, test } from "@playwright/test";
+import { Page, expect, test } from "@playwright/test";
 
 const TEST_ITEM_ID = "497288";
 const TEST_ITEM_SIZE = "L";
 const TEST_ITEM_CATEGORY = `柄カットソー`;
+
+const selectors = {
+  itemScanButton: (page: Page) =>
+    page.getByRole("button", { name: "アイテムスキャン" }),
+  openBarcodeInputButton: (page: Page) => page.getByRole("button").nth(1),
+  barcodeInput: (page: Page) => page.getByRole("spinbutton"),
+  barcodeInputCompleteButton: (page: Page) =>
+    page.getByRole("button", { name: "OK" }),
+  barcodeInputCancelButton: (page: Page) =>
+    page.getByRole("button", { name: "キャンセル" }),
+  locationMoveButton: (page: Page) =>
+    page.getByRole("button", { name: "棚移動" }).nth(1),
+  itemMiniCardFirst: (page: Page) =>
+    page.locator(
+      "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
+    ),
+  itemMiniCardSecond: (page: Page) =>
+    page.locator(
+      "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2) > div > div > p"
+    ),
+  itemDetailCard: (page: Page) =>
+    page
+      .locator("div")
+      .filter({
+        hasText:
+          "肩身幅袖565967着丈股上7272サイズLアイテムID497288ランク・使用回数S・0棚C-12-上アイテムコードL-pcts-unsw-230807-01",
+      })
+      .nth(3),
+  itemSizeCell: (page: Page) =>
+    page.getByRole("cell", { name: "L", exact: true }),
+  itemIdCell: (page: Page) => page.getByRole("cell", { name: "497288" }),
+  itemCategoryCell: (page: Page) =>
+    page.getByRole("cell", { name: "柄カットソー" }),
+};
 
 test.beforeEach(async ({ page }) => {
   await page.goto("/item_location");
@@ -11,16 +45,14 @@ test.beforeEach(async ({ page }) => {
 test("「アイテムスキャン」と「棚移動」のボタンが表示される", async ({
   page,
 }) => {
-  await expect(page.getByRole("button").nth(1)).toHaveText("アイテムスキャン");
-  await expect(page.getByRole("button").nth(2)).toHaveText("棚移動");
+  await expect(selectors.itemScanButton(page)).toHaveText("アイテムスキャン");
+  await expect(selectors.locationMoveButton(page)).toHaveText("棚移動");
 });
 
 test("アイテムを未スキャン状態だと、「棚移動」ボタンがdisabledになっている", async ({
   page,
 }) => {
-  await expect(
-    page.getByRole("button", { name: "棚移動" }).nth(1)
-  ).toBeDisabled();
+  await expect(selectors.locationMoveButton(page)).toBeDisabled();
 });
 
 test("アイテムをスキャンするとそのアイテムのカードが表示され、アイテムを追加するとリストに追加される。", async ({
@@ -30,34 +62,31 @@ test("アイテムをスキャンするとそのアイテムのカードが表�
   const TEST_ITEM_SIZE_SECOND = "M";
   const TEST_ITEM_CATEGORY_SECOND = `無地Tシャツ`;
 
-  const item_mini_card_locater1 = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
-  );
-  const item_mini_card_locater2 = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2) > div > div > p"
-  );
+  await selectors.itemScanButton(page).click();
+  await selectors.openBarcodeInputButton(page).click();
+  await selectors.barcodeInput(page).type(TEST_ITEM_ID);
+  await selectors.barcodeInputCompleteButton(page).click();
 
-  await page.getByRole("button", { name: "アイテムスキャン" }).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
-  await page.getByRole("button", { name: "OK" }).click();
-
-  await expect(item_mini_card_locater1.nth(0)).toHaveText(TEST_ITEM_ID);
-  await expect(item_mini_card_locater1.nth(1)).toHaveText(
+  await expect(selectors.itemMiniCardFirst(page).nth(0)).toHaveText(
+    TEST_ITEM_ID
+  );
+  await expect(selectors.itemMiniCardFirst(page).nth(1)).toHaveText(
     `サイズ:${TEST_ITEM_SIZE}`
   );
-  await expect(item_mini_card_locater1.nth(2)).toHaveText(
+  await expect(selectors.itemMiniCardFirst(page).nth(2)).toHaveText(
     `小カテ:${TEST_ITEM_CATEGORY}`
   );
 
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID_SECOND);
-  await page.getByRole("button", { name: "OK" }).click();
+  await selectors.barcodeInput(page).type(TEST_ITEM_ID_SECOND);
+  await selectors.barcodeInputCompleteButton(page).click();
 
-  await expect(item_mini_card_locater2.nth(0)).toHaveText(TEST_ITEM_ID_SECOND);
-  await expect(item_mini_card_locater2.nth(1)).toHaveText(
+  await expect(selectors.itemMiniCardSecond(page).nth(0)).toHaveText(
+    TEST_ITEM_ID_SECOND
+  );
+  await expect(selectors.itemMiniCardSecond(page).nth(1)).toHaveText(
     `サイズ:${TEST_ITEM_SIZE_SECOND}`
   );
-  await expect(item_mini_card_locater2.nth(2)).toHaveText(
+  await expect(selectors.itemMiniCardSecond(page).nth(2)).toHaveText(
     `小カテ:${TEST_ITEM_CATEGORY_SECOND}`
   );
 });
@@ -66,35 +95,41 @@ test("同じアイテムを追加すると「このアイテムは既に読み�
   page,
 }) => {
   const ERROR_MESSAGE = "このアイテムは既に読み取り済みです";
-  const item_mini_card_locater1 = page.locator(
+
+  const itemScanButton = page.getByRole("button", {
+    name: "アイテムスキャン",
+  });
+  const openBarcodeInputButton = page.getByRole("button").nth(1);
+  const barcodeInput = page.getByRole("spinbutton");
+  const barcodeInputCompleteButton = page.getByRole("button", {
+    name: "OK",
+  });
+  const itemMiniCardFirst = page.locator(
     "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
   );
-  const item_mini_card_locater2 = page.locator(
+  const itemMiniCardSecond = page.locator(
     "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2)"
   );
 
-  await page.getByRole("button", { name: "アイテムスキャン" }).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
-  await page.getByRole("button", { name: "OK" }).click();
-
-  await expect(item_mini_card_locater1.nth(0)).toHaveText(TEST_ITEM_ID);
-  await expect(item_mini_card_locater1.nth(1)).toHaveText(
-    `サイズ:${TEST_ITEM_SIZE}`
-  );
-  await expect(item_mini_card_locater1.nth(2)).toHaveText(
+  await itemScanButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(TEST_ITEM_ID);
+  await barcodeInputCompleteButton.click();
+  await expect(itemMiniCardFirst.nth(0)).toHaveText(TEST_ITEM_ID);
+  await expect(itemMiniCardFirst.nth(1)).toHaveText(`サイズ:${TEST_ITEM_SIZE}`);
+  await expect(itemMiniCardFirst.nth(2)).toHaveText(
     `小カテ:${TEST_ITEM_CATEGORY}`
   );
 
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
+  await barcodeInput.type(TEST_ITEM_ID);
   page.on("dialog", async (dialog) => {
     expect(dialog.type()).toContain("alert");
     expect(dialog.message()).toContain(ERROR_MESSAGE);
     await dialog.accept();
   });
-  await page.getByRole("button", { name: "OK" }).click();
+  await barcodeInputCompleteButton.click();
 
-  await expect(await item_mini_card_locater2.count()).toEqual(0);
+  await expect(await itemMiniCardSecond.count()).toEqual(0);
 });
 
 test("追加したアイテムを棚移動するとアイテムがその棚に登録され、アイテムリストが空になる", async ({
@@ -102,21 +137,38 @@ test("追加したアイテムを棚移動するとアイテムがその棚に�
 }) => {
   const VALID_LOCATION_ID = "10001";
 
-  await page.getByRole("button", { name: "アイテムスキャン" }).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
-  await page.getByRole("button", { name: "OK" }).click();
+  const itemScanButton = page.getByRole("button", {
+    name: "アイテムスキャン",
+  });
+  const openBarcodeInputButton = page.getByRole("button").nth(1);
+  const barcodeInput = page.getByRole("spinbutton");
+  const barcodeInputCompleteButton = page.getByRole("button", {
+    name: "OK",
+  });
+  const itemIdInMiniCard = await page.getByText(TEST_ITEM_ID);
+  const barcodeInputCancelButton = page.getByRole("button", {
+    name: "キャンセル",
+  });
+  const locationMoveButton = page
+    .getByRole("button", { name: "棚移動" })
+    .nth(1);
+  const itemMiniCardCount = await page.getByText(TEST_ITEM_ID).count();
 
-  await expect(await page.getByText(TEST_ITEM_ID)).toBeVisible();
+  await itemScanButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(TEST_ITEM_ID);
+  await barcodeInputCompleteButton.click();
 
-  await page.getByRole("button", { name: "キャンセル" }).click();
+  await expect(itemIdInMiniCard).toBeVisible();
+
+  await barcodeInputCancelButton.click();
   await page.goBack();
-  await page.getByRole("button", { name: "棚移動" }).nth(1).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(VALID_LOCATION_ID);
-  await page.getByRole("button", { name: "OK" }).click();
-  await page.getByRole("button", { name: "OK" }).click();
-  await expect(await page.getByText(TEST_ITEM_ID).count()).toEqual(0);
+  await locationMoveButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(VALID_LOCATION_ID);
+  await barcodeInputCompleteButton.click();
+  await page.getByRole("button", { name: "OK" }).click(); //確認ダイアログのOKボタン
+  await expect(itemMiniCardCount).toEqual(0);
 });
 
 test("棚移動に失敗すると、「登録に失敗しました」というアラートダイアログが表示される", async ({
@@ -124,36 +176,61 @@ test("棚移動に失敗すると、「登録に失敗しました」という�
 }) => {
   const INVALID_LOCATION_ID = "999999999";
   const ERROR_MESSAGE = "登録に失敗しました";
-  await page.getByRole("button", { name: "アイテムスキャン" }).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
-  await page.getByRole("button", { name: "OK" }).click();
 
-  await expect(await page.getByText(TEST_ITEM_ID)).toBeVisible();
+  const itemScanButton = page.getByRole("button", {
+    name: "アイテムスキャン",
+  });
+  const openBarcodeInputButton = page.getByRole("button").nth(1);
+  const barcodeInput = page.getByRole("spinbutton");
+  const barcodeInputCompleteButton = page.getByRole("button", {
+    name: "OK",
+  });
+  const itemIdInMiniCard = await page.getByText(TEST_ITEM_ID);
+  const barcodeInputCancelButton = page.getByRole("button", {
+    name: "キャンセル",
+  });
+  const locationMoveButton = page.getByRole("button").nth(2);
 
-  await page.getByRole("button", { name: "キャンセル" }).click();
+  await itemScanButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(TEST_ITEM_ID);
+  await barcodeInputCompleteButton.click();
+
+  await expect(itemIdInMiniCard).toBeVisible();
+
+  await barcodeInputCancelButton.click();
   await page.goBack();
-  await page.getByRole("button", { name: "棚移動" }).nth(1).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(INVALID_LOCATION_ID);
+  await locationMoveButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(INVALID_LOCATION_ID);
   await page.getByRole("button", { name: "OK" }).click();
   page.on("dialog", async (dialog) => {
     expect(dialog.type()).toContain("alert");
     expect(dialog.message()).toContain(ERROR_MESSAGE);
     await dialog.accept();
   });
-  await page.getByRole("button", { name: "OK" }).click();
-  await page.waitForTimeout(1000);
-  await expect(await page.getByText(TEST_ITEM_ID).count()).toEqual(1);
+  await barcodeInputCompleteButton.click();
+  await expect(itemIdInMiniCard).toBeVisible();
 });
 
 test("アイテムを選択するとアイテム詳細カードが表示される", async ({ page }) => {
-  const item_mini_card_locater = page
+  const itemScanButton = page.getByRole("button", {
+    name: "アイテムスキャン",
+  });
+  const openBarcodeInputButton = page.getByRole("button").nth(1);
+  const barcodeInput = page.getByRole("spinbutton");
+  const barcodeInputCompleteButton = page.getByRole("button", {
+    name: "OK",
+  });
+  const barcodeInputCancelButton = page.getByRole("button", {
+    name: "キャンセル",
+  });
+  const itemMiniCard = page
     .locator("div")
     .filter({ hasText: "497288サイズ:L小カテ:柄カットソー棚:C-12-上" })
     .nth(2);
 
-  const item_detail_card_locater = page
+  const itemDetailCard = page
     .locator("div")
     .filter({
       hasText:
@@ -161,22 +238,20 @@ test("アイテムを選択するとアイテム詳細カードが表示され�
     })
     .nth(3);
 
-  await page.getByRole("button", { name: "アイテムスキャン" }).click();
-  await page.getByRole("button").nth(1).click();
-  await page.getByRole("spinbutton").type(TEST_ITEM_ID);
-  await page.getByRole("button", { name: "OK" }).click();
-  await page.getByRole("button", { name: "キャンセル" }).click();
-  await page.goBack();
-  await item_mini_card_locater.click();
+  const itemSizeCell = page.getByRole("cell", { name: "L", exact: true });
+  const itemIdCell = page.getByRole("cell", { name: "497288" });
+  const itemCategoryCell = page.getByRole("cell", { name: "柄カットソー" });
 
-  await expect(item_detail_card_locater).toBeVisible();
-  await expect(page.getByRole("cell", { name: "L", exact: true })).toHaveText(
-    TEST_ITEM_SIZE
-  );
-  await expect(page.getByRole("cell", { name: "497288" })).toHaveText(
-    TEST_ITEM_ID
-  );
-  await expect(page.getByRole("cell", { name: "柄カットソー" })).toHaveText(
-    TEST_ITEM_CATEGORY
-  );
+  await itemScanButton.click();
+  await openBarcodeInputButton.click();
+  await barcodeInput.type(TEST_ITEM_ID);
+  await barcodeInputCompleteButton.click();
+  await barcodeInputCancelButton.click();
+  await page.goBack();
+  await itemMiniCard.click();
+
+  await expect(itemDetailCard).toBeVisible();
+  await expect(itemSizeCell).toHaveText(TEST_ITEM_SIZE);
+  await expect(itemIdCell).toHaveText(TEST_ITEM_ID);
+  await expect(itemCategoryCell).toHaveText(TEST_ITEM_CATEGORY);
 });
