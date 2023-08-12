@@ -1,7 +1,9 @@
 import useItemsShow from "@/app/api/item-location/useItemsShow";
-import ItemDetailCardContainer from "../common/Item/item-detail-card-container";
-import { CircularProgress, Dialog, DialogContent } from "@mui/material";
+import { Dialog, DialogContent } from "@mui/material";
 import { useEffect } from "react";
+import ItemDetailCardContainer from "../common/Item/item-detail-card-container";
+import ErrorDialog from "../common/dialog/error-dialog";
+import LoadingDialog from "../common/dialog/loading-dialog";
 
 type TProps = {
   itemId: number;
@@ -15,31 +17,14 @@ export default function ItemDetailFetcher({ itemId, onClickClose }: TProps) {
     addEventListener("popstate", onClickClose);
   }, [onClickClose]);
 
+  if (error) return <ErrorDialog message={error.message} />;
+  if (isLoading || !data) return <LoadingDialog />;
+
   return (
     <>
-      <Dialog
-        open
-        onClose={onClickClose}
-        PaperProps={
-          isLoading || (!data && !error)
-            ? {
-                style: {
-                  backgroundColor: "transparent",
-                  boxShadow: "none",
-                  overflow: "hidden",
-                },
-              }
-            : {}
-        }
-      >
+      <Dialog open onClose={onClickClose}>
         <DialogContent>
-          {error ? (
-            error.message
-          ) : isLoading || !data ? (
-            <CircularProgress color="primary" />
-          ) : (
-            <ItemDetailCardContainer itemInfo={data} />
-          )}
+          <ItemDetailCardContainer itemInfo={data} />
         </DialogContent>
       </Dialog>
     </>
