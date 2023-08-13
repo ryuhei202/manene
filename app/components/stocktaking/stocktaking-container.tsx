@@ -1,0 +1,1 @@
+        <BarcodeButton onScan={handleClickNavigate} />
