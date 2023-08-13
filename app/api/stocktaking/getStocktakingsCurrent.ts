@@ -11,7 +11,7 @@ export type TLocation = {
 };
 
 export type TStocktakingsCurrentResponse = {
-  location: TLocation[] | null;
+  locations: TLocation[] | null;
 };
 export default async function getStocktakingsCurrent() {
   return await getNoCacheData<TStocktakingsCurrentResponse>({
