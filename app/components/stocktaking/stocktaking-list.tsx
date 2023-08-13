@@ -1,5 +1,5 @@
-"use client";
 import { TLocation } from "@/app/api/stocktaking/getStocktakingsCurrent";
+import { List } from "@mui/material";
 import StocktakingRow from "./stocktaking-row";
 
 type TProps = {
@@ -9,7 +9,7 @@ type TProps = {
 
 export default function StocktakingList({ locations, onClick }: TProps) {
   return (
-    <>
+    <List>
       {locations.map((location) => {
         return (
           <StocktakingRow
@@ -19,6 +19,6 @@ export default function StocktakingList({ locations, onClick }: TProps) {
           />
         );
       })}
-    </>
+    </List>
   );
 }
