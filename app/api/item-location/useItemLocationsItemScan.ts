@@ -9,8 +9,8 @@ export type TItemLocationsItemScanResponse = {
   id: number;
   size?: string;
   itemImageUrl: string;
-  m_cate_small: TItemMaster;
-  m_location?: TItemMaster;
+  mCateSmall: TItemMaster;
+  mLocation?: TItemMaster;
 };
 
 type TParams = {
