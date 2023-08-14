@@ -42,7 +42,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
   };
 
   const handleClickNavigate = (id: number) => {
-    router.push(`/stocktaking/${id}`);
+    locations?.some((location) => location.mLocationId === id)
+      ? router.push(`/stocktaking/${id}`)
+      : alert("棚リストに存在しません");
   };
 
   const onClickComplete = () => {
