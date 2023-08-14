@@ -5,9 +5,12 @@ import useDisableBrowserBack from "../custom-hook/useDisableBrowserBack";
 
 type TProps = {
   onScan: (id: number) => void;
+  title: string;
+  disabled?: boolean;
+  color?: string;
 };
 
-export default function ItemRegister({ onScan }: TProps) {
+export default function ScanButton({ onScan, title, disabled, color }: TProps) {
   const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
     useDisableBrowserBack();
   return (
@@ -15,9 +18,10 @@ export default function ItemRegister({ onScan }: TProps) {
       <Button
         variant="contained"
         onClick={handleClickOpenDialog}
-        sx={{ height: "50px" }}
+        sx={{ height: "50px", backgroundColor: color ?? "primary.main" }}
+        disabled={!!disabled}
       >
-        アイテムスキャン
+        {title}
       </Button>
       <Dialog open={isDialogOpen} onClose={handleClickCloseDialog}>
         <QrCodeReader onScan={onScan} />

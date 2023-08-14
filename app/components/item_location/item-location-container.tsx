@@ -2,15 +2,21 @@
 import { TItemLocationsItemScanResponse } from "@/app/api/item-location/useItemLocationsItemScan";
 import useItemLocationsMove from "@/app/api/item-location/useItemLocationsMove";
 import { alertClosedWindow } from "@/app/service/shared/alert-close-window";
-import { Box } from "@mui/material";
+import {
+  Box,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { AxiosError } from "axios";
 import { useEffect, useState } from "react";
-import ItemRegister from "../common/Item/item-register";
-import useDisableBrowserBack from "../common/custom-hook/useDisableBrowserBack";
+import ScanButton from "../common/button/scan-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import ItemList from "./item-list";
-import ItemLocationFetcher from "./item-location-fetcher";
-import LocationRegister from "./location-register";
+import ItemInfoFetcher from "./item-location-fetcher";
 
 export default function ItemLocationContainer() {
   const [itemId, setItemId] = useState<number>();
@@ -18,12 +24,6 @@ export default function ItemLocationContainer() {
     TItemLocationsItemScanResponse[]
   >([]);
   const [locationId, setLocationId] = useState<number>();
-
-  const {
-    isDialogOpen: isLocationScanDialogOpen,
-    handleClickCloseDialog: handleClickLocationScanCloseDialog,
-    handleClickOpenDialog: handleClickLocationScanOpenDialog,
-  } = useDisableBrowserBack();
 
   const { mutate, isLoading } = useItemLocationsMove();
 
@@ -37,7 +37,7 @@ export default function ItemLocationContainer() {
       : setItemId(id);
   };
 
-  const handleClickOkButton = () => {
+  const onClickOk = () => {
     if (locationId === undefined)
       throw new Error("棚移動に失敗しました。棚番号を正しく入力してください");
     mutate(
@@ -56,7 +56,6 @@ export default function ItemLocationContainer() {
       }
     );
     setLocationId(undefined);
-    handleClickLocationScanCloseDialog();
   };
 
   useEffect(() => {
@@ -68,7 +67,7 @@ export default function ItemLocationContainer() {
   return (
     <>
       {itemId && (
-        <ItemLocationFetcher
+        <ItemInfoFetcher
           itemId={itemId}
           onSetItem={(data: TItemLocationsItemScanResponse) =>
             setSelectedItem([...selectedItem, data])
@@ -92,21 +91,35 @@ export default function ItemLocationContainer() {
           marginBottom: "30px",
         }}
       >
-        <ItemRegister onScan={onScanItemId} />
-
-        <LocationRegister
-          locationId={locationId}
-          selectedItem={selectedItem}
-          isOpen={isLocationScanDialogOpen}
-          onClickCloseDialog={handleClickLocationScanCloseDialog}
-          onClickOpenDialog={handleClickLocationScanOpenDialog}
+        <ScanButton onScan={onScanItemId} title="アイテムスキャン" />
+        <ScanButton
           onScan={(id: number) => {
             setLocationId(id);
           }}
-          onClickCancel={() => setLocationId(undefined)}
-          onClickOk={handleClickOkButton}
-          isLoading={isLoading}
+          title="棚移動"
+          disabled={selectedItem.length < 1}
         />
+
+        {locationId && (
+          <Dialog open fullWidth>
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>
+              <Typography>棚版: {locationId}</Typography>
+              <Typography>に登録しますか？</Typography>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setLocationId(undefined)}>
+                キャンセル
+              </Button>
+              <Button
+                onClick={onClickOk}
+                disabled={locationId === undefined && isLoading}
+              >
+                OK
+              </Button>
+            </DialogActions>
+          </Dialog>
+        )}
       </Box>
     </>
   );
