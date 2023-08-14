@@ -1,5 +1,5 @@
-import LoadingPage from "./components/common/pages/loading-page";
+import LoadingDialog from "./components/common/dialog/loading-dialog";
 
 export default function Loading() {
-  return <LoadingPage />;
+  return <LoadingDialog />;
 }
