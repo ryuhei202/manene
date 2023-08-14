@@ -8,7 +8,7 @@ import useStocktakingsCreate from "@/app/api/stocktaking/useStocktakingsCreate";
 import CachedIcon from "@mui/icons-material/Cached";
 import { Box, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
 import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
@@ -64,6 +64,10 @@ export default function StocktakingContainer({ locationList }: TProps) {
     });
   };
 
+  useEffect(() => {
+    setLocations(locationList.locations);
+  }, [locationList.locations]);
+
   if (createError) return <ErrorDialog message={createError.message} />;
   if (completeError) return <ErrorDialog message={completeError.message} />;
   if (completeIsLoading || createIsLoading) return <LoadingDialog />;
@@ -72,7 +76,7 @@ export default function StocktakingContainer({ locationList }: TProps) {
     <>
       <Header title="棚卸し">
         <BarcodeButton onScan={handleClickNavigate} />
-        <Button onClick={() => router.refresh}>
+        <Button onClick={() => router.refresh()}>
           <CachedIcon sx={{ color: "white" }} />
         </Button>
       </Header>
