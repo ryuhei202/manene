@@ -12,7 +12,7 @@ type TProps = {
   onUnSetItemId: () => void;
 };
 
-export default function ItemLocationFetcher({
+export default function ItemInfoFetcher({
   itemId,
   onSetItem,
   onUnSetItemId,
