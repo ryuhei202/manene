@@ -20,7 +20,7 @@ import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import SubHeader from "../common/pages/sub-header";
-import LocationItemTabSwicherer from "./location-item-tab-switcher";
+import LocationItemTabSwitcher from "./location-item-tab-switcher";
 
 type TProps = {
   location: TStocktakingsLocationsShowResponse;
@@ -37,7 +37,6 @@ export default function StocktakingLocationContainer({ location }: TProps) {
   ) => {
     setSelectedTabNumber(newValue);
   };
-
   const [locationInfo, setLocationInfo] =
     useState<TStocktakingsLocationsShowResponse>(location);
 
@@ -165,7 +164,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
         </SubHeader>
       </Box>
 
-      <LocationItemTabSwicherer
+      <LocationItemTabSwitcher
         allItems={locationInfo.allItems}
         unscannedItems={locationInfo.unscannedItems}
         matchedItems={locationInfo.matchedItems}
