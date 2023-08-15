@@ -42,7 +42,7 @@ export default function StocktakingContainer({ locationList }: TProps) {
   };
 
   const handleClickNavigate = (id: number) => {
-    locations?.some((location) => location.mLocationId === id)
+    locations?.some((location) => location.id === id)
       ? router.push(`/stocktaking/${id}`)
       : alert("棚リストに存在しません");
   };
@@ -68,12 +68,11 @@ export default function StocktakingContainer({ locationList }: TProps) {
     setLocations(locationList.locations);
   }, [locationList.locations]);
 
-  if (createError) return <ErrorDialog message={createError.message} />;
-  if (completeError) return <ErrorDialog message={completeError.message} />;
-  if (completeIsLoading || createIsLoading) return <LoadingDialog />;
-
   return (
     <>
+      {createError && <ErrorDialog message={createError.message} />}
+      {completeError && <ErrorDialog message={completeError.message} />}
+      {(completeIsLoading || createIsLoading) && <LoadingDialog />}
       <Header title="棚卸し">
         <BarcodeButton onScan={handleClickNavigate} />
         <Button onClick={() => router.refresh()}>

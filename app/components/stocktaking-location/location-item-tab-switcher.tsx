@@ -2,22 +2,22 @@
 import { TItemLocationsItemScanResponse } from "@/app/api/item-location/useItemLocationsItemScan";
 import { TabPanel } from "@mui/lab";
 import TabContext from "@mui/lab/TabContext";
-import TabList from "@mui/lab/TabList";
-import { Box, Button, Tab } from "@mui/material";
-import React, { useState } from "react";
+import { Box, Button, Tab, Tabs } from "@mui/material";
+import React from "react";
 import ScanButton from "../common/button/scan-button";
 import ItemList from "../item_location/item-list";
 
 type TProps = {
-  mLocationId: number;
   allItems: TItemLocationsItemScanResponse[];
   unscannedItems?: TItemLocationsItemScanResponse[];
   matchedItems?: TItemLocationsItemScanResponse[];
   mismatchingItems?: TItemLocationsItemScanResponse[];
-  onScanItemId: (id: number) => void;
+  onScanItem: (id: number) => void;
   onClickOpenMissingRegisterDialog: () => void;
-  onClickOpenMoveThisLocationDialog: () => void;
+  onClickOpenReturnLocationDialog: () => void;
   onScanLocationId: (locationId: number) => void;
+  selectedTabNumber: string;
+  onChangeSelectedTab: (event: React.SyntheticEvent, newValue: string) => void;
 };
 
 export default function LocationItemTabSwicherer({
@@ -25,16 +25,13 @@ export default function LocationItemTabSwicherer({
   unscannedItems,
   matchedItems,
   mismatchingItems,
-  onScanItemId,
+  onScanItem,
   onClickOpenMissingRegisterDialog,
-  onClickOpenMoveThisLocationDialog,
+  onClickOpenReturnLocationDialog,
   onScanLocationId,
+  selectedTabNumber,
+  onChangeSelectedTab,
 }: TProps) {
-  const [selectedTabNumber, setSelectedTabNumber] = useState<string>("1");
-  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setSelectedTabNumber(newValue);
-  };
-
   const footerStyle = {
     position: "fixed",
     bottom: 0,
@@ -52,9 +49,18 @@ export default function LocationItemTabSwicherer({
     <>
       <Box sx={{ width: "100%", height: "100%" }}>
         <TabContext value={selectedTabNumber}>
-          <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
-            <TabList
-              onChange={handleChange}
+          <Box
+            sx={{
+              borderBottom: 1,
+              borderColor: "divider",
+              position: "sticky",
+              top: 93,
+              bgcolor: "white",
+              zIndex: 1000,
+            }}
+          >
+            <Tabs
+              onChange={onChangeSelectedTab}
               aria-label="lab API tabs example"
               centered
             >
@@ -68,12 +74,12 @@ export default function LocationItemTabSwicherer({
               {mismatchingItems && (
                 <Tab label={`不一致${mismatchingItems.length}`} value="4" />
               )}
-            </TabList>
+            </Tabs>
           </Box>
           <TabPanel value="1" sx={{ padding: 0 }}>
             <ItemList selectedItems={allItems} />
             <Box sx={footerStyle}>
-              <ScanButton title="アイテムスキャン" onScan={onScanItemId} />
+              <ScanButton title="アイテムスキャン" onScan={onScanItem} />
             </Box>
           </TabPanel>
           <TabPanel value="2" sx={{ padding: 0 }}>
@@ -105,7 +111,7 @@ export default function LocationItemTabSwicherer({
                 <Box sx={footerStyle}>
                   <Button
                     variant="contained"
-                    onClick={onClickOpenMoveThisLocationDialog}
+                    onClick={onClickOpenReturnLocationDialog}
                     sx={{
                       height: "50px",
                     }}
