@@ -45,7 +45,7 @@ export default function StocktakingRow({ location, onClick }: TProps) {
                 width={50}
                 borderRadius={30}
               >
-                未{location.mismatchingCount}
+                未{location.unscannedCount}
               </Box>
             )}
             {!!location.unscannedCount && (
@@ -57,7 +57,7 @@ export default function StocktakingRow({ location, onClick }: TProps) {
                 width={50}
                 borderRadius={30}
               >
-                不{location.unscannedCount}
+                不{location.mismatchingCount}
               </Box>
             )}
           </>
