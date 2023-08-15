@@ -1,7 +1,7 @@
 import { usePutRequest } from "../usePutRequest";
 import { TStocktakingsLocationsShowResponse } from "./getStocktakingLocationsShow";
 
-type TStocktakingLocationItemScan = {
+type TStocktakingLocationItemScanResponse = {
   stocktakingLocationResponse: TStocktakingsLocationsShowResponse;
   isMismatched: boolean;
 };
@@ -10,10 +10,13 @@ type TParams = {
   id: number;
   scannedItemId: number;
 };
-export default function useStocktakingLocationItemScan(params: TParams) {
+
+export default function useStocktakingLocationItemScan(
+  params: Pick<TParams, "id">
+) {
   const { mutate, error, isLoading } = usePutRequest<
     TParams,
-    TStocktakingLocationItemScan
-  >({ path: `stocktaking_locations/${params.id}/item_scan`, params: params });
+    TStocktakingLocationItemScanResponse
+  >({ path: `stocktaking_locations/${params.id}/item_scan` });
   return { mutate, error, isLoading };
 }
