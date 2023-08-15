@@ -1,17 +1,18 @@
 import { expect, test } from "@playwright/test";
 
+test.beforeEach(async ({ page }) => {
+  await page.goto("/item_detail");
+});
+
 test("item_detailページに遷移したらバーコードリーダーが表示される", async ({
   page,
 }) => {
-  await page.goto("/item_detail");
   const barcordLeader = page.locator("#html5qr-code-full-region");
   await expect(barcordLeader).toBeVisible();
 });
 
-test.describe("アイテムIDが入力されないとOKを押せず、入力されると押せる", () => {
+test.describe("OKボタンの状態", () => {
   test("アイテムIDを入力していないとOKを押せない", async ({ page }) => {
-    await page.goto("/item_detail");
-
     const openBarcodeInputButton = page.getByRole("button").nth(1);
     const okButton = page.getByRole("button", { name: "OK" });
     const barcodeInput = page.getByRole("spinbutton");
@@ -22,8 +23,6 @@ test.describe("アイテムIDが入力されないとOKを押せず、入力さ�
   });
 
   test("アイテムIDを入力するとOKを押せる", async ({ page }) => {
-    await page.goto("/item_detail");
-
     const openBarcodeInputButton = page.getByRole("button").nth(1);
     const okButton = page.getByRole("button", { name: "OK" });
     const barcodeInput = page.getByRole("spinbutton");
@@ -37,35 +36,30 @@ test.describe("アイテムIDが入力されないとOKを押せず、入力さ�
 test("ダイアログのキャンセルを押した時にダイアログが閉じる", async ({
   page,
 }) => {
-  await page.goto("/item_detail");
-
   const openBarcodeInputButton = page.getByRole("button").nth(1);
   const cancelButton = page.getByRole("button", { name: "キャンセル" });
+  const dialogCancelButton = page.locator(
+    "ibody > div.MuiDialog-root.MuiModal-root.css-126xj0f > div.MuiDialog-container.MuiDialog-scrollPaper.css-ekeie0 > div"
+  );
 
   await openBarcodeInputButton.click();
   await cancelButton.click();
 
-  await expect(
-    page.locator(
-      "ibody > div.MuiDialog-root.MuiModal-root.css-126xj0f > div.MuiDialog-container.MuiDialog-scrollPaper.css-ekeie0 > div"
-    )
-  ).toBeHidden();
+  await expect(dialogCancelButton).toBeHidden();
 });
 
 test("バーコードを読み込んだ時に、item_detail/[:id]に遷移する", async ({
   page,
 }) => {
-  await page.goto("/item_detail");
-
-  const itemId = "497288";
+  const ITEM_ID = "497288";
   const openBarcodeInputButton = page.getByRole("button").nth(1);
   const okButton = page.getByRole("button", { name: "OK" });
 
   await openBarcodeInputButton.click();
-  await page.getByRole("spinbutton").type(itemId);
+  await page.getByRole("spinbutton").type(ITEM_ID);
   await okButton.click();
 
-  await expect(page).toHaveURL(`/item_detail/${itemId}`);
+  await expect(page).toHaveURL(`/item_detail/${ITEM_ID}`);
 });
 
 test.describe("アイテム情報を正しく表示できる", () => {
@@ -77,7 +71,6 @@ test.describe("アイテム情報を正しく表示できる", () => {
   const NAM_REGDATE_ITEM_ID = 439593;
 
   test("アイテムの情報を取得できる", async ({ page }) => {
-
     const itemDetailCard = page.locator("body > div").filter({
       hasText:
         "肩身幅袖565967着丈股上7272サイズLアイテムID497288ランク・使用回数S・0棚C-12-上アイテムコードL-pcts-unsw-230807-01",
@@ -126,4 +119,3 @@ test.describe("アイテム情報を正しく表示できる", () => {
     await expect(itemLocationCell).toHaveText("");
   });
 });
-
