@@ -1,0 +1,13 @@
+import { usePatchRequest } from "../usePatchRequest";
+
+type TParams = {
+  status: number;
+  itemIds: number[];
+};
+
+export default function useItemsBulkUpdateStatus() {
+  const { mutate, error, isLoading, isSuccess } = usePatchRequest<TParams>({
+    path: "items/bulk_update_status"
+  });
+  return { mutate, error, isLoading, isSuccess };
+}
