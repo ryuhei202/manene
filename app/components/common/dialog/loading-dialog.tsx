@@ -1,4 +1,3 @@
-"use client";
 import { Backdrop, CircularProgress } from "@mui/material";
 
 export default function LoadingDialog() {

@@ -10,15 +10,10 @@ function toCamelCase(str: string) {
     .join("");
 }
 
-export function toCamelCaseObject(obj: Record<string, unknown>): object {
-  if (Array.isArray(obj)) {
-    return obj.map((item) => toCamelCaseObject(item));
-  } else if (obj !== null && typeof obj === "object") {
-    const result: Record<string, unknown> = {};
-    Object.keys(obj).forEach((key) => {
-      result[toCamelCase(key)] = toCamelCaseObject(obj[key] as keyof object);
-    });
-    return result;
-  }
-  return obj;
+export function toCamelCaseObject(obj: Record<string, unknown>) {
+  const result: Record<string, unknown> = {};
+  Object.keys(obj).forEach((key) => {
+    result[toCamelCase(key)] = obj[key];
+  });
+  return result;
 }

@@ -5,6 +5,6 @@ export default function useStocktakingsCreate() {
   const { mutate, error, isLoading } = usePostRequest<
     undefined,
     TStocktakingsCreateResponse
-  >({ path: "stocktakings" });
+  >({ path: "stocktakings/create" });
   return { mutate, error, isLoading };
 }
