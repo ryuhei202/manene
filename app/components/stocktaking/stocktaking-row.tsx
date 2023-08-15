@@ -15,7 +15,7 @@ export default function StocktakingRow({ location, onClick }: TProps) {
   return (
     <ListItem disablePadding divider>
       <ListItemButton
-        onClick={() => onClick(location.mLocationId)}
+        onClick={() => onClick(location.id)}
         sx={{
           display: "grid",
           gridTemplateColumns: "min-content 1fr auto auto",
@@ -24,7 +24,7 @@ export default function StocktakingRow({ location, onClick }: TProps) {
           backgroundColor:
             location.status === CHECK_DONE
               ? "success.main"
-              : location.unscannedCount || location.unscannedCount
+              : location.unscannedCount || location.mismatchingCount
               ? "warning.main"
               : "white",
         }}
