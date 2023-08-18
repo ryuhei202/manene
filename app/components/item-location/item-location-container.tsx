@@ -19,36 +19,36 @@ import ItemList from "./item-list";
 import ItemInfoFetcher from "./item-location-fetcher";
 
 export default function ItemLocationContainer() {
-  const [itemId, setItemId] = useState<number>();
-  const [selectedItem, setSelectedItem] = useState<
+  const [scanedItemId, setScanedItemId] = useState<number>();
+  const [selectedItems, setSelectedItems] = useState<
     TItemLocationsItemScanResponse[]
   >([]);
   const [locationId, setLocationId] = useState<number>();
 
   const { mutate, isLoading } = useItemLocationsMove();
 
-  const canAddSelectedItem = (targetId: number): boolean => {
-    return selectedItem.some((item) => item.id === targetId);
+  const isItemSelected = (targetId: number): boolean => {
+    return selectedItems.some((item) => item.id === targetId);
   };
 
-  const onScanItemId = (id: number) => {
-    canAddSelectedItem(id)
+  const handleScanItemId = (id: number) => {
+    isItemSelected(id)
       ? alert("このアイテムは既に読み取り済みです")
-      : setItemId(id);
+      : setScanedItemId(id);
   };
 
-  const onClickOk = () => {
+  const handleClickOk = () => {
     if (locationId === undefined)
       throw new Error("棚移動に失敗しました。棚番号を正しく入力してください");
     mutate(
       {
         targetLocationId: locationId,
-        itemIds: selectedItem.map((item) => item.id),
+        itemIds: selectedItems.map((item) => item.id),
       },
       {
         onSuccess: () => {
           alert(`棚番号${locationId}に登録しました`);
-          setSelectedItem([]);
+          setSelectedItems([]);
         },
         onError: (e: AxiosError) => {
           alert(`登録に失敗しました ${e.request?.response}`);
@@ -59,24 +59,24 @@ export default function ItemLocationContainer() {
   };
 
   useEffect(() => {
-    alertClosedWindow(!selectedItem);
-  }, [selectedItem]);
+    alertClosedWindow(!selectedItems);
+  }, [selectedItems]);
 
   if (isLoading) return <LoadingDialog />;
 
   return (
     <>
-      {itemId && (
+      {scanedItemId && (
         <ItemInfoFetcher
-          itemId={itemId}
+          itemId={scanedItemId}
           onSetItem={(data: TItemLocationsItemScanResponse) =>
-            setSelectedItem([...selectedItem, data])
+            setSelectedItems([...selectedItems, data])
           }
-          onUnSetItemId={() => setItemId(undefined)}
+          onUnSetItemId={() => setScanedItemId(undefined)}
         />
       )}
 
-      <ItemList selectedItems={selectedItem} />
+      <ItemList selectedItems={selectedItems} />
       <Box
         sx={{
           position: "fixed",
@@ -91,35 +91,31 @@ export default function ItemLocationContainer() {
           marginBottom: "30px",
         }}
       >
-        <ScanButton onScan={onScanItemId} title="アイテムスキャン" />
+        <ScanButton onScan={handleScanItemId} title="アイテムスキャン" />
         <ScanButton
           onScan={(id: number) => {
             setLocationId(id);
           }}
           title="棚移動"
-          disabled={selectedItem.length < 1}
+          disabled={selectedItems.length < 1}
         />
 
-        {locationId && (
-          <Dialog open fullWidth>
-            <DialogTitle>確認</DialogTitle>
-            <DialogContent>
-              <Typography>棚版: {locationId}</Typography>
-              <Typography>に登録しますか？</Typography>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => setLocationId(undefined)}>
-                キャンセル
-              </Button>
-              <Button
-                onClick={onClickOk}
-                disabled={locationId === undefined && isLoading}
-              >
-                OK
-              </Button>
-            </DialogActions>
-          </Dialog>
-        )}
+        <Dialog open={locationId !== undefined} fullWidth>
+          <DialogTitle>確認</DialogTitle>
+          <DialogContent>
+            <Typography>棚番: {locationId}</Typography>
+            <Typography>に登録しますか？</Typography>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setLocationId(undefined)}>キャンセル</Button>
+            <Button
+              onClick={handleClickOk}
+              disabled={locationId === undefined && isLoading}
+            >
+              OK
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Box>
     </>
   );
