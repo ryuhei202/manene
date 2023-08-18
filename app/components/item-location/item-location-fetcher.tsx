@@ -3,7 +3,6 @@ import useItemLocationsItemScan, {
   TItemLocationsItemScanResponse,
 } from "@/app/api/item-location/useItemLocationsItemScan";
 import { useEffect } from "react";
-import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 
 type TProps = {
@@ -28,7 +27,9 @@ export default function ItemInfoFetcher({
     }
   }, [data, onSetItem, onUnSetItemId]);
 
-  if (error) return <ErrorDialog message={error.message} />;
+  if (error) {
+    alert(error.message);
+  }
   if (isLoading || !data) return <LoadingDialog />;
   return <></>;
 }
