@@ -19,7 +19,7 @@ import ItemList from "./item-list";
 import ItemInfoFetcher from "./item-location-fetcher";
 
 export default function ItemLocationContainer() {
-  const [scanedItemId, setScanedItemId] = useState<number>();
+  const [scannedItemId, setScannedItemId] = useState<number>();
   const [selectedItems, setSelectedItems] = useState<
     TItemLocationsItemScanResponse[]
   >([]);
@@ -34,7 +34,7 @@ export default function ItemLocationContainer() {
   const handleScanItemId = (id: number) => {
     isItemSelected(id)
       ? alert("このアイテムは既に読み取り済みです")
-      : setScanedItemId(id);
+      : setScannedItemId(id);
   };
 
   const handleClickOk = () => {
@@ -66,13 +66,13 @@ export default function ItemLocationContainer() {
 
   return (
     <>
-      {scanedItemId && (
+      {scannedItemId && (
         <ItemInfoFetcher
-          itemId={scanedItemId}
+          itemId={scannedItemId}
           onSetItem={(data: TItemLocationsItemScanResponse) =>
             setSelectedItems([...selectedItems, data])
           }
-          onUnSetItemId={() => setScanedItemId(undefined)}
+          onUnSetItemId={() => setScannedItemId(undefined)}
         />
       )}
 
