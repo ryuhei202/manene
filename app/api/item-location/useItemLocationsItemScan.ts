@@ -2,16 +2,16 @@ import { useGetRequest } from "../useGetRequest";
 
 export type TItemLocationsItemScanResponse = {
   id: number;
-  size?: string;
+  size: string | null;
   itemImageUrl: string;
   mCateSmall: {
     id: number;
     name: string;
   };
-  mLocation?: {
+  mLocation: {
     id: number;
     name: string;
-  };
+  } | null;
 };
 
 type TParams = {
