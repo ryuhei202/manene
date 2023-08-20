@@ -28,7 +28,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
         { tChartId, targetItemId },
         {
           onError: (error) => {
-            alert(error);
+            alert(error.message);
           },
           onSuccess: (data) => {
             setChartItems(data.data);
