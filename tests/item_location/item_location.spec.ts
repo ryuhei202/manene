@@ -43,37 +43,31 @@ test("アイテムをスキャンするとそのアイテムのカードが表�
   const barcodeInputCompleteButton = page.getByRole("button", {
     name: "OK",
   });
-  const itemMiniCardFirst = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
-  );
-  const itemMiniCardSecond = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2) > div > div > p"
-  );
+  const itemMiniCardFirst = page.locator("id=item-mini-card").nth(0);
+  const itemMiniCardSecond = page.locator("id=item-mini-card").nth(1);
 
   await itemScanButton.click();
   await openBarcodeInputButton.click();
   await barcodeInput.type(TEST_ITEM_ID);
   await barcodeInputCompleteButton.click();
 
-  await expect(itemMiniCardFirst.nth(0)).toHaveText(TEST_ITEM_ID);
-  await expect(itemMiniCardFirst.nth(1)).toHaveText(`サイズ:${TEST_ITEM_SIZE}`);
-  await expect(itemMiniCardFirst.nth(2)).toHaveText(
-    `小カテ:${TEST_ITEM_CATEGORY}`
-  );
+  await expect(page.locator("id=item-mini-card")).toContainText(TEST_ITEM_ID);
+  await expect(itemMiniCardFirst).toContainText(`サイズ:${TEST_ITEM_SIZE}`);
+  await expect(itemMiniCardFirst).toContainText(`小カテ:${TEST_ITEM_CATEGORY}`);
 
   await barcodeInput.type(TEST_ITEM_ID_SECOND);
   await barcodeInputCompleteButton.click();
 
-  await expect(itemMiniCardSecond.nth(0)).toHaveText(TEST_ITEM_ID_SECOND);
-  await expect(itemMiniCardSecond.nth(1)).toHaveText(
+  await expect(itemMiniCardSecond).toContainText(TEST_ITEM_ID_SECOND);
+  await expect(itemMiniCardSecond).toContainText(
     `サイズ:${TEST_ITEM_SIZE_SECOND}`
   );
-  await expect(itemMiniCardSecond.nth(2)).toHaveText(
+  await expect(itemMiniCardSecond).toContainText(
     `小カテ:${TEST_ITEM_CATEGORY_SECOND}`
   );
 });
 
-test("同じアイテムを追加すると「このアイテムは既に読み取り済みです」とアラートダイアルグが表示され、アイテムリストに追加されない", async ({
+test("同じアイテムを追加すると「このアイテムは既に読み取り済みです」とアラートダイアログが表示され、アイテムリストに追加されない", async ({
   page,
 }) => {
   const ERROR_MESSAGE = "このアイテムは既に読み取り済みです";
@@ -86,22 +80,17 @@ test("同じアイテムを追加すると「このアイテムは既に読み�
   const barcodeInputCompleteButton = page.getByRole("button", {
     name: "OK",
   });
-  const itemMiniCardFirst = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
-  );
-  const itemMiniCard_second = page.locator(
-    "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2)"
-  );
+  const itemMiniCardFirst = page.locator("id=item-mini-card").nth(0);
+  const itemMiniCardSecond = page.locator("id=item-mini-card").nth(1);
 
   await itemScanButton.click();
   await openBarcodeInputButton.click();
   await barcodeInput.type(TEST_ITEM_ID);
   await barcodeInputCompleteButton.click();
-  await expect(itemMiniCardFirst.nth(0)).toHaveText(TEST_ITEM_ID);
-  await expect(itemMiniCardFirst.nth(1)).toHaveText(`サイズ:${TEST_ITEM_SIZE}`);
-  await expect(itemMiniCardFirst.nth(2)).toHaveText(
-    `小カテ:${TEST_ITEM_CATEGORY}`
-  );
+
+  await expect(page.locator("id=item-mini-card")).toContainText(TEST_ITEM_ID);
+  await expect(itemMiniCardFirst).toContainText(`サイズ:${TEST_ITEM_SIZE}`);
+  await expect(itemMiniCardFirst).toContainText(`小カテ:${TEST_ITEM_CATEGORY}`);
 
   await barcodeInput.type(TEST_ITEM_ID);
   page.on("dialog", async (dialog) => {
@@ -111,7 +100,7 @@ test("同じアイテムを追加すると「このアイテムは既に読み�
   });
   await barcodeInputCompleteButton.click();
 
-  await expect(await itemMiniCard_second.count()).toEqual(0);
+  await expect(await itemMiniCardSecond.count()).toEqual(0);
 });
 
 test("追加したアイテムを棚移動するとアイテムがその棚に登録され、アイテムリストが空になる", async ({
