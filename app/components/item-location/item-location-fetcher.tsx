@@ -30,6 +30,6 @@ export default function ItemInfoFetcher({
   if (error) {
     alert(error.message);
   }
-  if (isLoading || !data) return <LoadingDialog />;
+  if (isLoading) return <LoadingDialog />;
   return <></>;
 }
