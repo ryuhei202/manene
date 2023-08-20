@@ -6,9 +6,9 @@ export type TStocktakingsLocationsShowResponse = {
   mLocationId: number;
   mLocationName: string;
   allItems: TItemLocationsItemScanResponse[];
-  unscannedItems?: TItemLocationsItemScanResponse[];
-  matchedItems?: TItemLocationsItemScanResponse[];
-  mismatchingItems?: TItemLocationsItemScanResponse[];
+  unscannedItems: TItemLocationsItemScanResponse[] | null;
+  matchedItems: TItemLocationsItemScanResponse[] | null;
+  mismatchingItems: TItemLocationsItemScanResponse[] | null;
   status: 0 | 2;
 };
 
