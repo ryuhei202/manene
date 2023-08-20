@@ -7,12 +7,11 @@ export type TItemMaster = {
 
 export type TItemLocationsItemScanResponse = {
   id: number;
-  size?: string;
+  size: string | null;
   itemImageUrl: string;
   mCateSmall: TItemMaster;
-  mLocation?: TItemMaster;
+  mLocation: TItemMaster | null;
 };
-
 type TParams = {
   itemId: number;
 };
