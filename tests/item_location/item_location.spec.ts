@@ -89,7 +89,7 @@ test("同じアイテムを追加すると「このアイテムは既に読み�
   const itemMiniCardFirst = page.locator(
     "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(1) > div > div > p"
   );
-  const itemMiniCard_second = page.locator(
+  const itemMiniCardSecond = page.locator(
     "body > section > div.MuiBox-root.css-ncs2ti > div:nth-child(2)"
   );
 
@@ -111,7 +111,7 @@ test("同じアイテムを追加すると「このアイテムは既に読み�
   });
   await barcodeInputCompleteButton.click();
 
-  await expect(await itemMiniCard_second.count()).toEqual(0);
+  await expect(await itemMiniCardSecond.count()).toEqual(0);
 });
 
 test("追加したアイテムを棚移動するとアイテムがその棚に登録され、アイテムリストが空になる", async ({
