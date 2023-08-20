@@ -6,10 +6,15 @@ export default function useDisableBrowserBack() {
   const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const pathname = usePathname();
 
-  const handleClickOpenBarcodeDialog = () => {
+  const handleClickOpenDialog = () => {
     setIsDialogOpen(true);
     history.pushState("", "", pathname);
   };
+
+  const handleClickCloseDialog = () => {
+    setIsDialogOpen(false);
+  };
+
   const blockBrowserBack = useCallback(() => {
     setIsDialogOpen(false);
   }, []);
@@ -19,7 +24,7 @@ export default function useDisableBrowserBack() {
   }, [blockBrowserBack]);
   return {
     isDialogOpen,
-    setIsDialogOpen,
-    handleClickOpenBarcodeDialog,
+    handleClickCloseDialog,
+    handleClickOpenDialog,
   };
 }
