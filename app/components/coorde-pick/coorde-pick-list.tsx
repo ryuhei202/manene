@@ -19,7 +19,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   const theme = useTheme();
   const [chartItems, setChartItems] =
     useState<TCoordePicksIndexResponse[]>(tChartItems);
-  const { isDialogOpen, setIsDialogOpen, handleClickOpenBarcodeDialog } =
+  const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
     useDisableBrowserBack();
   const { mutate, isLoading } = useCoordePicksPick();
   const handleScan = (targetItemId: number) => {
@@ -32,7 +32,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
           },
           onSuccess: (data) => {
             setChartItems(data.data);
-            setIsDialogOpen(false);
+            handleClickCloseDialog;
           },
         }
       );
@@ -62,7 +62,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
             bottom: "12vh",
             right: "12.5vw",
           }}
-          onClick={handleClickOpenBarcodeDialog}
+          onClick={handleClickOpenDialog}
         >
           <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
         </Fab>
