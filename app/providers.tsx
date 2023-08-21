@@ -7,6 +7,8 @@ const themeOptions: ThemeOptions = {
   palette: {
     primary: { main: "#1976d2" },
     secondary: { main: "#bdbdbd" },
+    success: { main: "#DDFFDD" },
+    warning: { main: "#FADBDA", dark: "#ff0000", light: "#fd7e00" },
   },
 };
 
