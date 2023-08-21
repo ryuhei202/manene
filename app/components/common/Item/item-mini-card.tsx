@@ -2,7 +2,7 @@ import { TItemLocationsItemScanResponse as TItemInfo } from "@/app/api/item-loca
 import { Box, Card, CardContent, Typography, styled } from "@mui/material";
 import Image from "next/image";
 import { useState } from "react";
-import ItemDetailFetcher from "../../item_location/item-detail-fetcher";
+import ItemDetailFetcher from "../../item-location/item-detail-fetcher";
 
 type TProps = {
   Item: TItemInfo;
@@ -20,6 +20,7 @@ export default function ItemMiniCard({ Item }: TProps) {
   return (
     <>
       <Card
+        id="item-mini-card"
         onClick={() => {
           setIsOpenItemDetailFetcher(true);
         }}
@@ -37,14 +38,14 @@ export default function ItemMiniCard({ Item }: TProps) {
           ></Image>
           <Box>
             <Typography fontSize={10}>{Item.id}</Typography>
-            {Item.size && (
-              <Typography fontSize={10}>サイズ:{Item.size}</Typography>
-            )}
+
+            <Typography fontSize={10}>サイズ:{Item.size ?? "無し"}</Typography>
 
             <Typography fontSize={10}>小カテ:{Item.mCateSmall.name}</Typography>
-            {Item.mLocation && (
-              <Typography fontSize={10}>棚:{Item.mLocation.name}</Typography>
-            )}
+
+            <Typography fontSize={10}>
+              棚:{Item.mLocation ? Item.mLocation.name : "無し"}
+            </Typography>
           </Box>
         </SCardContent>
       </Card>
