@@ -53,6 +53,10 @@ export default function StocktakingContainer({ locationList }: TProps) {
         alert(`棚卸しを完了しました`);
         router.push("/");
       },
+    }, {
+      onError: () => {
+        alert("Error");
+      }
     });
   };
 

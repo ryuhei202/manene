@@ -1,12 +1,12 @@
 import getNoCacheData from "../getNoCacheData";
 
 export type TItemStatus = {
-  value: string;
-  name: number;
+  value: number;
+  name: string;
 };
 
 export type TOptionsIndexResponse = {
-  itemStatus: TItemStatus[];
+  itemStatuses: TItemStatus[];
 };
 
 export default async function getOptionsIndex() {
