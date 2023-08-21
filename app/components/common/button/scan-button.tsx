@@ -10,7 +10,12 @@ type TProps = {
   color?: string;
 };
 
-export default function ScanButton({ onScan, title, disabled, color }: TProps) {
+export default function ScanButton({
+  onScan,
+  title,
+  disabled = false,
+  color,
+}: TProps) {
   const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
     useDisableBrowserBack();
   return (
@@ -19,7 +24,7 @@ export default function ScanButton({ onScan, title, disabled, color }: TProps) {
         variant="contained"
         onClick={handleClickOpenDialog}
         sx={{ height: "50px", backgroundColor: color ?? "primary.main" }}
-        disabled={!!disabled}
+        disabled={disabled}
       >
         {title}
       </Button>
