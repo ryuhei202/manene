@@ -5,7 +5,7 @@ import TabContext from "@mui/lab/TabContext";
 import { Box, Button, Tab, Tabs } from "@mui/material";
 import React from "react";
 import ScanButton from "../common/button/scan-button";
-import ItemList from "../item_location/item-list";
+import ItemList from "../item-location/item-list";
 
 type TProps = {
   allItems: TItemLocationsItemScanResponse[];
@@ -20,7 +20,7 @@ type TProps = {
   onChangeSelectedTab: (event: React.SyntheticEvent, newValue: string) => void;
 };
 
-export default function LocationItemTabSwitcher({
+export default function LocationItemTabs({
   allItems,
   unscannedItems,
   matchedItems,
