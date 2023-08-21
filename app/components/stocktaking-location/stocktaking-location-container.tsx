@@ -16,8 +16,7 @@ import {
 } from "@mui/material";
 import { useRouter } from "next/navigation";
 import React, { useState } from "react";
-import useDisableBrowserBack from "../common/custom-hook/useDisableBrowserBack";
-import ErrorDialog from "../common/dialog/error-dialog";
+import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import SubHeader from "../common/pages/sub-header";
@@ -43,37 +42,22 @@ export default function StocktakingLocationContainer({ location }: TProps) {
   const [moveLocationId, setMoveLocationId] = useState<number>();
   const [isCompleteDialogOpen, setIsCompleteDialogOpen] =
     useState<boolean>(false);
-  const {
-    mutate: itemScanMutate,
-    error: itemScanError,
-    isLoading: isItemScanLoading,
-  } = useStocktakingLocationItemScan({
-    id: location.id,
-  });
-  const {
-    mutate: moveMutate,
-    error: moveError,
-    isLoading: isMoveLoading,
-  } = useStocktakingLocationMove({
-    id: location.id,
-  });
-  const {
-    mutate: completeMutate,
-    error: completeError,
-    isLoading: isCompleteLoading,
-  } = useStocktakingLocationCompleteScan({ id: location.id });
+  const { mutate: itemScanMutate, isLoading: isItemScanLoading } =
+    useStocktakingLocationItemScan({
+      id: location.id,
+    });
+  const { mutate: moveMutate, isLoading: isMoveLoading } =
+    useStocktakingLocationMove({
+      id: location.id,
+    });
+  const { mutate: completeMutate, isLoading: isCompleteLoading } =
+    useStocktakingLocationCompleteScan({ id: location.id });
 
-  const {
-    isDialogOpen: isMissingDialogOpen,
-    handleClickCloseDialog: onClickCloseMissingDialog,
-    handleClickOpenDialog: onClickOpenMissingDialog,
-  } = useDisableBrowserBack();
+  const [isMissingDialogOpen, setIsMissingDialogOpen] =
+    useState<boolean>(false);
 
-  const {
-    isDialogOpen: isReturnLocationDialogOpen,
-    handleClickCloseDialog: onClickCloseReturnLocationDialog,
-    handleClickOpenDialog: onClickOpenReturnLocationDialog,
-  } = useDisableBrowserBack();
+  const [isReturnLocationDialogOpen, setIsReturnLocationDialogOpen] =
+    useState<boolean>(false);
 
   const handleScanItem = (id: number) => {
     if (
@@ -151,44 +135,52 @@ export default function StocktakingLocationContainer({ location }: TProps) {
           >
             チェック完了
           </Button>
-          {isCompleteDialogOpen && (
-            <Dialog open={isCompleteDialogOpen}>
-              <DialogTitle>確認</DialogTitle>
-              <DialogContent>確認を完了して一覧に戻りますか？</DialogContent>
-              <DialogActions>
-                <Button onClick={() => setIsCompleteDialogOpen(false)}>
-                  キャンセル
-                </Button>
-                <Button onClick={onClickComplete} disabled={isCompleteLoading}>
-                  OK
-                </Button>
-              </DialogActions>
-            </Dialog>
-          )}
+          <DisableBackDialog
+            open={isCompleteDialogOpen}
+            altCallback={() => setIsCompleteDialogOpen(false)}
+          >
+            <DialogTitle>確認</DialogTitle>
+            <DialogContent>確認を完了して一覧に戻りますか？</DialogContent>
+            <DialogActions>
+              <Button onClick={() => setIsCompleteDialogOpen(false)}>
+                キャンセル
+              </Button>
+              <Button onClick={onClickComplete} disabled={isCompleteLoading}>
+                OK
+              </Button>
+            </DialogActions>
+          </DisableBackDialog>
         </Header>
         <SubHeader>
           棚番: {location.mLocationId} {location.mLocationName}
         </SubHeader>
       </Box>
 
-      <LocationItemTabSwitcher
+      <LocationItemTabs
         allItems={locationInfo.allItems}
         unscannedItems={locationInfo.unscannedItems}
         matchedItems={locationInfo.matchedItems}
         mismatchingItems={locationInfo.mismatchingItems}
         onScanItem={handleScanItem}
-        onClickOpenMissingRegisterDialog={onClickOpenMissingDialog}
-        onClickOpenReturnLocationDialog={onClickOpenReturnLocationDialog}
+        onClickOpenMissingRegisterDialog={() => setIsMissingDialogOpen(true)}
+        onClickOpenReturnLocationDialog={() =>
+          setIsReturnLocationDialogOpen(true)
+        }
         onScanLocationId={(id: number) => setMoveLocationId(id)}
         selectedTabNumber={selectedTabNumber}
         onChangeSelectedTab={handleChangeSelectedTab}
       />
 
-      <Dialog open={isMissingDialogOpen} fullWidth>
+      <DisableBackDialog
+        open={isMissingDialogOpen}
+        altCallback={() => setIsMissingDialogOpen(false)}
+      >
         <DialogTitle>確認</DialogTitle>
         <DialogContent>行方不明として登録しますか？</DialogContent>
         <DialogActions>
-          <Button onClick={onClickCloseMissingDialog}>キャンセル</Button>
+          <Button onClick={() => setIsMissingDialogOpen(false)}>
+            キャンセル
+          </Button>
           <Button
             onClick={() => {
               if (locationInfo.unscannedItems) {
@@ -199,20 +191,25 @@ export default function StocktakingLocationContainer({ location }: TProps) {
               } else {
                 alert("未スキャンアイテムが存在しません");
               }
-              onClickCloseMissingDialog();
+              setIsMissingDialogOpen(false);
             }}
             disabled={isMoveLoading}
           >
             OK
           </Button>
         </DialogActions>
-      </Dialog>
+      </DisableBackDialog>
 
-      <Dialog open={isReturnLocationDialogOpen} fullWidth>
+      <DisableBackDialog
+        open={isReturnLocationDialogOpen}
+        altCallback={() => setIsReturnLocationDialogOpen(false)}
+      >
         <DialogTitle>確認</DialogTitle>
         <DialogContent>この棚に戻しますか？</DialogContent>
         <DialogActions>
-          <Button onClick={onClickCloseReturnLocationDialog}>キャンセル</Button>
+          <Button onClick={() => setIsReturnLocationDialogOpen(false)}>
+            キャンセル
+          </Button>
           <Button
             onClick={() => {
               if (locationInfo.mismatchingItems) {
@@ -223,14 +220,14 @@ export default function StocktakingLocationContainer({ location }: TProps) {
               } else {
                 alert("不一致アイテムが存在しません。");
               }
-              onClickCloseReturnLocationDialog();
+              setIsReturnLocationDialogOpen(false);
             }}
             disabled={isMoveLoading}
           >
             OK
           </Button>
         </DialogActions>
-      </Dialog>
+      </DisableBackDialog>
 
       {moveLocationId && (
         <Dialog open={!!moveLocationId} fullWidth>
