@@ -29,11 +29,7 @@ export default function StocktakingRow({ location, onClick }: TProps) {
               : "white",
         }}
       >
-        {location.status === STATUS.IN_PROGRESS ? (
-          <DoneIcon />
-        ) : (
-          <Box width="24px" />
-        )}
+        {location.status === STATUS.DONE ? <DoneIcon /> : <Box width="24px" />}
         <ListItemText
           primary={`${location.mLocationName} ${location.totalCount}着`}
         />
