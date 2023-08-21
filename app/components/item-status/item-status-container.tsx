@@ -2,20 +2,25 @@
 import { TOptionsIndexResponse } from "@/app/api/item_status/getOptionsIndex";
 import useItemsBulkUpdateStatus from "@/app/api/item_status/useItemsBulkUpdateStatus";
 import useItemsValidateBulkUpdateStatus from "@/app/api/item_status/useItemsValidateBulkUpdateStatus";
-import { ExpandLess, ExpandMore } from "@mui/icons-material";
 import {
   Box,
   Button,
-  Collapse,
   Dialog,
+  DialogActions,
   DialogContent,
+  DialogTitle,
+  FormControl,
+  InputLabel,
   List,
   ListItem,
-  ListItemButton,
   ListItemText,
+  MenuItem,
+  Select,
+  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import ScanButton from "../common/button/scan-button";
+import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import SubHeader from "../common/pages/sub-header";
 
@@ -30,21 +35,15 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
 
   const [status, setStatus] = useState<number>();
 
-  const [isOpen, setIsOpen] = useState<boolean>(false);
-
   const [notExistIds, setNotExistIds] = useState<number[]>();
 
-  const {
-    mutate: updateMutate,
-    error: updateError,
-    isLoading: updateIsLoading,
-  } = useItemsBulkUpdateStatus();
+  const [statusName, setStatusName] = useState<string>("");
 
-  const {
-    mutate: validateMutate,
-    error: validateError,
-    isLoading: validateIsLoading,
-  } = useItemsValidateBulkUpdateStatus();
+  const { mutate: updateMutate, isLoading: updateIsLoading } =
+    useItemsBulkUpdateStatus();
+
+  const { mutate: validateMutate, isLoading: validateIsLoading } =
+    useItemsValidateBulkUpdateStatus();
 
   const handleSend = () => {
     if (status !== undefined && itemIds.length > 0) {
@@ -53,7 +52,6 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
         {
           onSuccess: (response) => {
             if (response.data.notExistIds.length > 0) {
-              setIsOpen(true);
               setNotExistIds(response.data.notExistIds);
             } else {
               updateMutate(
@@ -61,9 +59,13 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
                 {
                   onSuccess: () => {
                     alert("ステータス更新に成功しました");
+                    setItemIds([]);
+                    setStatus(undefined);
+                    setOpen(false);
+                    setStatusName("");
                   },
-                  onError: () => {
-                    alert("Error");
+                  onError: (error) => {
+                    alert(error.message);
                   },
                 }
               );
@@ -77,12 +79,23 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
     }
   };
 
-  const handleClick = () => {
+  const handleDeleteNotExistIds = (ids: number[]) => {
+    const updateItemIds = itemIds.filter((itemId) => !ids?.includes(itemId));
+    setItemIds(updateItemIds);
+    setNotExistIds(undefined);
+  };
+
+  const updateStatus = (value: number, name: string) => {
+    setStatus(value);
+    setStatusName(name);
     setOpen(!open);
   };
 
   return (
     <>
+      {updateIsLoading && <LoadingDialog />}
+      {validateIsLoading && <LoadingDialog />}
+
       <Header title={"ステータス一括変更"} />
       <SubHeader>アイテムID数:{itemIds.length}</SubHeader>
       {itemIds.map((itemId) => (
@@ -93,69 +106,112 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
         </List>
       ))}
 
-      {itemIds.length > 0 && (
-        <>
-          <ListItemButton onClick={handleClick}>
-            <ListItemText primary="アイテムステータス" />
-            {open ? <ExpandLess /> : <ExpandMore />}
-          </ListItemButton>
-          <Collapse in={open} timeout="auto" unmountOnExit>
-            {statusOption.itemStatuses.map((status) => (
-              <List key={status.value}>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={() => setStatus(status.value)}>
-                    <ListItemText primary={status.name} />
-                  </ListItemButton>
-                </ListItem>
-              </List>
-            ))}
-          </Collapse>
-        </>
-      )}
-
-      <Box
-        sx={{
+      <div
+        style={{
           display: "flex",
-          justifyContent: "center",
+          flexFlow: "column",
           position: "fixed",
-          bottom: "0",
-          left: "0",
+          bottom: 0,
+          justifyContent: "center",
           width: "100%",
-          padding: "10px",
         }}
       >
-        <ScanButton
-          onScan={(id: number) => {
-            setItemIds([...itemIds, id]);
-          }}
-          title="アイテムスキャン"
-        />
-
-        {/* useItemsBulkUpdateStatusを使ってアイテムステータスの更新 */}
         {itemIds.length > 0 && (
-          <Button
-            variant="contained"
+          <Box
             sx={{
-              height: "50px",
-              backgroundColor: "primary.main",
-              marginLeft: "10px",
-              width: "144px",
-            }}
-            disabled={status === undefined}
-            onClick={() => {
-              handleSend();
-              setItemIds([]);
-              setStatus(undefined);
-              setOpen(false);
+              padding: "10%",
+              marginBottom: "1px",
             }}
           >
-            送信
-          </Button>
+            <Box sx={{ minWidth: 120 }}>
+              <FormControl fullWidth>
+                <InputLabel id="demo-simple-select-label">
+                  アイテムステータス
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  value={status}
+                  label="アイテムステータス"
+                  onChange={(event) =>
+                    updateStatus(
+                      event.target.value as number,
+                      event.target.name
+                    )
+                  }
+                >
+                  {statusOption.itemStatuses.map((status) => (
+                    <MenuItem key={status.value} value={status.value}>
+                      {status.name}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Box>
+            <Typography ml={2}>{statusName}</Typography>
+          </Box>
         )}
-      </Box>
-      <Dialog open={isOpen}>
-        <DialogContent>{notExistIds}</DialogContent>
-      </Dialog>
+
+        <Box
+          sx={{
+            bottom: 0,
+            width: "100%",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            gap: 2,
+            marginBottom: "30px",
+            alignItems: "center",
+            ...(itemIds.length > 0 && {
+              flexDirection: "row", // 横並びに
+            }),
+          }}
+        >
+          <ScanButton
+            onScan={(id: number) => {
+              setItemIds([...itemIds, id]);
+            }}
+            title="アイテムスキャン"
+            buttonStyle={{ width: itemIds.length > 0 ? "45%" : "90%" }}
+          />
+
+          {itemIds.length > 0 && (
+            <Button
+              variant="contained"
+              sx={{
+                height: "50px",
+                backgroundColor: "primary.main",
+                width: "45%",
+              }}
+              disabled={status === undefined}
+              onClick={() => {
+                handleSend();
+              }}
+            >
+              送信
+            </Button>
+          )}
+        </Box>
+      </div>
+
+      {notExistIds && (
+        <Dialog open>
+          <DialogTitle>{"更新できないアイテムがあります"}</DialogTitle>
+          <DialogContent>
+            ▼存在しないアイテム
+            <br />
+            {notExistIds.join(",")}
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setNotExistIds(undefined)}>
+              キャンセル
+            </Button>
+            <Button onClick={() => handleDeleteNotExistIds(notExistIds)}>
+              一覧から削除する
+            </Button>
+          </DialogActions>
+        </Dialog>
+      )}
     </>
   );
 }
