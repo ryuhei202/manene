@@ -1,5 +1,6 @@
 "use client";
 import {
+  STATUS,
   TLocation,
   TStocktakingsCurrentResponse,
 } from "@/app/api/stocktaking/getStocktakingsCurrent";
@@ -10,7 +11,6 @@ import { Box, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
-import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
@@ -25,16 +25,10 @@ export default function StocktakingContainer({ locationList }: TProps) {
     locationList.locations
   );
 
-  const {
-    mutate: completeMutate,
-    error: completeError,
-    isLoading: completeIsLoading,
-  } = useStocktakingsComplete();
-  const {
-    mutate: createMutate,
-    error: createError,
-    isLoading: createIsLoading,
-  } = useStocktakingsCreate();
+  const { mutate: completeMutate, isLoading: completeIsLoading } =
+    useStocktakingsComplete();
+  const { mutate: createMutate, isLoading: createIsLoading } =
+    useStocktakingsCreate();
 
   const canClickCompleteButton = (locations: TLocation[]): boolean => {
     return locations.some((location) => location.status === STATUS.IN_PROGRESS);
@@ -52,6 +46,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
         alert(`棚卸しを完了しました`);
         router.push("/");
       },
+      onError: (error) => {
+        alert(error.message);
+      },
     });
   };
 
@@ -59,6 +56,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
     createMutate(undefined, {
       onSuccess(response) {
         setLocations(response.data.locations);
+      },
+      onError: (error) => {
+        alert(error.message);
       },
     });
   };
@@ -69,8 +69,6 @@ export default function StocktakingContainer({ locationList }: TProps) {
 
   return (
     <>
-      {createError && <ErrorDialog message={createError.message} />}
-      {completeError && <ErrorDialog message={completeError.message} />}
       {(completeIsLoading || createIsLoading) && <LoadingDialog />}
       <Header title="棚卸し">
         <BarcodeButton onScan={handleClickNavigate} />
