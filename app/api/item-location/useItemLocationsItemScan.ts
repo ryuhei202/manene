@@ -1,19 +1,17 @@
 import { useGetRequest } from "../useGetRequest";
 
+export type TItemMaster = {
+  id: number;
+  name: string;
+};
+
 export type TItemLocationsItemScanResponse = {
   id: number;
   size: string | null;
   itemImageUrl: string;
-  mCateSmall: {
-    id: number;
-    name: string;
-  };
-  mLocation: {
-    id: number;
-    name: string;
-  } | null;
+  mCateSmall: TItemMaster;
+  mLocation: TItemMaster | null;
 };
-
 type TParams = {
   itemId: number;
 };
