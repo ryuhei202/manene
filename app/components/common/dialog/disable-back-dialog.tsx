@@ -6,6 +6,7 @@ import React, { useEffect } from "react";
 type TProps = {
   open: boolean;
   altCallback: () => void;
+  onClose: () => void;
   children: React.ReactNode;
 };
 
@@ -13,6 +14,7 @@ export default function DisableBackDialog({
   open,
   altCallback,
   children,
+  onClose,
 }: TProps) {
   const pathname = usePathname();
   useEffect(() => {
@@ -24,5 +26,9 @@ export default function DisableBackDialog({
       };
     }
   }, [open, altCallback, pathname]);
-  return <Dialog open={open}>{children}</Dialog>;
+  return (
+    <Dialog open={open} onClose={onClose}>
+      {children}
+    </Dialog>
+  );
 }
