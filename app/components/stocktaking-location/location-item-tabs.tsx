@@ -9,9 +9,9 @@ import ItemList from "../item-location/item-list";
 
 type TProps = {
   allItems: TItemLocationsItemScanResponse[];
-  unscannedItems?: TItemLocationsItemScanResponse[];
-  matchedItems?: TItemLocationsItemScanResponse[];
-  mismatchingItems?: TItemLocationsItemScanResponse[];
+  unscannedItems: TItemLocationsItemScanResponse[] | null;
+  matchedItems: TItemLocationsItemScanResponse[] | null;
+  mismatchingItems: TItemLocationsItemScanResponse[] | null;
   onScanItem: (id: number) => void;
   onClickOpenMissingRegisterDialog: () => void;
   onClickOpenReturnLocationDialog: () => void;
