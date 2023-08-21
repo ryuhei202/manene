@@ -1,5 +1,10 @@
 import getNoCacheData from "../getNoCacheData";
 
+export const STATUS = {
+  IN_PROGRESS: 0,
+  DONE: 2,
+} as const;
+
 export type TLocation = {
   id: number;
   mLocationId: number;
@@ -7,7 +12,7 @@ export type TLocation = {
   totalCount: number;
   unscannedCount: number;
   mismatchingCount: number;
-  status: 0 | 2;
+  status: (typeof STATUS)[keyof typeof STATUS];
 };
 
 export type TStocktakingsCurrentResponse = {
