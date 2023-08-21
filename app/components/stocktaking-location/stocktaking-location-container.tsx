@@ -93,6 +93,9 @@ export default function StocktakingLocationContainer({ location }: TProps) {
             alert("スキャンしたアイテムは不一致でした。");
           }
         },
+        onError: (error) => {
+          alert(error.message);
+        },
       }
     );
   };
@@ -114,6 +117,9 @@ export default function StocktakingLocationContainer({ location }: TProps) {
         onSuccess(response) {
           setLocationInfo(response.data);
         },
+        onError: (error) => {
+          alert(error.message);
+        },
       }
     );
     setSelectedTabNumber(TAB_NUMBER.FIRST);
@@ -123,15 +129,16 @@ export default function StocktakingLocationContainer({ location }: TProps) {
     completeMutate(undefined, {
       onSuccess: () => {
         router.push("/stocktaking");
+        router.refresh();
+      },
+      onError: (error) => {
+        alert(error.message);
       },
     });
   };
 
   return (
     <>
-      {itemScanError && <ErrorDialog message={itemScanError.message} />}
-      {moveError && <ErrorDialog message={moveError.message} />}
-      {completeError && <ErrorDialog message={completeError.message} />}
       {(isItemScanLoading || isMoveLoading || isCompleteLoading) && (
         <LoadingDialog />
       )}
