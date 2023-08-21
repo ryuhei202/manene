@@ -19,7 +19,6 @@ type TProps = {
   locationList: TStocktakingsCurrentResponse;
 };
 export default function StocktakingContainer({ locationList }: TProps) {
-  const CHECK_IN_PROGRESS = 0;
   const router = useRouter();
 
   const [locations, setLocations] = useState<TLocation[] | null>(
@@ -38,7 +37,7 @@ export default function StocktakingContainer({ locationList }: TProps) {
   } = useStocktakingsCreate();
 
   const canClickCompleteButton = (locations: TLocation[]): boolean => {
-    return locations.some((location) => location.status === CHECK_IN_PROGRESS);
+    return locations.some((location) => location.status === STATUS.IN_PROGRESS);
   };
 
   const handleClickNavigate = (id: number) => {
