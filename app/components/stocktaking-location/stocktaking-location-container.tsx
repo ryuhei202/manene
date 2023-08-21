@@ -21,17 +21,16 @@ import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import SubHeader from "../common/pages/sub-header";
-import LocationItemTabSwitcher from "./location-item-tab-switcher";
+import LocationItemTabs, { TAB_NUMBER } from "./location-item-tabs";
 
 type TProps = {
   location: TStocktakingsLocationsShowResponse;
 };
 export default function StocktakingLocationContainer({ location }: TProps) {
-  const MISSING_LOCATION_ID = 1;
-  const ALL_ITEM_TAB_NUMBER = "1";
   const router = useRouter();
-  const [selectedTabNumber, setSelectedTabNumber] =
-    useState<string>(ALL_ITEM_TAB_NUMBER);
+  const [selectedTabNumber, setSelectedTabNumber] = useState<string>(
+    TAB_NUMBER.FIRST
+  );
   const handleChangeSelectedTab = (
     event: React.SyntheticEvent,
     newValue: string
@@ -117,7 +116,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
         },
       }
     );
-    setSelectedTabNumber(ALL_ITEM_TAB_NUMBER);
+    setSelectedTabNumber(TAB_NUMBER.FIRST);
   };
 
   const onClickComplete = () => {

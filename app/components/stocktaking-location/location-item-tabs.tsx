@@ -20,6 +20,13 @@ type TProps = {
   onChangeSelectedTab: (event: React.SyntheticEvent, newValue: string) => void;
 };
 
+export const TAB_NUMBER = {
+  FIRST: "1",
+  SECOND: "2",
+  THIRD: "3",
+  FORTH: "4",
+};
+
 export default function LocationItemTabs({
   allItems,
   unscannedItems,
@@ -64,26 +71,35 @@ export default function LocationItemTabs({
               centered
               value={selectedTabNumber}
             >
-              <Tab label={`棚${allItems.length}`} value="1" />
+              <Tab label={`棚${allItems.length}`} value={TAB_NUMBER.FIRST} />
               {unscannedItems && (
-                <Tab label={`未${unscannedItems.length}`} value="2" />
+                <Tab
+                  label={`未${unscannedItems.length}`}
+                  value={TAB_NUMBER.SECOND}
+                />
               )}
               {matchedItems && (
-                <Tab label={`一致${matchedItems.length}`} value="3" />
+                <Tab
+                  label={`一致${matchedItems.length}`}
+                  value={TAB_NUMBER.THIRD}
+                />
               )}
               {mismatchingItems && (
-                <Tab label={`不一致${mismatchingItems.length}`} value="4" />
+                <Tab
+                  label={`不一致${mismatchingItems.length}`}
+                  value={TAB_NUMBER.FORTH}
+                />
               )}
             </Tabs>
           </Box>
-          <TabPanel value="1" sx={{ padding: 0 }}>
+          <TabPanel value={TAB_NUMBER.FIRST} sx={{ padding: 0 }}>
             <ItemList selectedItems={allItems} />
             <Box sx={footerStyle}>
               <ScanButton title="アイテムスキャン" onScan={onScanItem} />
             </Box>
           </TabPanel>
           {unscannedItems && (
-            <TabPanel value="2" sx={{ padding: 0 }}>
+            <TabPanel value={TAB_NUMBER.SECOND} sx={{ padding: 0 }}>
               <ItemList selectedItems={unscannedItems} />
               <Box sx={footerStyle}>
                 <Button
@@ -100,12 +116,12 @@ export default function LocationItemTabs({
             </TabPanel>
           )}
           {matchedItems && (
-            <TabPanel value="3" sx={{ padding: 0 }}>
+            <TabPanel value={TAB_NUMBER.THIRD} sx={{ padding: 0 }}>
               <ItemList selectedItems={matchedItems} />
             </TabPanel>
           )}
           {mismatchingItems && (
-            <TabPanel value="4" sx={{ padding: 0 }}>
+            <TabPanel value={TAB_NUMBER.FORTH} sx={{ padding: 0 }}>
               <ItemList selectedItems={mismatchingItems} />
               <Box sx={footerStyle}>
                 <Button
