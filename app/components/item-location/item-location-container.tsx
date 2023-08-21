@@ -1,4 +1,5 @@
 "use client";
+import fetchItemLocationItemScan from "@/app/api/item-location/fetchItemLocationItemScan";
 import { TItemLocationsItemScanResponse } from "@/app/api/item-location/useItemLocationsItemScan";
 import useItemLocationsMove from "@/app/api/item-location/useItemLocationsMove";
 import { alertClosedWindow } from "@/app/service/shared/alert-close-window";
@@ -16,10 +17,8 @@ import { useEffect, useState } from "react";
 import ScanButton from "../common/button/scan-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import ItemList from "./item-list";
-import ItemInfoFetcher from "./item-location-fetcher";
 
 export default function ItemLocationContainer() {
-  const [scannedItemId, setScannedItemId] = useState<number>();
   const [selectedItems, setSelectedItems] = useState<
     TItemLocationsItemScanResponse[]
   >([]);
@@ -34,7 +33,9 @@ export default function ItemLocationContainer() {
   const handleScanItemId = (id: number) => {
     isItemSelected(id)
       ? alert("このアイテムは既に読み取り済みです")
-      : setScannedItemId(id);
+      : fetchItemLocationItemScan({ itemId: id })
+          .then((data) => setSelectedItems([...selectedItems, data]))
+          .catch((error) => alert(error.message));
   };
 
   const handleClickOk = () => {
@@ -66,16 +67,6 @@ export default function ItemLocationContainer() {
 
   return (
     <>
-      {scannedItemId && (
-        <ItemInfoFetcher
-          itemId={scannedItemId}
-          onSetItem={(data: TItemLocationsItemScanResponse) =>
-            setSelectedItems([...selectedItems, data])
-          }
-          onUnSetItemId={() => setScannedItemId(undefined)}
-        />
-      )}
-
       <ItemList selectedItems={selectedItems} />
       <Box
         sx={{
