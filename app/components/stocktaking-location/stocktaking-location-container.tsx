@@ -4,6 +4,7 @@ import { TStocktakingsLocationsShowResponse } from "@/app/api/stocktaking-locati
 import useStocktakingLocationCompleteScan from "@/app/api/stocktaking-location/useStocktakingLocationCompleteScan";
 import useStocktakingLocationItemScan from "@/app/api/stocktaking-location/useStocktakingLocationItemScan";
 import useStocktakingLocationMove from "@/app/api/stocktaking-location/useStocktakingLocationMove";
+import { LOCATIONS } from "@/app/constants/location";
 import {
   Box,
   Button,
@@ -186,7 +187,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
             onClick={() => {
               if (locationInfo.unscannedItems) {
                 onMoveLocation({
-                  locationId: MISSING_LOCATION_ID,
+                  locationId: LOCATIONS.MISSING,
                   itemIds: locationInfo.unscannedItems.map((item) => item.id),
                 });
               } else {
