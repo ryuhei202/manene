@@ -7,7 +7,7 @@ type TParams = {
 
 export default function useItemsBulkUpdateStatus() {
   const { mutate, error, isLoading, isSuccess } = usePostRequest<TParams>({
-    path: "items/bulk_update_status"
+    path: "items/bulk_update_status",
   });
   return { mutate, error, isLoading, isSuccess };
 }
