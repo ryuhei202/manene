@@ -1,13 +1,12 @@
 "use client";
 
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {
   Accordion,
   AccordionDetails,
   AccordionSummary,
   Typography,
-  useTheme,
 } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import React from "react";
 
 type TProps = {
@@ -16,7 +15,7 @@ type TProps = {
 };
 
 export default function MenuAccordion({ title, children }: TProps) {
-  const theme = useTheme();
+  // const theme = useTheme();
   return (
     <>
       <Accordion defaultExpanded={true} disableGutters={true}>
@@ -24,7 +23,7 @@ export default function MenuAccordion({ title, children }: TProps) {
           expandIcon={<ExpandMoreIcon />}
           aria-controls="menu-content"
           id="menu-header"
-          sx={{ backgroundColor: theme.palette.secondary.main }}
+          sx={{ backgroundColor: "secondary.main" }}
         >
           <Typography>{title}</Typography>
         </AccordionSummary>
