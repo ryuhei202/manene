@@ -15,7 +15,6 @@ type TProps = {
 };
 
 export default function MenuAccordion({ title, children }: TProps) {
-  // const theme = useTheme();
   return (
     <>
       <Accordion defaultExpanded={true} disableGutters={true}>

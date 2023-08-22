@@ -1,6 +1,6 @@
 "use client";
 import CheckCircleOutlineSharpIcon from "@mui/icons-material/CheckCircleOutlineSharp";
-import { Box, useTheme } from "@mui/material";
+import { Box } from "@mui/material";
 import React from "react";
 import ExpandableImage from "../Image/expandable-image";
 
@@ -15,7 +15,6 @@ export default function ItemCard({
   isItemPicked,
   children,
 }: TProps) {
-  const theme = useTheme();
   return (
     <Box
       sx={{
@@ -27,9 +26,7 @@ export default function ItemCard({
       }}
     >
       {isItemPicked && (
-        <CheckCircleOutlineSharpIcon
-          sx={{ color: theme.palette.primary.main, mx: 0.5 }}
-        />
+        <CheckCircleOutlineSharpIcon sx={{ color: "primary.main", mx: 0.5 }} />
       )}
       <ExpandableImage imagePath={imagePath} />
       <Box sx={{ ml: 1.5 }}>{children}</Box>
