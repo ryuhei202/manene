@@ -20,6 +20,7 @@ export default function ItemMiniCard({ Item }: TProps) {
   return (
     <>
       <Card
+        id="item-mini-card"
         onClick={() => {
           setIsOpenItemDetailFetcher(true);
         }}
