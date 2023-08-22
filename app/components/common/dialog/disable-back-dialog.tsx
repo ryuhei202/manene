@@ -25,7 +25,7 @@ export default function DisableBackDialog({
     }
   }, [open, altCallback, pathname]);
   return (
-    <Dialog open={open} fullWidth>
+    <Dialog open={open} fullScreen>
       {children}
     </Dialog>
   );
