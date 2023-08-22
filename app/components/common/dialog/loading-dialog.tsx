@@ -1,4 +1,4 @@
-import { Backdrop, CircularProgress } from "@mui/material";
+import { Backdrop, CircularProgress, Dialog } from "@mui/material";
 
 export default function LoadingDialog() {
   return (
@@ -6,7 +6,9 @@ export default function LoadingDialog() {
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
       open
     >
-      <CircularProgress color="primary" />
+      <Dialog open>
+        <CircularProgress color="primary" />
+      </Dialog>
     </Backdrop>
   );
 }

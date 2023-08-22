@@ -2,13 +2,13 @@
 import { TCoordePicksIndexResponse } from "@/app/api/coorde_pick/useCoordePicksIndex";
 import useCoordePicksPick from "@/app/api/coorde_pick/useCoordePicksPick";
 import QrCode2Icon from "@mui/icons-material/QrCode2";
-import { Box, Fab, useTheme } from "@mui/material";
+import { Box, Fab } from "@mui/material";
 import { useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
 import QrCodeReaderDialog from "../common/barcode/qr-code-reader-dialog";
 import useDisableBrowserBack from "../common/custom-hook/useDisableBrowserBack";
-import LoadingPage from "../common/pages/loading-page";
+import LoadingDialog from "../common/dialog/loading-dialog";
 
 type TProps = {
   tChartId: number;
@@ -16,7 +16,6 @@ type TProps = {
 };
 
 export default function CoordePickList({ tChartId, tChartItems }: TProps) {
-  const theme = useTheme();
   const [chartItems, setChartItems] =
     useState<TCoordePicksIndexResponse[]>(tChartItems);
   const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
@@ -32,16 +31,15 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
           },
           onSuccess: (data) => {
             setChartItems(data.data);
-            handleClickCloseDialog;
+            handleClickCloseDialog();
           },
         }
       );
   };
 
-  return isLoading ? (
-    <LoadingPage />
-  ) : (
+  return (
     <>
+      {isLoading && <LoadingDialog />}
       <Box>
         {chartItems.map((chartItem: TCoordePicksIndexResponse) => (
           <ItemCard
@@ -57,7 +55,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
         <Fab
           size="large"
           sx={{
-            backgroundColor: theme.palette.primary.main,
+            backgroundColor: "primary.main",
             position: "absolute",
             bottom: "12vh",
             right: "12.5vw",
