@@ -6,8 +6,8 @@ import { Box, Fab } from "@mui/material";
 import { useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
-import QrCodeReaderDialog from "../common/barcode/qr-code-reader-dialog";
-import useDisableBrowserBack from "../common/custom-hook/useDisableBrowserBack";
+import QrCodeReader from "../common/barcode/qr-code-reader";
+import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 
 type TProps = {
@@ -18,8 +18,7 @@ type TProps = {
 export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   const [chartItems, setChartItems] =
     useState<TCoordePicksIndexResponse[]>(tChartItems);
-  const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
-    useDisableBrowserBack();
+  const [isDialogOpen, setIsDialogOpen] = useState<boolean>(false);
   const { mutate, isLoading } = useCoordePicksPick();
   const handleScan = (targetItemId: number) => {
     if (tChartId && targetItemId)
@@ -31,12 +30,11 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
           },
           onSuccess: (data) => {
             setChartItems(data.data);
-            handleClickCloseDialog();
+            setIsDialogOpen(false);
           },
         }
       );
   };
-
   return (
     <>
       {isLoading && <LoadingDialog />}
@@ -60,11 +58,16 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
             bottom: "12vh",
             right: "12.5vw",
           }}
-          onClick={handleClickOpenDialog}
+          onClick={() => setIsDialogOpen(true)}
         >
           <QrCode2Icon fontSize="large" sx={{ color: "white" }} />
         </Fab>
-        <QrCodeReaderDialog isOpen={isDialogOpen} onScan={handleScan} />
+        <DisableBackDialog
+          open={isDialogOpen}
+          altCallback={() => setIsDialogOpen(false)}
+        >
+          <QrCodeReader onScan={handleScan} />
+        </DisableBackDialog>
       </Box>
     </>
   );

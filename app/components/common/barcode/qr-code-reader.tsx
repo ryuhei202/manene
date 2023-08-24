@@ -58,7 +58,6 @@ export default function QrCodeReader({ onScan }: TProps) {
           <Typography sx={{ mt: 2 }}>{dialogMessage}</Typography>
         </Box>
       </Modal>
-
       <Button
         onClick={handleClickSwitchModal}
         sx={{
