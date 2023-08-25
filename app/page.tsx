@@ -25,7 +25,10 @@ export default function HomePage() {
       <MenuAccordion title={"アイテム管理"}>
         <LinkButton buttonName={"アイテム登録"} path="" />
         <LinkButton buttonName={"アイテム詳細表示"} path="" />
-        <LinkButton buttonName={"アイテムステータス一括変更"} path="" />
+        <LinkButton
+          buttonName={"アイテムステータス一括変更"}
+          path="/item_status"
+        />
         <LinkButton buttonName={"廃棄登録"} path="" />
         <LinkButton buttonName={"廃棄判定"} path="" />
       </MenuAccordion>

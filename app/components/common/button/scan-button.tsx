@@ -1,7 +1,8 @@
 "use client";
 import { Button } from "@mui/material";
-import { useState } from "react";
 import QrCodeReader from "../barcode/qr-code-reader";
+import { CSSProperties } from "react";
+import { useState } from "react";
 import DisableBackDialog from "../dialog/disable-back-dialog";
 
 type TProps = {
@@ -9,6 +10,7 @@ type TProps = {
   title: string;
   disabled?: boolean;
   color?: string;
+  buttonStyle?: CSSProperties;
 };
 
 export default function ScanButton({
@@ -16,6 +18,7 @@ export default function ScanButton({
   title,
   disabled = false,
   color,
+  buttonStyle,
 }: TProps) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -24,6 +27,7 @@ export default function ScanButton({
         variant="contained"
         onClick={() => setIsOpen(true)}
         sx={{ height: "50px", backgroundColor: color ?? "primary.main" }}
+        style={buttonStyle}
         disabled={disabled}
       >
         {title}
