@@ -7,8 +7,8 @@ test.beforeEach(async ({ page }) => {
 test("item_detailページに遷移したらバーコードリーダーが表示される", async ({
   page,
 }) => {
-  const barcordLeader = page.locator("#html5qr-code-full-region");
-  await expect(barcordLeader).toBeVisible();
+  const barcodeLeader = page.locator("id=html5qr-code-full-region");
+  await expect(barcodeLeader).toBeVisible();
 });
 
 test.describe("OKボタンの状態", () => {
@@ -38,9 +38,7 @@ test("ダイアログのキャンセルを押した時にダイアログが閉�
 }) => {
   const openBarcodeInputButton = page.getByRole("button").nth(1);
   const cancelButton = page.getByRole("button", { name: "キャンセル" });
-  const dialogCancelButton = page.locator(
-    "ibody > div.MuiDialog-root.MuiModal-root.css-126xj0f > div.MuiDialog-container.MuiDialog-scrollPaper.css-ekeie0 > div"
-  );
+  const dialogCancelButton = page.locator("id=id-input-dialog");
 
   await openBarcodeInputButton.click();
   await cancelButton.click();
@@ -71,9 +69,9 @@ test.describe("アイテム情報を正しく表示できる", () => {
   const NAM_REGDATE_ITEM_ID = 439593;
 
   test("アイテムの情報を取得できる", async ({ page }) => {
-    const itemDetailCard = page.locator("body > div").filter({
+    const itemDetailCard = page.getByTestId("item-detail-card").filter({
       hasText:
-        "肩身幅袖565967着丈股上7272サイズLアイテムID497288ランク・使用回数S・0棚C-12-上アイテムコードL-pcts-unsw-230807-01",
+        "肩身幅袖565967着丈股上7272サイズLアイテムID497288ランク・使用回数S・0棚F-06-下アイテムコードL-pcts-unsw-230807-01",
     });
     await page.goto(`/item_detail/${ITEM_ID}`);
     await expect(itemDetailCard).toBeVisible();
@@ -81,41 +79,31 @@ test.describe("アイテム情報を正しく表示できる", () => {
 
   test("サブカラーがない時に”無し”と表示される", async ({ page }) => {
     await page.goto(`/item_detail/${NAN_SUBCOLOR_ITEM_ID}`);
-    const itemSubcolorCell = page.locator(
-      "body > div > div.MuiBox-root.css-b7rhyr > div > table:nth-child(10) > tbody"
-    );
-    await expect(itemSubcolorCell).toHaveText("無し");
+    const itemSubcolorCell = page.getByRole("table").nth(12);
+    await expect(itemSubcolorCell).toContainText("無し");
   });
 
   test("棚がない時に”なし”と表示される", async ({ page }) => {
     await page.goto(`/item_detail/${NAN_LOCATION_ITEM_ID}`);
-    const itemLocationCell = page.locator(
-      "body > div > div.MuiBox-root.css-b7rhyr > div > table:nth-child(3) > tbody"
-    );
-    await expect(itemLocationCell).toHaveText("なし");
+    const itemLocationCell = page.getByRole("table").nth(5);
+    await expect(itemLocationCell).toContainText("なし");
   });
 
   test("婚活フラグがfalseの時に”なし”と表示される", async ({ page }) => {
     await page.goto(`/item_detail/${FALSE_ISMARRIAGE_ITEM_ID}`);
-    const itemLocationCell = page.locator(
-      "body > div > div.MuiBox-root.css-b7rhyr > div > table:nth-child(13) > tbody"
-    );
-    await expect(itemLocationCell).toHaveText("なし");
+    const itemLocationCell = page.getByRole("table").nth(15);
+    await expect(itemLocationCell).toContainText("なし");
   });
 
   test("ゴム紐フラグがfalseの時に”なし”と表示される", async ({ page }) => {
     await page.goto(`/item_detail/${FALSE_ISELASTICBAND_ITEM_ID}`);
-    const itemLocationCell = page.locator(
-      "body > div > div.MuiBox-root.css-b7rhyr > div > table:nth-child(14) > tbody"
-    );
-    await expect(itemLocationCell).toHaveText("なし");
+    const itemLocationCell = page.getByRole("table").nth(16);
+    await expect(itemLocationCell).toContainText("なし");
   });
 
   test(' 登録日が存在しない時に""が表示される', async ({ page }) => {
     await page.goto(`/item_detail/${NAM_REGDATE_ITEM_ID}`);
-    const itemLocationCell = page.locator(
-      "body > div > div.MuiBox-root.css-b7rhyr > div > table:nth-child(19) > tbody"
-    );
-    await expect(itemLocationCell).toHaveText("");
+    const itemLocationCell = page.getByRole("table").nth(21);
+    await expect(itemLocationCell).toContainText("");
   });
 });
