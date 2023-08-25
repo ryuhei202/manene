@@ -1,6 +1,7 @@
 import QrCodeIcon from "@mui/icons-material/QrCode";
-import { Button, Dialog } from "@mui/material";
-import useDisableBrowserBack from "../custom-hook/useDisableBrowserBack";
+import { Button } from "@mui/material";
+import { useState } from "react";
+import DisableBackDialog from "../dialog/disable-back-dialog";
 import QrCodeReader from "./qr-code-reader";
 
 type TProps = {
@@ -8,17 +9,16 @@ type TProps = {
 };
 
 export default function BarcodeButton({ onScan }: TProps) {
-  const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
-    useDisableBrowserBack();
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
-      <Button onClick={handleClickOpenDialog}>
+      <Button onClick={() => setIsOpen(true)}>
         <QrCodeIcon sx={{ color: "white" }} />
       </Button>
 
-      <Dialog open={isDialogOpen} onClose={handleClickCloseDialog}>
+      <DisableBackDialog open={isOpen} altCallback={() => setIsOpen(false)}>
         <QrCodeReader onScan={onScan} />
-      </Dialog>
+      </DisableBackDialog>
     </>
   );
 }

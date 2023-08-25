@@ -1,8 +1,9 @@
 "use client";
-import { Button, Dialog } from "@mui/material";
+import { Button } from "@mui/material";
 import QrCodeReader from "../barcode/qr-code-reader";
-import useDisableBrowserBack from "../custom-hook/useDisableBrowserBack";
 import { CSSProperties } from "react";
+import { useState } from "react";
+import DisableBackDialog from "../dialog/disable-back-dialog";
 
 type TProps = {
   onScan: (id: number) => void;
@@ -12,23 +13,28 @@ type TProps = {
   buttonStyle?: CSSProperties;
 };
 
-export default function ScanButton({ onScan, title, disabled, color, buttonStyle }: TProps) {
-  const { isDialogOpen, handleClickCloseDialog, handleClickOpenDialog } =
-    useDisableBrowserBack();
+export default function ScanButton({
+  onScan,
+  title,
+  disabled = false,
+  color,
+  buttonStyle,
+}: TProps) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
     <>
       <Button
         variant="contained"
-        onClick={handleClickOpenDialog}
+        onClick={() => setIsOpen(true)}
         sx={{ height: "50px", backgroundColor: color ?? "primary.main" }}
-        disabled={!!disabled}
         style={buttonStyle}
+        disabled={disabled}
       >
         {title}
       </Button>
-      <Dialog open={isDialogOpen} onClose={handleClickCloseDialog}>
+      <DisableBackDialog open={isOpen} altCallback={() => setIsOpen(false)}>
         <QrCodeReader onScan={onScan} />
-      </Dialog>
+      </DisableBackDialog>
     </>
   );
 }

@@ -1,5 +1,6 @@
 "use client";
 import {
+  STATUS,
   TLocation,
   TStocktakingsCurrentResponse,
 } from "@/app/api/stocktaking/getStocktakingsCurrent";
@@ -10,7 +11,6 @@ import { Box, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
-import ErrorDialog from "../common/dialog/error-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
@@ -19,30 +19,23 @@ type TProps = {
   locationList: TStocktakingsCurrentResponse;
 };
 export default function StocktakingContainer({ locationList }: TProps) {
-  const CHECK_IN_PROGRESS = 0;
   const router = useRouter();
 
   const [locations, setLocations] = useState<TLocation[] | null>(
     locationList.locations
   );
 
-  const {
-    mutate: completeMutate,
-    error: completeError,
-    isLoading: completeIsLoading,
-  } = useStocktakingsComplete();
-  const {
-    mutate: createMutate,
-    error: createError,
-    isLoading: createIsLoading,
-  } = useStocktakingsCreate();
+  const { mutate: completeMutate, isLoading: completeIsLoading } =
+    useStocktakingsComplete();
+  const { mutate: createMutate, isLoading: createIsLoading } =
+    useStocktakingsCreate();
 
   const canClickCompleteButton = (locations: TLocation[]): boolean => {
-    return locations.some((location) => location.status === CHECK_IN_PROGRESS);
+    return locations.some((location) => location.status === STATUS.IN_PROGRESS);
   };
 
   const handleClickNavigate = (id: number) => {
-    locations?.some((location) => location.mLocationId === id)
+    locations?.some((location) => location.id === id)
       ? router.push(`/stocktaking/${id}`)
       : alert("棚リストに存在しません");
   };
@@ -53,6 +46,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
         alert(`棚卸しを完了しました`);
         router.push("/");
       },
+      onError: (error) => {
+        alert(error.message);
+      },
     });
   };
 
@@ -61,6 +57,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
       onSuccess(response) {
         setLocations(response.data.locations);
       },
+      onError: (error) => {
+        alert(error.message);
+      },
     });
   };
 
@@ -68,12 +67,9 @@ export default function StocktakingContainer({ locationList }: TProps) {
     setLocations(locationList.locations);
   }, [locationList.locations]);
 
-  if (createError) return <ErrorDialog message={createError.message} />;
-  if (completeError) return <ErrorDialog message={completeError.message} />;
-  if (completeIsLoading || createIsLoading) return <LoadingDialog />;
-
   return (
     <>
+      {(completeIsLoading || createIsLoading) && <LoadingDialog />}
       <Header title="棚卸し">
         <BarcodeButton onScan={handleClickNavigate} />
         <Button onClick={() => router.refresh()}>
