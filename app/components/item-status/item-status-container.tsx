@@ -1,5 +1,8 @@
 "use client";
-import { TOptionsIndexResponse } from "@/app/api/item_status/getOptionsIndex";
+import {
+  TItemStatus,
+  TOptionsIndexResponse,
+} from "@/app/api/item_status/getOptionsIndex";
 import useItemsBulkUpdateStatus from "@/app/api/item_status/useItemsBulkUpdateStatus";
 import useItemsValidateBulkUpdateStatus from "@/app/api/item_status/useItemsValidateBulkUpdateStatus";
 import {
@@ -16,7 +19,6 @@ import {
   ListItemText,
   MenuItem,
   Select,
-  Typography,
 } from "@mui/material";
 import { useState } from "react";
 import ScanButton from "../common/button/scan-button";
@@ -31,13 +33,11 @@ type TProps = {
 export default function ItemStatusContainer({ statusOption }: TProps) {
   const [itemIds, setItemIds] = useState<number[]>([]);
 
-  const [open, setOpen] = useState(false);
+  const [selectedStatus, setSelectedStatus] = useState<TItemStatus>(
+    statusOption.itemStatuses[0]
+  );
 
-  const [status, setStatus] = useState<number>();
-
-  const [notExistIds, setNotExistIds] = useState<number[]>();
-
-  const [statusName, setStatusName] = useState<string>("");
+  const [notExistIds, setNotExistIds] = useState<number[]>([]);
 
   const { mutate: updateMutate, isLoading: updateIsLoading } =
     useItemsBulkUpdateStatus();
@@ -46,23 +46,21 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
     useItemsValidateBulkUpdateStatus();
 
   const handleSend = () => {
-    if (status !== undefined && itemIds.length > 0) {
+    if (itemIds.length > 0) {
       validateMutate(
-        { status: status, itemIds: itemIds },
+        { status: selectedStatus.value, itemIds },
         {
           onSuccess: (response) => {
             if (response.data.notExistIds.length > 0) {
               setNotExistIds(response.data.notExistIds);
             } else {
               updateMutate(
-                { status: status, itemIds: itemIds },
+                { status: selectedStatus.value, itemIds },
                 {
                   onSuccess: () => {
                     alert("ステータス更新に成功しました");
                     setItemIds([]);
-                    setStatus(undefined);
-                    setOpen(false);
-                    setStatusName("");
+                    setSelectedStatus(statusOption.itemStatuses[0]);
                   },
                   onError: (error) => {
                     alert(error.message);
@@ -79,16 +77,14 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
     }
   };
 
-  const handleDeleteNotExistIds = (ids: number[]) => {
-    const updateItemIds = itemIds.filter((itemId) => !ids?.includes(itemId));
+  const handleDeleteIds = (ids: number[]) => {
+    const updateItemIds = itemIds.filter((itemId) => !ids.includes(itemId));
     setItemIds(updateItemIds);
-    setNotExistIds(undefined);
+    setNotExistIds([]);
   };
 
   const updateStatus = (value: number, name: string) => {
-    setStatus(value);
-    setStatusName(name);
-    setOpen(!open);
+    setSelectedStatus({ value, name });
   };
 
   return (
@@ -100,8 +96,15 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
       <SubHeader>アイテムID数:{itemIds.length}</SubHeader>
       {itemIds.map((itemId) => (
         <List key={itemId}>
-          <ListItem disablePadding>
+          <ListItem disablePadding divider>
             <ListItemText primary={itemId} />
+            <Button
+              onClick={() => {
+                handleDeleteIds([itemId]);
+              }}
+            >
+              削除
+            </Button>
           </ListItem>
         </List>
       ))}
@@ -125,13 +128,11 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
           >
             <Box sx={{ minWidth: 120 }}>
               <FormControl fullWidth>
-                <InputLabel id="demo-simple-select-label">
-                  アイテムステータス
-                </InputLabel>
+                <InputLabel id="status-label">アイテムステータス</InputLabel>
                 <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={status}
+                  labelId="status-label"
+                  id="status-select"
+                  value={selectedStatus.value}
                   label="アイテムステータス"
                   onChange={(event) =>
                     updateStatus(
@@ -148,7 +149,6 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
                 </Select>
               </FormControl>
             </Box>
-            <Typography ml={2}>{statusName}</Typography>
           </Box>
         )}
 
@@ -163,7 +163,7 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
             marginBottom: "30px",
             alignItems: "center",
             ...(itemIds.length > 0 && {
-              flexDirection: "row", // 横並びに
+              flexDirection: "row",
             }),
           }}
         >
@@ -183,7 +183,7 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
                 backgroundColor: "primary.main",
                 width: "45%",
               }}
-              disabled={status === undefined}
+              disabled={itemIds.length === 0}
               onClick={() => {
                 handleSend();
               }}
@@ -194,7 +194,7 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
         </Box>
       </div>
 
-      {notExistIds && (
+      {notExistIds.length > 0 && (
         <Dialog open>
           <DialogTitle>{"更新できないアイテムがあります"}</DialogTitle>
           <DialogContent>
@@ -203,10 +203,8 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
             {notExistIds.join(",")}
           </DialogContent>
           <DialogActions>
-            <Button onClick={() => setNotExistIds(undefined)}>
-              キャンセル
-            </Button>
-            <Button onClick={() => handleDeleteNotExistIds(notExistIds)}>
+            <Button onClick={() => setNotExistIds([])}>キャンセル</Button>
+            <Button onClick={() => handleDeleteIds(notExistIds)}>
               一覧から削除する
             </Button>
           </DialogActions>
