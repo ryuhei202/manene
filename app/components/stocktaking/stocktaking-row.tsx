@@ -13,7 +13,7 @@ type TProps = {
 
 export default function StocktakingRow({ location, onClick }: TProps) {
   return (
-    <ListItem disablePadding divider>
+    <ListItem disablePadding divider id={location.mLocationName}>
       <ListItemButton
         onClick={() => onClick(location.id)}
         sx={{

@@ -8,7 +8,7 @@ import useStocktakingsComplete from "@/app/api/stocktaking/useStocktakingsComple
 import useStocktakingsCreate from "@/app/api/stocktaking/useStocktakingsCreate";
 import CachedIcon from "@mui/icons-material/Cached";
 import { Box, Button } from "@mui/material";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
@@ -20,6 +20,7 @@ type TProps = {
 };
 export default function StocktakingContainer({ locationList }: TProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
 
   const [locations, setLocations] = useState<TLocation[] | null>(
     locationList.locations
@@ -66,6 +67,16 @@ export default function StocktakingContainer({ locationList }: TProps) {
   useEffect(() => {
     setLocations(locationList.locations);
   }, [locationList.locations]);
+
+  useEffect(() => {
+    const locationName = searchParams.get("location_name");
+    if (locationName) {
+      const element = document.getElementById(locationName);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  }, [searchParams]);
 
   return (
     <>

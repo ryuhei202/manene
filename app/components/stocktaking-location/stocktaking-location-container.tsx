@@ -112,7 +112,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
   const onClickComplete = () => {
     completeMutate(undefined, {
       onSuccess: () => {
-        router.push("/stocktaking");
+        router.push(`/stocktaking?location_name=${location.mLocationName}`);
         router.refresh();
       },
       onError: (error) => {
