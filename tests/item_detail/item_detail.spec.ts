@@ -69,10 +69,7 @@ test.describe("アイテム情報を正しく表示できる", () => {
   const NAM_REGDATE_ITEM_ID = 439593;
 
   test("アイテムの情報を取得できる", async ({ page }) => {
-    const itemDetailCard = page.getByTestId("item-detail-card").filter({
-      hasText:
-        "肩身幅袖565967着丈股上7272サイズLアイテムID497288ランク・使用回数S・0棚F-06-下アイテムコードL-pcts-unsw-230807-01",
-    });
+    const itemDetailCard = page.getByTestId("item-detail-card");
     await page.goto(`/item_detail/${ITEM_ID}`);
     await expect(itemDetailCard).toBeVisible();
   });

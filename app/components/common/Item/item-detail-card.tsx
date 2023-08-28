@@ -25,7 +25,7 @@ export default function ItemDetailCard({
   itemDetails,
 }: TProps) {
   return (
-    <Box padding={"7%"} data-testId="item-detail-card">
+    <Box padding={"7%"} data-testid="item-detail-card">
       <Box
         sx={{
           display: "flex",
