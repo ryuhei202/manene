@@ -2,7 +2,7 @@ import { useGetRequest } from "../useGetRequest";
 
 export type TItemLocationsItemScanResponse = {
   id: number;
-  size: string;
+  size: string | null;
   itemImageUrl: string;
   mCateSmall: {
     id: number;
@@ -11,7 +11,7 @@ export type TItemLocationsItemScanResponse = {
   mLocation: {
     id: number;
     name: string;
-  };
+  } | null;
 };
 
 type TParams = {
@@ -19,10 +19,10 @@ type TParams = {
 };
 
 export default function useItemLocationsItemScan(params: TParams) {
-  const { data, error, isLoading } = useGetRequest<
+  const { data, error, isLoading, refetch } = useGetRequest<
     TItemLocationsItemScanResponse,
     TParams
-  >({ path: "item_locations/item_scan", params });
+  >({ path: "item_locations/item_scan", params: params });
 
-  return { data, error, isLoading };
+  return { data, error, isLoading, refetch };
 }
