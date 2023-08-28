@@ -1,7 +1,7 @@
 "use client";
-import { CSSProperties, useState } from "react";
 import { Box, Button, Modal } from "@mui/material";
 import Image from "next/image";
+import { CSSProperties, useState } from "react";
 
 type TProps = {
   imagePath: string;
@@ -10,7 +10,12 @@ type TProps = {
   imageStyle?: CSSProperties;
 };
 
-export default function ExpandableImage({ imagePath, height, width, imageStyle }: TProps) {
+export default function ExpandableImage({
+  imagePath,
+  height,
+  width,
+  imageStyle,
+}: TProps) {
   const [isExpanded, setIsExpanded] = useState<boolean>(false);
   const handleClickOpenModal = () => {
     setIsExpanded(true);
@@ -33,6 +38,7 @@ export default function ExpandableImage({ imagePath, height, width, imageStyle }
         height={height ?? 100}
         width={width ?? 70}
         style={imageStyle}
+        priority
       />
       {isExpanded && (
         <Modal
