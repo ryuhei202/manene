@@ -21,7 +21,7 @@ export default function DisableBackDialog({ open, onClose, children }: TProps) {
     }
   }, [open, onClose, pathname]);
   return (
-    <Dialog open={open} onClose={onClose}>
+    <Dialog open={open} onClose={onClose} fullWidth>
       {children}
     </Dialog>
   );
