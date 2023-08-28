@@ -1,7 +1,7 @@
 import getNoCacheData from "../getNoCacheData";
 
 export type TInspectionGroupResponse = {
-  inspection_groups: {
+  inspectionGroups: {
     id: number;
     groupNo: number;
     registrationStartTime: string;
