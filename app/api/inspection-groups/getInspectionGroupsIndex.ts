@@ -1,16 +1,18 @@
 import getNoCacheData from "../getNoCacheData";
 
+export type TInspectionGroup = {
+  id: number;
+  groupNo: number;
+  registrationStartTime: string;
+  registrationEndTime?: string;
+  inspectionEndTime?: string;
+  chartCount: number;
+  washingItemCount: number;
+  purchaseItemCount: number;
+};
+
 export type TInspectionGroupResponse = {
-  inspectionGroups: {
-    id: number;
-    groupNo: number;
-    registrationStartTime: string;
-    registrationEndTime?: string;
-    inspectionEndTime?: string;
-    chartCount: number;
-    washingItemCount: number;
-    purchaseItemCount: number;
-  }[];
+  inspectionGroups: TInspectionGroup[];
 };
 
 export default async function getInspectionGroupIndex() {
