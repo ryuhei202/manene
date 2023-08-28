@@ -1,9 +1,9 @@
 "use client";
-import { Box, Button, Modal, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
 import KeyboardAltOutlinedIcon from "@mui/icons-material/KeyboardAltOutlined";
-import BarcodeInputDialog from "./barcode-input-dialog";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { useState } from "react";
 import Html5QrcodePlugin from "./Html5QrcodePlugin";
+import BarcodeInputDialog from "./barcode-input-dialog";
 
 type TProps = {
   onScan: (id: number) => void;
@@ -18,7 +18,6 @@ export default function QrCodeReader({ onScan }: TProps) {
   const handleCloseModal = () => {
     setDialogMessage("");
   };
-  const theme = useTheme();
   const style = {
     position: "absolute",
     top: "50%",
@@ -26,7 +25,8 @@ export default function QrCodeReader({ onScan }: TProps) {
     transform: "translate(-50%, -50%)",
     width: "70vw",
     bgcolor: "background.paper",
-    border: `3px solid ${theme.palette.primary.main}`,
+    border: "3px solid",
+    borderColor: "primary.main",
     boxShadow: 24,
     p: 4,
   };
@@ -58,7 +58,6 @@ export default function QrCodeReader({ onScan }: TProps) {
           <Typography sx={{ mt: 2 }}>{dialogMessage}</Typography>
         </Box>
       </Modal>
-
       <Button
         onClick={handleClickSwitchModal}
         sx={{

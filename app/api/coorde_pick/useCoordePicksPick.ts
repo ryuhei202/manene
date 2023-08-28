@@ -1,6 +1,6 @@
 import { usePostRequest } from "../usePostRequest";
 
-type TItemPickResponse = {
+export type TCoordePicksPickResponse = {
   id: number;
   size: string;
   itemImageUrl: string;
@@ -19,7 +19,7 @@ type TParams = {
 export default function useCoordePicksPick() {
   const { mutate, error, isLoading, isSuccess } = usePostRequest<
     TParams,
-    TItemPickResponse
+    TCoordePicksPickResponse[]
   >({ path: "coorde_picks/pick" });
   return { mutate, error, isLoading, isSuccess };
 }
