@@ -16,7 +16,7 @@ export default function BarcodeButton({ onScan }: TProps) {
         <QrCodeIcon sx={{ color: "white" }} />
       </Button>
 
-      <DisableBackDialog open={isOpen} altCallback={() => setIsOpen(false)}>
+      <DisableBackDialog open={isOpen} onClose={() => setIsOpen(false)}>
         <QrCodeReader onScan={onScan} />
       </DisableBackDialog>
     </>
