@@ -82,7 +82,13 @@ export default function StocktakingContainer({ locationList }: TProps) {
     if (locationName) {
       const element = document.getElementById(locationName);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        const HEADER_HEIGHT = 63;
+        const rect = element.getBoundingClientRect();
+        const offset = HEADER_HEIGHT;
+        window.scrollTo({
+          top: rect.top + window.scrollY - offset,
+          behavior: "instant",
+        });
       }
     }
   }, [searchParams]);
