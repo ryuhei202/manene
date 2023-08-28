@@ -28,7 +28,7 @@ export default function ScanButton({
       >
         {title}
       </Button>
-      <DisableBackDialog open={isOpen} altCallback={() => setIsOpen(false)}>
+      <DisableBackDialog open={isOpen} onClose={() => setIsOpen(false)}>
         <QrCodeReader onScan={onScan} />
       </DisableBackDialog>
     </>
