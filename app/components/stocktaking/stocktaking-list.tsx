@@ -1,7 +1,10 @@
+"use client";
 import { TLocation } from "@/app/api/stocktaking/getStocktakingsCurrent";
-import { List } from "@mui/material";
+import dynamic from "next/dynamic";
 import StocktakingRow from "./stocktaking-row";
-
+const List = dynamic(() => import("@mui/material").then((mod) => mod.List), {
+  ssr: false,
+});
 type TProps = {
   locations: TLocation[];
   onClick: (id: number) => void;
