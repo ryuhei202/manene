@@ -69,7 +69,7 @@ export default function StocktakingContainer({ locationList }: TProps) {
 
   return (
     <>
-      {(completeIsLoading || createIsLoading) && <LoadingDialog />}
+      <LoadingDialog isOpen={completeIsLoading || createIsLoading} />
       <Header title="棚卸し">
         <BarcodeButton onScan={handleClickNavigate} />
         <Button onClick={() => router.refresh()}>

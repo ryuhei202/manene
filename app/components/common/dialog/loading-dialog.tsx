@@ -1,13 +1,49 @@
 "use client";
-import { Backdrop, CircularProgress } from "@mui/material";
+import dynamic from "next/dynamic";
 
-export default function LoadingDialog() {
+const Backdrop = dynamic(
+  () => import("@mui/material").then((mod) => mod.Backdrop),
+  {
+    ssr: false,
+  }
+);
+
+const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
+  ssr: false,
+});
+const CircularProgress = dynamic(
+  () => import("@mui/material").then((mod) => mod.CircularProgress),
+  {
+    ssr: false,
+  }
+);
+const Dialog = dynamic(
+  () => import("@mui/material").then((mod) => mod.Dialog),
+  {
+    ssr: false,
+  }
+);
+type TProps = {
+  isOpen: boolean;
+};
+
+export default function LoadingDialog({ isOpen }: TProps) {
   return (
     <Backdrop
       sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
-      open
+      open={isOpen}
     >
-      <CircularProgress color="primary" />
+      <Dialog open={isOpen}>
+        <Box
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+          width="100px"
+          height="100px"
+        >
+          <CircularProgress color="primary" />
+        </Box>
+      </Dialog>
     </Backdrop>
   );
 }
