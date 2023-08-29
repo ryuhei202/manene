@@ -17,10 +17,11 @@ export const usePatchRequest = <TParams = object, TResponse = object>({
     AxiosError,
     TParams | undefined
   >([path], (lateParams?: TParams) => {
-    const { path: latePath, ...lateParamsNonPath } = lateParams as {
-      path: string;
-      [key: string]: unknown;
-    };
+    const { path: latePath, ...lateParamsNonPath } =
+      (lateParams as {
+        path: string;
+        [key: string]: unknown;
+      }) ?? {};
     return customAxios().patch(
       `${HostUrl()}/igoue_admin/app_api/${latePath ?? path}`,
       lateParams ? lateParamsNonPath : params,
