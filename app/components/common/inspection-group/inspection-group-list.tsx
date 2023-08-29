@@ -1,12 +1,15 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
-import { List } from "@mui/material";
+import dynamic from "next/dynamic";
 import InspectionGroupRow from "./inspection-group-row";
+const List = dynamic(() => import("@mui/material").then((mod) => mod.List), {
+  ssr: false,
+});
 
 type TProps = {
   inspectionGroups: TInspectionGroup[];
-  onClickEndRegistration: () => void;
+  onClickEndRegistration: (id: number) => void;
   isLoadingEndRegistration: boolean;
-  onClickInspect: () => void;
+  onClickInspect: (id: number) => void;
   isLoadingInspect: boolean;
 };
 
