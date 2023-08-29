@@ -1,8 +1,9 @@
-import { TInspectionGroupResponse } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
+import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import { List } from "@mui/material";
 import InspectionGroupRow from "./inspection-group-row";
 
-type TProps = TInspectionGroupResponse & {
+type TProps = {
+  inspectionGroups: TInspectionGroup[];
   onClickEndRegistration: () => void;
   isLoadingEndRegistration: boolean;
   onClickInspect: () => void;
@@ -22,13 +23,7 @@ export default function InspectionGroupList({
         return (
           <InspectionGroupRow
             key={group.id}
-            groupNo={group.groupNo}
-            registrationStartTime={group.registrationStartTime}
-            registrationEndTime={group.registrationEndTime}
-            inspectionEndTime={group.inspectionEndTime}
-            chartCount={group.chartCount}
-            washingItemCount={group.washingItemCount}
-            purchaseItemCount={group.purchaseItemCount}
+            inspectionGroup={group}
             onClickEndRegistration={onClickEndRegistration}
             isLoadingEndRegistration={isLoadingEndRegistration}
             onClickInspect={onClickInspect}
