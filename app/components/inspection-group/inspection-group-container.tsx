@@ -130,7 +130,7 @@ export default function InspectionGroupContainer({
       },
       {
         onSuccess(response) {
-          alert("締め切りました");
+          alert("検品グループの締切を完了しました。");
           setInspectionGroups(response.data.inspectionGroups);
           setSelectedGroupId(undefined);
           dispatch({ type: "endRegistration" });
@@ -149,7 +149,7 @@ export default function InspectionGroupContainer({
       },
       {
         onSuccess(response) {
-          alert("一斉検品しました。");
+          alert("一斉検品が完了しました。");
           setInspectionGroups(response.data.inspectionGroups);
           setSelectedGroupId(undefined);
           dispatch({ type: "inspect" });
