@@ -253,7 +253,7 @@ export default function InspectionGroupContainer({
               </Button>
               <Button
                 onClick={() => handleClickEndRegistration(selectedGroupId)}
-                disabled={isCreateLoading}
+                disabled={isEndRegistrationLoading}
               >
                 OK
               </Button>
@@ -280,7 +280,7 @@ export default function InspectionGroupContainer({
 
               <Button
                 onClick={() => handleClickInspect(selectedGroupId)}
-                disabled={isCreateLoading}
+                disabled={isInspectLoading}
               >
                 OK
               </Button>
