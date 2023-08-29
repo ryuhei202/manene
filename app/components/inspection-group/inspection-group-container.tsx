@@ -101,16 +101,15 @@ export default function InspectionGroupContainer({
   const [dialogState, dispatch] = useReducer(dialogReducer, initialDialogState);
 
   const [selectedGroupId, setSelectedGroupId] = useState<number>();
+  const [inspectionGroups, setInspectionGroups] = useState<TInspectionGroup[]>(
+    initialInspectionGroups
+  );
   const { mutate: createMutate, isLoading: isCreateLoading } =
     useInspectionGroupsCreate();
   const { mutate: endRegistrationMutate, isLoading: isEndRegistrationLoading } =
     useInspectionGroupsEndRegistration();
   const { mutate: inspectMutate, isLoading: isInspectLoading } =
     useInspectionGroupsInspect();
-
-  const [inspectionGroups, setInspectionGroups] = useState<TInspectionGroup[]>(
-    initialInspectionGroups
-  );
 
   const handleClickCreate = () => {
     createMutate(undefined, {
