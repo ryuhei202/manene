@@ -64,36 +64,35 @@ type TAction =
       type: "inspect";
     };
 
+const dialogReducer = (
+  dialogState: TDialogState,
+  action: TAction
+): TDialogState => {
+  switch (action.type) {
+    case "create":
+      return {
+        ...dialogState,
+        isCreateDialogOpen: !dialogState.isCreateDialogOpen,
+      };
+    case "endRegistration":
+      return {
+        ...dialogState,
+        isEndRegistrationDialogOpen: !dialogState.isEndRegistrationDialogOpen,
+      };
+    case "inspect":
+      return {
+        ...dialogState,
+        isInspectDialogOpen: !dialogState.isInspectDialogOpen,
+      };
+    default:
+      throw new Error(
+        "操作を完了できませんでした。担当者にお問い合わせください"
+      );
+  }
+};
 export default function InspectionGroupContainer({
   initialInspectionGroups,
 }: TProps) {
-  const dialogReducer = (
-    dialogState: TDialogState,
-    action: TAction
-  ): TDialogState => {
-    switch (action.type) {
-      case "create":
-        return {
-          ...dialogState,
-          isCreateDialogOpen: !dialogState.isCreateDialogOpen,
-        };
-      case "endRegistration":
-        return {
-          ...dialogState,
-          isEndRegistrationDialogOpen: !dialogState.isEndRegistrationDialogOpen,
-        };
-      case "inspect":
-        return {
-          ...dialogState,
-          isInspectDialogOpen: !dialogState.isInspectDialogOpen,
-        };
-      default:
-        throw new Error(
-          "操作を完了できませんでした。担当者にお問い合わせください"
-        );
-    }
-  };
-
   const initialDialogState: TDialogState = {
     isCreateDialogOpen: false,
     isEndRegistrationDialogOpen: false,
