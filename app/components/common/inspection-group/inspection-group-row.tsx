@@ -1,11 +1,32 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
-import { Box, Button, ListItem, Typography } from "@mui/material";
+import dynamic from "next/dynamic";
+const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
+  ssr: false,
+});
+const Button = dynamic(
+  () => import("@mui/material").then((mod) => mod.Button),
+  {
+    ssr: false,
+  }
+);
+const ListItem = dynamic(
+  () => import("@mui/material").then((mod) => mod.ListItem),
+  {
+    ssr: false,
+  }
+);
+const Typography = dynamic(
+  () => import("@mui/material").then((mod) => mod.Typography),
+  {
+    ssr: false,
+  }
+);
 
 type TProps = {
   inspectionGroup: TInspectionGroup;
-  onClickEndRegistration: () => void;
+  onClickEndRegistration: (id: number) => void;
   isLoadingEndRegistration: boolean;
-  onClickInspect: () => void;
+  onClickInspect: (id: number) => void;
   isLoadingInspect: boolean;
 };
 
@@ -49,7 +70,7 @@ export default function InspectionGroupRow({
                 </>
               ) : (
                 <Button
-                  onClick={onClickInspect}
+                  onClick={() => onClickInspect(inspectionGroup.id)}
                   variant="contained"
                   sx={{
                     height: "40px",
@@ -64,7 +85,7 @@ export default function InspectionGroupRow({
             </>
           ) : (
             <Button
-              onClick={onClickEndRegistration}
+              onClick={() => onClickEndRegistration(inspectionGroup.id)}
               variant="contained"
               sx={{
                 height: "40px",
@@ -86,7 +107,8 @@ export default function InspectionGroupRow({
           <Typography
             variant="subtitle1"
             paddingBottom={2}
-            style={{ display: "flex", alignItems: "center" }}
+            display="flex"
+            alignItems="center"
           >
             <span style={{ fontSize: "larger", marginRight: "0.5rem" }}>
               {inspectionGroup.chartCount}
@@ -96,7 +118,8 @@ export default function InspectionGroupRow({
           <Typography
             variant="subtitle1"
             paddingBottom={2}
-            style={{ display: "flex", alignItems: "center" }}
+            display="flex"
+            alignItems="center"
           >
             <span
               style={{
@@ -109,10 +132,7 @@ export default function InspectionGroupRow({
             </span>
             <span>汚れアイテム</span>
           </Typography>
-          <Typography
-            variant="subtitle1"
-            style={{ display: "flex", alignItems: "center" }}
-          >
+          <Typography variant="subtitle1" display="flex" alignItems="center">
             <span
               style={{
                 fontSize: "larger",
