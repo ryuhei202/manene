@@ -19,7 +19,7 @@ export const usePatchRequest = <TParams = object, TResponse = object>({
   >([path], (lateParams?: TParams) => {
     const { path: latePath, ...lateParamsNonPath } =
       (lateParams as {
-        path: string;
+        path?: string;
         [key: string]: unknown;
       }) ?? {};
     return customAxios().patch(
