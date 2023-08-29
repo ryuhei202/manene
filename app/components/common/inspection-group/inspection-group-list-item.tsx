@@ -30,7 +30,7 @@ type TProps = {
   isLoadingInspect: boolean;
 };
 
-export default function InspectionGroupRow({
+export default function InspectionGroupListItem({
   inspectionGroup,
   onClickEndRegistration,
   isLoadingEndRegistration,
