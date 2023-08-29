@@ -88,7 +88,9 @@ export default function InspectionGroupContainer({
           isInspectDialogOpen: !dialogState.isInspectDialogOpen,
         };
       default:
-        throw new Error("予期されていないアクションタイプが指定されました。");
+        throw new Error(
+          "操作を完了できませんでした。担当者にお問い合わせください"
+        );
     }
   };
 
