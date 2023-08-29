@@ -6,8 +6,8 @@ import useInspectionGroupsInspect from "@/app/api/inspection-groups/useInspectio
 import { AxiosError } from "axios";
 import dynamic from "next/dynamic";
 import { useReducer, useState } from "react";
-import LoadingDialog from "../dialog/loading-dialog";
-import Header from "../pages/header";
+import LoadingDialog from "../common/dialog/loading-dialog";
+import Header from "../common/pages/header";
 import InspectionGroupList from "./inspection-group-list";
 const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
   ssr: false,
@@ -37,7 +37,7 @@ const DialogTitle = dynamic(
   }
 );
 const DisableBackDialog = dynamic(
-  () => import("../dialog/disable-back-dialog"),
+  () => import("../common/dialog/disable-back-dialog"),
   {
     ssr: false,
   }
