@@ -138,7 +138,11 @@ export default function InspectionGroupContainer({
           dispatch({ type: "endRegistration" });
         },
         onError(error: AxiosError) {
-          alert((error.response?.data as { message: string })?.message);
+          alert(
+            `検品グループの締切に失敗しました。 ${
+              (error.response?.data as { message: string })?.message
+            }`
+          );
         },
       }
     );
@@ -157,7 +161,11 @@ export default function InspectionGroupContainer({
           dispatch({ type: "inspect" });
         },
         onError(error: AxiosError) {
-          alert((error.response?.data as { message: string })?.message);
+          alert(
+            `一斉検品に失敗しました。 ${
+              (error.response?.data as { message: string })?.message
+            }`
+          );
         },
       }
     );
