@@ -2,13 +2,13 @@ import { usePatchRequest } from "../usePatchRequest";
 import { TInspectionGroupResponse } from "./getInspectionGroupsIndex";
 
 type TParams = {
-  id: number;
+  path: string;
 };
-export default function useInspectionGroupsInspect(params: TParams) {
+export default function useInspectionGroupsInspect() {
   const { mutate, error, isLoading, isSuccess } = usePatchRequest<
     TParams,
     TInspectionGroupResponse
-  >({ path: `inspection/inspection_groups/${params.id}/inspect` });
+  >({});
 
   return { mutate, error, isLoading, isSuccess };
 }
