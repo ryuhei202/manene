@@ -1,6 +1,6 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import dynamic from "next/dynamic";
-import InspectionGroupRow from "./inspection-group-row";
+import InspectionGroupListItem from "./inspection-group-list-item";
 const List = dynamic(() => import("@mui/material").then((mod) => mod.List), {
   ssr: false,
 });
@@ -24,7 +24,7 @@ export default function InspectionGroupList({
     <List>
       {inspectionGroups.map((group) => {
         return (
-          <InspectionGroupRow
+          <InspectionGroupListItem
             key={group.id}
             inspectionGroup={group}
             onClickEndRegistration={onClickEndRegistration}

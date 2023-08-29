@@ -4,8 +4,8 @@ export type TInspectionGroup = {
   id: number;
   groupNo: number;
   registrationStartTime: string;
-  registrationEndTime?: string;
-  inspectionEndTime?: string;
+  registrationEndTime: string | null;
+  inspectionEndTime: string | null;
   chartCount: number;
   washingItemCount: number;
   purchaseItemCount: number;
