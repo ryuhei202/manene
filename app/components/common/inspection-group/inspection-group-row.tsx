@@ -1,7 +1,8 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import { Box, Button, ListItem, Typography } from "@mui/material";
 
-type TProps = Omit<TInspectionGroup, "id"> & {
+type TProps = {
+  inspectionGroup: TInspectionGroup;
   onClickEndRegistration: () => void;
   isLoadingEndRegistration: boolean;
   onClickInspect: () => void;
@@ -9,13 +10,7 @@ type TProps = Omit<TInspectionGroup, "id"> & {
 };
 
 export default function InspectionGroupRow({
-  groupNo,
-  registrationStartTime,
-  registrationEndTime,
-  inspectionEndTime,
-  chartCount,
-  washingItemCount,
-  purchaseItemCount,
+  inspectionGroup,
   onClickEndRegistration,
   isLoadingEndRegistration,
   onClickInspect,
@@ -33,23 +28,23 @@ export default function InspectionGroupRow({
       >
         <Box display="flex" flexDirection="column" marginLeft={1}>
           <Typography variant="h6" paddingBottom={1}>
-            グループ{groupNo}
+            グループ{inspectionGroup.groupNo}
           </Typography>
           <Typography variant="subtitle1">
-            登録開始: {registrationStartTime}
+            登録開始: {inspectionGroup.registrationStartTime}
           </Typography>
-          {registrationEndTime ? (
+          {inspectionGroup.registrationEndTime ? (
             <>
               <Typography variant="subtitle1">
-                登録締切: {registrationEndTime}
+                登録締切: {inspectionGroup.registrationEndTime}
               </Typography>
-              {inspectionEndTime ? (
+              {inspectionGroup.inspectionEndTime ? (
                 <>
                   <Typography variant="caption" paddingTop={1}>
                     一斉検品済み
                   </Typography>
                   <Typography variant="caption">
-                    検品時刻: {inspectionEndTime}
+                    検品時刻: {inspectionGroup.inspectionEndTime}
                   </Typography>
                 </>
               ) : (
@@ -94,7 +89,7 @@ export default function InspectionGroupRow({
             style={{ display: "flex", alignItems: "center" }}
           >
             <span style={{ fontSize: "larger", marginRight: "0.5rem" }}>
-              {chartCount}
+              {inspectionGroup.chartCount}
             </span>
             <span>カルテ</span>
           </Typography>
@@ -110,7 +105,7 @@ export default function InspectionGroupRow({
                 color: "#ff0000",
               }}
             >
-              {washingItemCount}
+              {inspectionGroup.washingItemCount}
             </span>
             <span>汚れアイテム</span>
           </Typography>
@@ -125,7 +120,7 @@ export default function InspectionGroupRow({
                 color: "#ff0000",
               }}
             >
-              {purchaseItemCount}
+              {inspectionGroup.purchaseItemCount}
             </span>
             <span>買取品</span>
           </Typography>
