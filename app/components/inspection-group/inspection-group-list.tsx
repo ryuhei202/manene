@@ -8,17 +8,13 @@ const List = dynamic(() => import("@mui/material").then((mod) => mod.List), {
 type TProps = {
   inspectionGroups: TInspectionGroup[];
   onClickEndRegistration: (id: number) => void;
-  isLoadingEndRegistration: boolean;
   onClickInspect: (id: number) => void;
-  isLoadingInspect: boolean;
 };
 
 export default function InspectionGroupList({
   inspectionGroups,
   onClickEndRegistration,
-  isLoadingEndRegistration,
   onClickInspect,
-  isLoadingInspect,
 }: TProps) {
   return (
     <List>
@@ -28,9 +24,7 @@ export default function InspectionGroupList({
             key={group.id}
             inspectionGroup={group}
             onClickEndRegistration={onClickEndRegistration}
-            isLoadingEndRegistration={isLoadingEndRegistration}
             onClickInspect={onClickInspect}
-            isLoadingInspect={isLoadingInspect}
           />
         );
       })}

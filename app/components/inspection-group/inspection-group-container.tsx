@@ -183,12 +183,10 @@ export default function InspectionGroupContainer({
           dispatch({ type: "endRegistration" });
           setSelectedGroupId(id);
         }}
-        isLoadingEndRegistration={isEndRegistrationLoading}
         onClickInspect={(id: number) => {
           dispatch({ type: "inspect" });
           setSelectedGroupId(id);
         }}
-        isLoadingInspect={isInspectLoading}
       />
       <Box height={50}></Box>
       <Box

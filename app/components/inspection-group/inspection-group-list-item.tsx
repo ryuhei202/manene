@@ -25,17 +25,13 @@ const Typography = dynamic(
 type TProps = {
   inspectionGroup: TInspectionGroup;
   onClickEndRegistration: (id: number) => void;
-  isLoadingEndRegistration: boolean;
   onClickInspect: (id: number) => void;
-  isLoadingInspect: boolean;
 };
 
 export default function InspectionGroupListItem({
   inspectionGroup,
   onClickEndRegistration,
-  isLoadingEndRegistration,
   onClickInspect,
-  isLoadingInspect,
 }: TProps) {
   return (
     <ListItem disablePadding divider>
@@ -77,7 +73,6 @@ export default function InspectionGroupListItem({
                     backgroundColor: "warning.dark",
                     marginTop: "15px",
                   }}
-                  disabled={isLoadingInspect}
                 >
                   一斉検品
                 </Button>
@@ -92,7 +87,6 @@ export default function InspectionGroupListItem({
                 backgroundColor: "primary.main",
                 marginTop: "15px",
               }}
-              disabled={isLoadingEndRegistration}
             >
               登録締切
             </Button>
