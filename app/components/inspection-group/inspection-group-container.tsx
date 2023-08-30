@@ -93,13 +93,11 @@ const dialogReducer = (
 export default function InspectionGroupContainer({
   initialInspectionGroups,
 }: TProps) {
-  const initialDialogState: TDialogState = {
-    isCreateDialogOpen: false,
-    isEndRegistrationDialogOpen: false,
-    isInspectDialogOpen: false,
-  };
-
-  const [dialogState, dispatch] = useReducer(dialogReducer, initialDialogState);
+  const [isCreateDialogOpen, setIsCreateDialogOpen] = useState<boolean>(false);
+  const [isEndRegistrationDialogOpen, setIsEndRegistrationDialogOpen] =
+    useState<boolean>(false);
+  const [isInspectDialogOpen, setIsInspectDialogOpen] =
+    useState<boolean>(false);
 
   const [selectedGroupId, setSelectedGroupId] = useState<number>();
   const [inspectionGroups, setInspectionGroups] = useState<TInspectionGroup[]>(
