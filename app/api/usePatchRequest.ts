@@ -8,7 +8,7 @@ export const usePatchRequest = <TParams = object, TResponse = object>({
   params,
   headers,
 }: {
-  path?: string;
+  path: string;
   params?: TParams;
   headers?: object;
 }) => {
@@ -16,20 +16,15 @@ export const usePatchRequest = <TParams = object, TResponse = object>({
     AxiosResponse<TResponse>,
     AxiosError,
     TParams | undefined
-  >([path], (lateParams?: TParams) => {
-    const { path: latePath, ...lateParamsNonPath } =
-      (lateParams as {
-        path?: string;
-        [key: string]: unknown;
-      }) ?? {};
-    return customAxios().patch(
-      `${HostUrl()}/igoue_admin/app_api/${latePath ?? path}`,
-      lateParams ? lateParamsNonPath : params,
+  >([path], (lateParams?: TParams) =>
+    customAxios().patch(
+      `${HostUrl()}/igoue_admin/app_api/${path}`,
+      lateParams ?? params,
       {
         headers: headers ?? undefined,
       }
-    );
-  });
+    )
+  );
 
   return { mutate, error, isLoading, isSuccess };
 };
