@@ -20,6 +20,7 @@ import {
   MenuItem,
   Select,
 } from "@mui/material";
+import { AxiosError } from "axios";
 import { useState } from "react";
 import ScanButton from "../common/button/scan-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
@@ -62,15 +63,23 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
                     setItemIds([]);
                     setSelectedStatus(statusOption.itemStatuses[0]);
                   },
-                  onError: (error) => {
-                    alert(error.message);
+                  onError(error: AxiosError) {
+                    alert(
+                      `ステータス更新に失敗しました。 ${
+                        (error.response?.data as { message: string })?.message
+                      }`
+                    );
                   },
                 }
               );
             }
           },
-          onError: (error) => {
-            alert(error.message);
+          onError(error: AxiosError) {
+            alert(
+              `ステータス更新に失敗しました。 ${
+                (error.response?.data as { message: string })?.message
+              }`
+            );
           },
         }
       );
