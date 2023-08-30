@@ -5,27 +5,23 @@ import React, { useEffect } from "react";
 
 type TProps = {
   open: boolean;
-  altCallback: () => void;
+  onClose: () => void;
   children: React.ReactNode;
 };
 
-export default function DisableBackDialog({
-  open,
-  altCallback,
-  children,
-}: TProps) {
+export default function DisableBackDialog({ open, onClose, children }: TProps) {
   const pathname = usePathname();
   useEffect(() => {
     if (open) {
       history.pushState("", "", pathname);
-      addEventListener("popstate", altCallback);
+      addEventListener("popstate", onClose);
       return () => {
-        removeEventListener("popstate", altCallback);
+        removeEventListener("popstate", onClose);
       };
     }
-  }, [open, altCallback, pathname]);
+  }, [open, onClose, pathname]);
   return (
-    <Dialog open={open} onClose={altCallback} fullWidth>
+    <Dialog open={open} onClose={onClose} fullWidth>
       {children}
     </Dialog>
   );

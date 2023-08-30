@@ -31,7 +31,7 @@ export default function BarcodeInputDialog({
   };
 
   return (
-    <Dialog open={isOpen} onClose={onClose}>
+    <Dialog open={isOpen} onClose={onClose} id="id-input-dialog">
       <DialogTitle>バーコードのIDを入力</DialogTitle>
       <DialogContent>
         <TextField

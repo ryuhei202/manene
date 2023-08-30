@@ -112,7 +112,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
   const onClickComplete = () => {
     completeMutate(undefined, {
       onSuccess: () => {
-        router.push("/stocktaking");
+        router.push(`/stocktaking?location_name=${location.mLocationName}`);
         router.refresh();
       },
       onError: (error) => {
@@ -138,7 +138,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
           </Button>
           <DisableBackDialog
             open={isCompleteDialogOpen}
-            altCallback={() => setIsCompleteDialogOpen(false)}
+            onClose={() => setIsCompleteDialogOpen(false)}
           >
             <DialogTitle>確認</DialogTitle>
             <DialogContent>確認を完了して一覧に戻りますか？</DialogContent>
@@ -174,7 +174,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
 
       <DisableBackDialog
         open={isMissingDialogOpen}
-        altCallback={() => setIsMissingDialogOpen(false)}
+        onClose={() => setIsMissingDialogOpen(false)}
       >
         <DialogTitle>確認</DialogTitle>
         <DialogContent>行方不明として登録しますか？</DialogContent>
@@ -203,7 +203,7 @@ export default function StocktakingLocationContainer({ location }: TProps) {
 
       <DisableBackDialog
         open={isReturnLocationDialogOpen}
-        altCallback={() => setIsReturnLocationDialogOpen(false)}
+        onClose={() => setIsReturnLocationDialogOpen(false)}
       >
         <DialogTitle>確認</DialogTitle>
         <DialogContent>この棚に戻しますか？</DialogContent>
