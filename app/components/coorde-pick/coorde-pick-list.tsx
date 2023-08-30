@@ -64,7 +64,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
         </Fab>
         <DisableBackDialog
           open={isDialogOpen}
-          altCallback={() => setIsDialogOpen(false)}
+          onClose={() => setIsDialogOpen(false)}
         >
           <QrCodeReader onScan={handleScan} />
         </DisableBackDialog>
