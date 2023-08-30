@@ -37,7 +37,7 @@ export default function CoordePickList({ tChartId, tChartItems }: TProps) {
   };
   return (
     <>
-      {isLoading && <LoadingDialog />}
+      <LoadingDialog isOpen={isLoading} />
       <Box>
         {chartItems.map((chartItem: TCoordePicksIndexResponse) => (
           <ItemCard
