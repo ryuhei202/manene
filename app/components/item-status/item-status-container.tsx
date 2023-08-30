@@ -98,9 +98,7 @@ export default function ItemStatusContainer({ statusOption }: TProps) {
 
   return (
     <>
-      {updateIsLoading && <LoadingDialog />}
-      {validateIsLoading && <LoadingDialog />}
-
+      <LoadingDialog isOpen={updateIsLoading || validateIsLoading} />
       <Header title={"ステータス一括変更"} />
       <SubHeader>アイテムID数:{itemIds.length}</SubHeader>
       {itemIds.map((itemId) => (
