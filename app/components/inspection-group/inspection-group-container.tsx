@@ -1,13 +1,12 @@
 "use client";
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import useInspectionGroupsCreate from "@/app/api/inspection-groups/useInspectionGroupsCreate";
-import useInspectionGroupsEndRegistration from "@/app/api/inspection-groups/useInspectionGroupsEndRegistration";
-import useInspectionGroupsInspect from "@/app/api/inspection-groups/useInspectionGroupsInspect";
 import { AxiosError } from "axios";
 import dynamic from "next/dynamic";
-import { useReducer, useState } from "react";
+import { useState } from "react";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
+import InspectionGroupDialogs from "./inspection-group-dialogs";
 import InspectionGroupList from "./inspection-group-list";
 const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
   ssr: false,
@@ -42,54 +41,10 @@ const DisableBackDialog = dynamic(
     ssr: false,
   }
 );
-
 type TProps = {
   initialInspectionGroups: TInspectionGroup[];
 };
 
-type TDialogState = {
-  isCreateDialogOpen: boolean;
-  isEndRegistrationDialogOpen: boolean;
-  isInspectDialogOpen: boolean;
-};
-
-type TAction =
-  | {
-      type: "create";
-    }
-  | {
-      type: "endRegistration";
-    }
-  | {
-      type: "inspect";
-    };
-
-const dialogReducer = (
-  dialogState: TDialogState,
-  action: TAction
-): TDialogState => {
-  switch (action.type) {
-    case "create":
-      return {
-        ...dialogState,
-        isCreateDialogOpen: !dialogState.isCreateDialogOpen,
-      };
-    case "endRegistration":
-      return {
-        ...dialogState,
-        isEndRegistrationDialogOpen: !dialogState.isEndRegistrationDialogOpen,
-      };
-    case "inspect":
-      return {
-        ...dialogState,
-        isInspectDialogOpen: !dialogState.isInspectDialogOpen,
-      };
-    default:
-      throw new Error(
-        "操作を完了できませんでした。担当者にお問い合わせください"
-      );
-  }
-};
 export default function InspectionGroupContainer({
   initialInspectionGroups,
 }: TProps) {
@@ -105,16 +60,12 @@ export default function InspectionGroupContainer({
   );
   const { mutate: createMutate, isLoading: isCreateLoading } =
     useInspectionGroupsCreate();
-  const { mutate: endRegistrationMutate, isLoading: isEndRegistrationLoading } =
-    useInspectionGroupsEndRegistration();
-  const { mutate: inspectMutate, isLoading: isInspectLoading } =
-    useInspectionGroupsInspect();
 
   const handleClickCreate = () => {
     createMutate(undefined, {
       onSuccess(response) {
         setInspectionGroups(response.data.inspectionGroups);
-        dispatch({ type: "create" });
+        setIsCreateDialogOpen(false);
       },
       onError: (error: AxiosError) => {
         alert((error.response?.data as { message: string })?.message);
@@ -122,67 +73,19 @@ export default function InspectionGroupContainer({
     });
   };
 
-  const handleClickEndRegistration = (id: number) => {
-    endRegistrationMutate(
-      {
-        path: `inspection/inspection_groups/${id}/end_registration`,
-      },
-      {
-        onSuccess(response) {
-          alert("検品グループの締切を完了しました。");
-          setInspectionGroups(response.data.inspectionGroups);
-          setSelectedGroupId(undefined);
-          dispatch({ type: "endRegistration" });
-        },
-        onError(error: AxiosError) {
-          alert(
-            `検品グループの締切に失敗しました。 ${
-              (error.response?.data as { message: string })?.message
-            }`
-          );
-        },
-      }
-    );
-  };
-
-  const handleClickInspect = (id: number) => {
-    inspectMutate(
-      {
-        path: `inspection/inspection_groups/${id}/inspect`,
-      },
-      {
-        onSuccess(response) {
-          alert("一斉検品が完了しました。");
-          setInspectionGroups(response.data.inspectionGroups);
-          setSelectedGroupId(undefined);
-          dispatch({ type: "inspect" });
-        },
-        onError(error: AxiosError) {
-          alert(
-            `一斉検品に失敗しました。 ${
-              (error.response?.data as { message: string })?.message
-            }`
-          );
-        },
-      }
-    );
-  };
-
   return (
     <>
-      <LoadingDialog
-        isOpen={isCreateLoading || isEndRegistrationLoading || isInspectLoading}
-      />
+      <LoadingDialog isOpen={isCreateLoading} />
       <Header title="返却検品管理"></Header>
 
       <InspectionGroupList
         inspectionGroups={inspectionGroups}
         onClickEndRegistration={(id: number) => {
-          dispatch({ type: "endRegistration" });
+          setIsEndRegistrationDialogOpen(true);
           setSelectedGroupId(id);
         }}
         onClickInspect={(id: number) => {
-          dispatch({ type: "inspect" });
+          setIsInspectDialogOpen(true);
           setSelectedGroupId(id);
         }}
       />
@@ -202,23 +105,22 @@ export default function InspectionGroupContainer({
       >
         <Button
           variant="contained"
-          onClick={() => dispatch({ type: "create" })}
+          onClick={() => setIsCreateDialogOpen(true)}
           sx={{ height: "50px" }}
         >
           +検品グループ追加
         </Button>
       </Box>
-
       <DisableBackDialog
-        open={dialogState.isCreateDialogOpen}
-        onClose={() => dispatch({ type: "create" })}
+        open={isCreateDialogOpen}
+        onClose={() => setIsCreateDialogOpen(false)}
       >
         <DialogTitle>新規検品グループを追加しますか？</DialogTitle>
         <DialogContent>
           登録中の検品グループがある場合は自動で締め切られます。
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => dispatch({ type: "create" })}>
+          <Button onClick={() => setIsCreateDialogOpen(false)}>
             キャンセル
           </Button>
           <Button onClick={handleClickCreate} disabled={isCreateLoading}>
@@ -228,60 +130,19 @@ export default function InspectionGroupContainer({
       </DisableBackDialog>
 
       {selectedGroupId && (
-        <>
-          <DisableBackDialog
-            open={dialogState.isEndRegistrationDialogOpen}
-            onClose={() => dispatch({ type: "endRegistration" })}
-          >
-            <DialogTitle>検品前登録締切</DialogTitle>
-            <DialogContent>
-              検品グループへの登録を締め切りますか？
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={() => {
-                  dispatch({ type: "endRegistration" });
-                  setSelectedGroupId(undefined);
-                }}
-              >
-                キャンセル
-              </Button>
-              <Button
-                onClick={() => handleClickEndRegistration(selectedGroupId)}
-                disabled={isEndRegistrationLoading}
-              >
-                OK
-              </Button>
-            </DialogActions>
-          </DisableBackDialog>
-
-          <DisableBackDialog
-            open={dialogState.isInspectDialogOpen}
-            onClose={() => dispatch({ type: "inspect" })}
-          >
-            <DialogTitle>一斉検品</DialogTitle>
-            <DialogContent>
-              検品グループのアイテムを一斉検品しますか？
-            </DialogContent>
-            <DialogActions>
-              <Button
-                onClick={() => {
-                  dispatch({ type: "inspect" });
-                  setSelectedGroupId(undefined);
-                }}
-              >
-                キャンセル
-              </Button>
-
-              <Button
-                onClick={() => handleClickInspect(selectedGroupId)}
-                disabled={isInspectLoading}
-              >
-                OK
-              </Button>
-            </DialogActions>
-          </DisableBackDialog>
-        </>
+        <InspectionGroupDialogs
+          selectedGroupId={selectedGroupId}
+          isEndRegistrationDialogOpen={isEndRegistrationDialogOpen}
+          isInspectDialogOpen={isInspectDialogOpen}
+          onCloseEndRegistrationDialog={() =>
+            setIsEndRegistrationDialogOpen(false)
+          }
+          onCloseInspectDialog={() => setIsInspectDialogOpen(false)}
+          unsetSelectedGroupId={() => setSelectedGroupId(undefined)}
+          onSetInspectionGroups={(groups: TInspectionGroup[]) =>
+            setInspectionGroups(groups)
+          }
+        />
       )}
     </>
   );
