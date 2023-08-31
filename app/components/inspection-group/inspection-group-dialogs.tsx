@@ -97,7 +97,6 @@ export default function InspectionGroupDialogs({
 
   return (
     <>
-      <LoadingDialog isOpen={isEndRegistrationLoading || isInspectLoading} />
       <DisableBackDialog
         open={isEndRegistrationDialogOpen}
         onClose={onCloseEndRegistrationDialog}
