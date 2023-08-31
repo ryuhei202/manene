@@ -17,8 +17,8 @@ export type TWastedReasons = {
   }[];
 }[];
 
-export default async function getWastedReasonIndex(params: TParams) {
+export default async function TWastedReasonsResponse(params: TParams) {
   return await getNoCacheData<TWastedReasons>({
-    path: `items/${params}/wasted_reason`,
+    path: `items/${params.itemId}/wasted_reason`,
   });
 }
