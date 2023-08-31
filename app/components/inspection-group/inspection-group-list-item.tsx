@@ -1,41 +1,15 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
-import dynamic from "next/dynamic";
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
-const Button = dynamic(
-  () => import("@mui/material").then((mod) => mod.Button),
-  {
-    ssr: false,
-  }
-);
-const ListItem = dynamic(
-  () => import("@mui/material").then((mod) => mod.ListItem),
-  {
-    ssr: false,
-  }
-);
-const Typography = dynamic(
-  () => import("@mui/material").then((mod) => mod.Typography),
-  {
-    ssr: false,
-  }
-);
-
+import { Box, Button, ListItem, Typography } from "@mui/material";
 type TProps = {
   inspectionGroup: TInspectionGroup;
   onClickEndRegistration: (id: number) => void;
-  isLoadingEndRegistration: boolean;
   onClickInspect: (id: number) => void;
-  isLoadingInspect: boolean;
 };
 
 export default function InspectionGroupListItem({
   inspectionGroup,
   onClickEndRegistration,
-  isLoadingEndRegistration,
   onClickInspect,
-  isLoadingInspect,
 }: TProps) {
   return (
     <ListItem disablePadding divider>
@@ -77,7 +51,6 @@ export default function InspectionGroupListItem({
                     backgroundColor: "warning.dark",
                     marginTop: "15px",
                   }}
-                  disabled={isLoadingInspect}
                 >
                   一斉検品
                 </Button>
@@ -92,7 +65,6 @@ export default function InspectionGroupListItem({
                 backgroundColor: "primary.main",
                 marginTop: "15px",
               }}
-              disabled={isLoadingEndRegistration}
             >
               登録締切
             </Button>

@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { AxiosError, AxiosResponse } from "axios";
-import { customAxios } from "../model/api/shared/custom-axios";
 import { HostUrl } from "../model/Host-url";
+import { customAxios } from "../model/api/shared/custom-axios";
 
 export const usePatchRequest = <TParams = object, TResponse = object>({
   path,
