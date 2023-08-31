@@ -1,6 +1,5 @@
 "use client";
 import { Box, CircularProgress, Dialog } from "@mui/material";
-
 type TProps = {
   isOpen: boolean;
 };

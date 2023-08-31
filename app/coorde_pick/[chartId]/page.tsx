@@ -7,5 +7,7 @@ type TProps = {
 
 export default async function ChartItemListPage({ params }: TProps) {
   const chartItemsData = await getCoordePickIndex({ tChartId: params.chartId });
-  return <CoordePickList tChartItems={chartItemsData} />;
+  return (
+    <CoordePickList tChartId={params.chartId} tChartItems={chartItemsData} />
+  );
 }
