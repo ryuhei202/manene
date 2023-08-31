@@ -9,6 +9,7 @@ import {
 } from "@mui/material";
 import { AxiosError } from "axios";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
+import LoadingDialog from "../common/dialog/loading-dialog";
 type TProps = {
   selectedGroupId: number;
   isEndRegistrationDialogOpen: boolean;
@@ -71,6 +72,7 @@ export default function InspectionGroupDialogs({
 
   return (
     <>
+      <LoadingDialog isOpen={isEndRegistrationLoading || isInspectLoading} />
       <DisableBackDialog
         open={isEndRegistrationDialogOpen}
         onClose={onCloseEndRegistrationDialog}
