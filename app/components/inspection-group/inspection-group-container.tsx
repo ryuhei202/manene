@@ -1,46 +1,20 @@
 "use client";
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import useInspectionGroupsCreate from "@/app/api/inspection-groups/useInspectionGroupsCreate";
+import {
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { AxiosError } from "axios";
-import dynamic from "next/dynamic";
 import { useState } from "react";
+import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import InspectionGroupDialogs from "./inspection-group-dialogs";
 import InspectionGroupList from "./inspection-group-list";
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
-const Button = dynamic(
-  () => import("@mui/material").then((mod) => mod.Button),
-  {
-    ssr: false,
-  }
-);
-const DialogActions = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogActions),
-  {
-    ssr: false,
-  }
-);
-const DialogContent = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogContent),
-  {
-    ssr: false,
-  }
-);
-const DialogTitle = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogTitle),
-  {
-    ssr: false,
-  }
-);
-const DisableBackDialog = dynamic(
-  () => import("../common/dialog/disable-back-dialog"),
-  {
-    ssr: false,
-  }
-);
 type TProps = {
   initialInspectionGroups: TInspectionGroup[];
 };

@@ -1,28 +1,6 @@
 "use client";
-import dynamic from "next/dynamic";
+import { Backdrop, Box, CircularProgress, Dialog } from "@mui/material";
 
-const Backdrop = dynamic(
-  () => import("@mui/material").then((mod) => mod.Backdrop),
-  {
-    ssr: false,
-  }
-);
-
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
-const CircularProgress = dynamic(
-  () => import("@mui/material").then((mod) => mod.CircularProgress),
-  {
-    ssr: false,
-  }
-);
-const Dialog = dynamic(
-  () => import("@mui/material").then((mod) => mod.Dialog),
-  {
-    ssr: false,
-  }
-);
 type TProps = {
   isOpen: boolean;
 };

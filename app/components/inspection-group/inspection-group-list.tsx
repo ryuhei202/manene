@@ -1,10 +1,6 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
-import dynamic from "next/dynamic";
+import { List } from "@mui/material";
 import InspectionGroupListItem from "./inspection-group-list-item";
-const List = dynamic(() => import("@mui/material").then((mod) => mod.List), {
-  ssr: false,
-});
-
 type TProps = {
   inspectionGroups: TInspectionGroup[];
   onClickEndRegistration: (id: number) => void;

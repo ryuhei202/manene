@@ -1,6 +1,11 @@
+import dynamic from "next/dynamic";
 import getInspectionGroupIndex from "../api/inspection-groups/getInspectionGroupsIndex";
-import InspectionGroupContainer from "../components/inspection-group/inspection-group-container";
-
+const InspectionGroupContainer = dynamic(
+  () => import("../components/inspection-group/inspection-group-container"),
+  {
+    ssr: false,
+  }
+);
 export default async function InspectionGroupPage() {
   const data = await getInspectionGroupIndex();
   return (

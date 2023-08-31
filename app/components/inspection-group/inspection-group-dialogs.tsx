@@ -1,40 +1,14 @@
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import useInspectionGroupsEndRegistration from "@/app/api/inspection-groups/useInspectionGroupsEndRegistration";
 import useInspectionGroupsInspect from "@/app/api/inspection-groups/useInspectionGroupsInspect";
+import {
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 import { AxiosError } from "axios";
-import dynamic from "next/dynamic";
-import LoadingDialog from "../common/dialog/loading-dialog";
-const DialogActions = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogActions),
-  {
-    ssr: false,
-  }
-);
-const DialogContent = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogContent),
-  {
-    ssr: false,
-  }
-);
-const DialogTitle = dynamic(
-  () => import("@mui/material").then((mod) => mod.DialogTitle),
-  {
-    ssr: false,
-  }
-);
-const DisableBackDialog = dynamic(
-  () => import("../common/dialog/disable-back-dialog"),
-  {
-    ssr: false,
-  }
-);
-const Button = dynamic(
-  () => import("@mui/material").then((mod) => mod.Button),
-  {
-    ssr: false,
-  }
-);
-
+import DisableBackDialog from "../common/dialog/disable-back-dialog";
 type TProps = {
   selectedGroupId: number;
   isEndRegistrationDialogOpen: boolean;
