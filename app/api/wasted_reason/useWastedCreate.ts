@@ -10,7 +10,7 @@ type TParams = {
 
 export default function useWastedCreate(itemId: number) {
   const { mutate, error, isLoading, isSuccess } = usePostRequest<TParams>({
-    path: `items/${itemId}}/wasted_reason`,
+    path: `items/${itemId}/wasted_reason`,
   });
   return { mutate, error, isLoading, isSuccess };
 }
