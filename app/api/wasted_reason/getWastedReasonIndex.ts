@@ -4,7 +4,7 @@ type TParams = {
   itemId: number;
 };
 
-export type TWastedReasons = {
+export type TWastedReasonsResponse = {
   id: number;
   name: string;
   details: {
@@ -17,8 +17,8 @@ export type TWastedReasons = {
   }[];
 }[];
 
-export default async function TWastedReasonsResponse(params: TParams) {
-  return await getNoCacheData<TWastedReasons>({
+export default async function WastedReasonsResponse(params: TParams) {
+  return await getNoCacheData<TWastedReasonsResponse>({
     path: `items/${params.itemId}/wasted_reason`,
   });
 }
