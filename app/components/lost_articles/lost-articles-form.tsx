@@ -54,11 +54,17 @@ export default function LostArticlesForm({
         </Box>
         <Box flexGrow={1}></Box>
         <Box
-          width="95%"
+          marginBottom={3}
+          position="fixed"
           display="flex"
           flexDirection="column"
-          marginTop="auto"
-          marginBottom="10%"
+          justifyContent="center"
+          bottom={0}
+          left="50%"
+          sx={{
+            width: "90%",
+            transform: "translateX(-50%)",
+          }}
         >
           <Button
             onClick={onClickOpenLostArticlesFetcherVisible}
