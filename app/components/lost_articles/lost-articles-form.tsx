@@ -1,5 +1,4 @@
-import { Box, TextField, Typography } from "@mui/material";
-import FooterButton from "../common/button/footer-button";
+import { Box, Button, TextField, Typography } from "@mui/material";
 
 type TProps = {
   memberId?: number;
@@ -54,12 +53,27 @@ export default function LostArticlesForm({
           />
         </Box>
         <Box flexGrow={1}></Box>
-        <FooterButton
-          onClick={onClickOpenLostArticlesFetcherVisible}
-          disabled={!memberId || !message}
+        <Box
+          marginBottom={3}
+          position="fixed"
+          display="flex"
+          flexDirection="column"
+          justifyContent="center"
+          bottom={0}
+          left="50%"
+          sx={{
+            width: "90%",
+            transform: "translateX(-50%)",
+          }}
         >
-          登録する
-        </FooterButton>
+          <Button
+            onClick={onClickOpenLostArticlesFetcherVisible}
+            variant="contained"
+            disabled={!memberId || !message}
+          >
+            登録する
+          </Button>
+        </Box>
       </Box>
     </>
   );

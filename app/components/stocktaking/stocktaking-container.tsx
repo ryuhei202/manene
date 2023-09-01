@@ -11,7 +11,6 @@ import dynamic from "next/dynamic";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
-import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
@@ -56,7 +55,6 @@ export default function StocktakingContainer({ locationList }: TProps) {
       onSuccess: () => {
         alert(`棚卸しを完了しました`);
         router.push("/");
-        router.refresh();
       },
       onError: (error) => {
         alert(error.message);
@@ -108,12 +106,28 @@ export default function StocktakingContainer({ locationList }: TProps) {
       {locations && (
         <StocktakingList locations={locations} onClick={handleClickNavigate} />
       )}
-      <FooterButton
-        onClick={locations ? onClickComplete : onClickStart}
-        disabled={!!locations && canClickCompleteButton(locations)}
+      <Box
+        sx={{
+          position: "fixed",
+          bottom: 0,
+          width: "90%",
+          display: "flex",
+          flexDirection: "column",
+          left: "50%",
+          transform: "translateX(-50%)",
+          justifyContent: "center",
+          marginBottom: "5px",
+        }}
       >
-        {locations ? "棚卸し完了" : "棚卸し開始"}
-      </FooterButton>
+        <Button
+          variant="contained"
+          sx={{ height: "60px", fontSize: "17px" }}
+          disabled={!!locations && canClickCompleteButton(locations)}
+          onClick={locations ? onClickComplete : onClickStart}
+        >
+          {locations ? "棚卸し完了" : "棚卸し開始"}
+        </Button>
+      </Box>
     </>
   );
 }
