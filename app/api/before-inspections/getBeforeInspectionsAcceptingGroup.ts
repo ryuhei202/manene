@@ -2,7 +2,7 @@ import getNoCacheData from "../getNoCacheData";
 import { TInspectionGroup } from "../inspection-groups/getInspectionGroupsIndex";
 
 type TInspectionGroupResponse = {
-  inspectionGroups: TInspectionGroup | null;
+  tInspectionGroup: TInspectionGroup | null;
 };
 export default async function getBeforeInspectionsAcceptingGroup() {
   return await getNoCacheData<TInspectionGroupResponse>({
