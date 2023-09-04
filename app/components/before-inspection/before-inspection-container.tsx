@@ -8,7 +8,8 @@ import useBeforeInspectionsToMisplacedItem from "@/app/api/before-inspections/us
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
 import { Alert, Box, Button, Typography } from "@mui/material";
 import { AxiosError } from "axios";
-import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import ScanButton from "../common/button/scan-button";
 import ChartCard from "../common/card/chart-card";
 import LoadingDialog from "../common/dialog/loading-dialog";
@@ -20,6 +21,7 @@ type TProps = {
 };
 
 export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
+  const router = useRouter();
   const { mutate: createMutate, isLoading: isCreateLoading } =
     useBeforeInspectionsCreate();
   const { mutate: toMisplacedMutate, isLoading: isToMisplacedLoading } =
@@ -97,6 +99,10 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
       }
     );
   };
+
+  useEffect(() => {
+    router.refresh();
+  }, []);
   return (
     <>
       <LoadingDialog
