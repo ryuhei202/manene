@@ -1,24 +1,28 @@
 import getNoCacheData from "../getNoCacheData";
+import { TItemMaster } from "../item-location/useItemLocationsItemScan";
+
+export type TDetail = {
+  id: number;
+  name: string;
+  itemParts: TItemMaster[];
+};
+
+export type TWastedReason = {
+  id: number;
+  name: string;
+  details: TDetail[];
+};
+
+type TWastedReasonsResponse = {
+  wastedReasons: TWastedReason[];
+};
 
 type TParams = {
   itemId: number;
 };
 
-export type TWastedReasons = {
-  id: number;
-  name: string;
-  details: {
-    id: number;
-    name: string;
-    itemPart: {
-      id: number;
-      name: string;
-    }[];
-  }[];
-}[];
-
 export default async function getWastedReasonIndex(params: TParams) {
-  return await getNoCacheData<TWastedReasons>({
-    path: `items/${params}/wasted_reason`,
+  return await getNoCacheData<TWastedReasonsResponse>({
+    path: `items/${params.itemId}/wasted_reason`,
   });
 }

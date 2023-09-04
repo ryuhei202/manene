@@ -15,18 +15,13 @@ type TProps = {
 
 export default function WastedReasonItemMediumCard({ itemInfo }: TProps) {
   return (
-    <Box
-      sx={{
-        display: "flex",
-        padding: "7%",
-      }}
-    >
+    <Box display="flex" padding="7%">
       <Box>
         <ExpandableImage imagePath={itemInfo.itemImageUrl} />
       </Box>
       <Box
+        paddingLeft="3%"
         sx={{
-          paddingLeft: "3%",
           color: "secondary.dark",
         }}
       >
