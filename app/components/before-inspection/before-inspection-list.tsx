@@ -5,7 +5,7 @@ import ItemInfoCard from "../common/Item/item-info-card";
 
 type TProps = {
   chartItems: TChartItem[];
-  onClick: () => void;
+  onClick: (id: number) => void;
   isLoading: boolean;
 };
 
@@ -16,15 +16,19 @@ export default function BeforeInspectionList({
 }: TProps) {
   return (
     <List>
-      {chartItems.map((item: TChartItem) => {
+      {chartItems.map((chartItem: TChartItem) => {
         return (
-          <ItemCard key={item.id} imagePath={item.itemInfo.itemImageUrl}>
+          <ItemCard
+            key={chartItem.id}
+            imagePath={chartItem.itemInfo.itemImageUrl}
+          >
             <ItemInfoCard
-              itemInfo={item.itemInfo}
+              itemInfo={chartItem.itemInfo}
+              chartItemId={chartItem.id}
               onClick={onClick}
               isLoading={isLoading}
-              isPurchased={item.purchasedFlag}
-              inspectionStatus={item.inspectionStatus}
+              isPurchased={chartItem.purchasedFlag}
+              inspectionStatus={chartItem.inspectionStatus}
             />
           </ItemCard>
         );

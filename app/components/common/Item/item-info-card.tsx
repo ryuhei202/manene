@@ -7,7 +7,8 @@ type TProps = {
   itemInfo: TItemInfo & {
     mLocationName?: string;
   };
-  onClick?: () => void;
+  chartItemId: number;
+  onClick?: (id: number) => void;
   isLoading?: boolean;
   isPurchased?: boolean;
   inspectionStatus?: number;
@@ -32,6 +33,7 @@ export const INSPECTION_STATUS = {
 
 export default function ItemInfoCard({
   itemInfo,
+  chartItemId,
   onClick,
   isLoading,
   isPurchased,
@@ -41,7 +43,11 @@ export default function ItemInfoCard({
     return {
       [INSPECTION_STATUS.RETURNED]: (
         <Button
-          onClick={onClick}
+          onClick={() => {
+            if (onClick) {
+              onClick(chartItemId);
+            }
+          }}
           disabled={isLoading}
           variant="contained"
           sx={{ marginRight: "15px" }}
@@ -65,7 +71,7 @@ export default function ItemInfoCard({
         <InspectionStatusText>買取候補</InspectionStatusText>
       ),
     }[inspectionStatus as number];
-  }, [inspectionStatus, onClick, isLoading]);
+  }, [inspectionStatus, onClick, isLoading, chartItemId]);
 
   return (
     <>
