@@ -1,5 +1,4 @@
 "use client";
-
 import { TItemMaster } from "@/app/api/item-location/useItemLocationsItemScan";
 import {
   TDetail,
@@ -15,30 +14,40 @@ import {
   Select,
   SelectChangeEvent,
 } from "@mui/material";
-import { useState } from "react";
 
 type TProps = {
   wastedReasons: TWastedReason[];
+  selectedCategoryId: number;
+  selectedDetailId: number;
+  selectedPartIds: number[];
+  onSetCategoryId: (id: number) => void;
+  onSetDetailId: (id: number | undefined) => void;
+  onSetPartIds: (ids: number[]) => void;
 };
 
-export default function WastedReasonSelect({ wastedReasons }: TProps) {
-  const [categoryId, setCategoryId] = useState<number>();
-  const [detailId, setDetailId] = useState<number>();
-  const [partIds, setPartIds] = useState<number[]>([]);
+export default function WastedReasonSelect({
+  wastedReasons,
+  selectedCategoryId,
+  selectedDetailId,
+  selectedPartIds,
+  onSetCategoryId,
+  onSetDetailId,
+  onSetPartIds,
+}: TProps) {
   const currentDetail = wastedReasons
-    .find((reason: TWastedReason) => reason.id === categoryId)
-    ?.details?.find((detail: TDetail) => detail.id === detailId);
+    .find((reason: TWastedReason) => reason.id === selectedCategoryId)
+    ?.details?.find((detail: TDetail) => detail.id === selectedCategoryId);
 
   return (
     <Box>
       <FormControl margin="normal" sx={{ width: "200px" }}>
         <InputLabel>カテゴリ</InputLabel>
         <Select
-          value={categoryId ?? ""}
+          value={selectedCategoryId ?? ""}
           onChange={(e: SelectChangeEvent<number>) => {
-            setCategoryId(e.target.value as number);
-            setDetailId(undefined);
-            setPartIds([]);
+            onSetCategoryId(e.target.value as number);
+            onSetDetailId(undefined);
+            onSetPartIds([]);
           }}
         >
           {wastedReasons.map((reason: TWastedReason) => {
@@ -53,15 +62,15 @@ export default function WastedReasonSelect({ wastedReasons }: TProps) {
       <FormControl margin="normal" sx={{ width: "200px" }}>
         <InputLabel>詳細</InputLabel>
         <Select
-          value={detailId ?? ""}
+          value={selectedDetailId ?? ""}
           onChange={(e: SelectChangeEvent<number>) => {
-            setDetailId(e.target.value as number);
-            setPartIds([]);
+            onSetDetailId(e.target.value as number);
+            onSetPartIds([]);
           }}
         >
-          {categoryId &&
+          {selectedCategoryId &&
             wastedReasons
-              .find((reason: TWastedReason) => reason.id === categoryId)
+              .find((reason: TWastedReason) => reason.id === selectedCategoryId)
               ?.details.map((detail: TDetail) => {
                 return (
                   <MenuItem key={detail.id} value={detail.id}>
@@ -75,9 +84,9 @@ export default function WastedReasonSelect({ wastedReasons }: TProps) {
         <FormControl margin="normal" sx={{ width: "200px" }}>
           <InputLabel>部位</InputLabel>
           <Select
-            value={partIds}
+            value={selectedPartIds}
             onChange={(e: SelectChangeEvent<number[]>) => {
-              setPartIds(e.target.value as number[]);
+              onSetPartIds(e.target.value as number[]);
             }}
             multiple
             renderValue={(selected) =>
@@ -93,7 +102,7 @@ export default function WastedReasonSelect({ wastedReasons }: TProps) {
             {currentDetail?.itemParts.map((part: TItemMaster) => {
               return (
                 <MenuItem key={part.id} value={part.id}>
-                  <Checkbox checked={partIds.includes(part.id)} />
+                  <Checkbox checked={selectedPartIds.includes(part.id)} />
                   <ListItemText primary={part.name} />
                 </MenuItem>
               );
