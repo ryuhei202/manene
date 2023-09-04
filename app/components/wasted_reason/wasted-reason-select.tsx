@@ -7,8 +7,10 @@ import {
 } from "@/app/api/wasted_reason/getWastedReasonIndex";
 import {
   Box,
+  Checkbox,
   FormControl,
   InputLabel,
+  ListItemText,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -78,11 +80,21 @@ export default function WastedReasonSelect({ wastedReasons }: TProps) {
               setPartIds(e.target.value as number[]);
             }}
             multiple
+            renderValue={(selected) =>
+              selected
+                .map(
+                  (id) =>
+                    currentDetail?.itemParts.find((part) => part.id === id)
+                      ?.name || ""
+                )
+                .join(", ")
+            }
           >
             {currentDetail?.itemParts.map((part: TItemMaster) => {
               return (
                 <MenuItem key={part.id} value={part.id}>
-                  {part.name}
+                  <Checkbox checked={partIds.includes(part.id)} />
+                  <ListItemText primary={part.name} />
                 </MenuItem>
               );
             })}
