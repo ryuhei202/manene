@@ -17,8 +17,8 @@ import {
 
 type TProps = {
   wastedReasons: TWastedReason[];
-  selectedCategoryId: number;
-  selectedDetailId: number;
+  selectedCategoryId: number | undefined;
+  selectedDetailId: number | undefined;
   selectedPartIds: number[];
   onSetCategoryId: (id: number) => void;
   onSetDetailId: (id: number | undefined) => void;
@@ -36,7 +36,7 @@ export default function WastedReasonSelect({
 }: TProps) {
   const currentDetail = wastedReasons
     .find((reason: TWastedReason) => reason.id === selectedCategoryId)
-    ?.details?.find((detail: TDetail) => detail.id === selectedCategoryId);
+    ?.details?.find((detail: TDetail) => detail.id === selectedDetailId);
 
   return (
     <Box>
