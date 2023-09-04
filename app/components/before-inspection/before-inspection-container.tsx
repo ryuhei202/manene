@@ -2,16 +2,28 @@
 import useBeforeInspectionsCreate, {
   TBeforeInspectionsCreateResponse,
   TChart,
+  TItemInfo,
 } from "@/app/api/before-inspections/useBeforeInspectionsCreate";
 import useBeforeInspectionsInspect from "@/app/api/before-inspections/useBeforeInspectionsInspect";
 import useBeforeInspectionsToMisplacedItem from "@/app/api/before-inspections/useBeforeInspectionsToMisplacedItem";
 import { TInspectionGroup } from "@/app/api/inspection-groups/getInspectionGroupsIndex";
-import { Alert, Box, Button, Typography } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Button,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  Typography,
+} from "@mui/material";
 import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import ItemCard from "../common/Item/item-card";
+import ItemInfoCard from "../common/Item/item-info-card";
 import ScanButton from "../common/button/scan-button";
 import ChartCard from "../common/card/chart-card";
+import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import BeforeInspectionList from "./before-inspection-list";
@@ -31,6 +43,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
   const [inspectionData, setInspectionData] =
     useState<Omit<TBeforeInspectionsCreateResponse, "tChart">>();
   const [registeredChart, setRegisteredChart] = useState<TChart>();
+  const [misplacedItemId, setMisplacedItemId] = useState<number>();
 
   const onScanCreateBeforeInspection = (itemId: number) => {
     createMutate(
@@ -73,6 +86,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
         },
       }
     );
+    setMisplacedItemId(undefined);
   };
 
   const handleClickInspect = (id: number) => {
@@ -102,7 +116,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
 
   useEffect(() => {
     router.refresh();
-  }, []);
+  }, [router]);
   return (
     <>
       <LoadingDialog
@@ -142,7 +156,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
           />
           <BeforeInspectionList
             chartItems={registeredChart.tChartItems}
-            onClick={handleClickToMisplaced}
+            onClick={(id: number) => setMisplacedItemId(id)}
             isLoading={isToMisplacedLoading}
           />
         </>
@@ -167,14 +181,51 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
           autoCloseDialog
         />
         {registeredChart && (
-          <Button
-            variant="contained"
-            sx={{ height: "50px", backgroundColor: "primary.main" }}
-            onClick={() => handleClickInspect(registeredChart.id)}
-            disabled={isInspectLoading}
+          <>
+            <Button
+              variant="contained"
+              sx={{ height: "50px", backgroundColor: "primary.main" }}
+              onClick={() => handleClickInspect(registeredChart.id)}
+              disabled={isInspectLoading}
+            >
+              即時検品する
+            </Button>
+          </>
+        )}
+
+        {misplacedItemId && (
+          <DisableBackDialog
+            open={!!misplacedItemId}
+            onClose={() => setMisplacedItemId(undefined)}
           >
-            即時検品する
-          </Button>
+            <DialogTitle>入れ忘れを登録しますか？</DialogTitle>
+            <DialogContent>
+              <ItemCard
+                imagePath={
+                  registeredChart?.tChartItems.find(
+                    (item) => item.id === misplacedItemId
+                  )?.itemInfo.itemImageUrl as string
+                }
+              >
+                <ItemInfoCard
+                  itemInfo={
+                    registeredChart?.tChartItems.find(
+                      (item) => item.id === misplacedItemId
+                    )?.itemInfo as TItemInfo
+                  }
+                  chartItemId={0}
+                />
+              </ItemCard>
+            </DialogContent>
+            <DialogActions>
+              <Button onClick={() => setMisplacedItemId(undefined)}>
+                キャンセル
+              </Button>
+              <Button onClick={() => handleClickToMisplaced(misplacedItemId)}>
+                OK
+              </Button>
+            </DialogActions>
+          </DisableBackDialog>
         )}
       </Box>
     </>
