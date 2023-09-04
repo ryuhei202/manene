@@ -6,6 +6,7 @@ import { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import FooterButton from "../common/button/footer-button";
+import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import WastedReasonItemMediumCard, {
   TIitemInfo,
@@ -81,6 +82,7 @@ export default function WastedReasonContainer({
 
   return (
     <>
+      <LoadingDialog isOpen={isLoading} />
       <Header title="廃棄登録" />
       <WastedReasonItemMediumCard itemInfo={itemInfo} />
       <Box marginBottom={3}>
