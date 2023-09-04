@@ -1,16 +1,19 @@
+"use client";
 import { Box } from "@mui/material";
 import ExpandableImage from "../common/Image/expandable-image";
 
+export type TIitemInfo = {
+  id: number;
+  itemImageUrl: string;
+  mBrand: string;
+  size: string | null;
+  mCateSmall: string;
+  mColor: string;
+  status: string;
+};
+
 type TProps = {
-  itemInfo: {
-    id: number;
-    itemImageUrl: string;
-    mBrand: string;
-    size: string;
-    mCateSmall: string;
-    mColor: string;
-    status: string;
-  };
+  itemInfo: TIitemInfo;
 };
 
 export default function WastedReasonItemMediumCard({ itemInfo }: TProps) {
