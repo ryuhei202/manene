@@ -117,40 +117,29 @@ export default function PurchaseRequestForm({
           </Select>
         </FormControl>
       </Box>
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          width: "90%",
-          display: "flex",
-          flexDirection: "column",
-          left: "50%",
-          transform: "translateX(-50%)",
-          justifyContent: "center",
-          gap: 2,
-          marginBottom: "30px",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={onClickRegister}
-          disabled={
-            !!message ||
-            requestReason === undefined ||
-            selectedImages.length < 1
-          }
-          sx={{ height: "50px" }}
-        >
-          確定
-        </Button>
-        <Button
-          variant="contained"
-          color="inherit"
-          onClick={onClose}
-          sx={{ height: "50px" }}
-        >
-          キャンセル
-        </Button>
+      <Box display="flex" justifyContent="center" marginY={5}>
+        <Box display="flex" flexDirection="column" gap={2} width="90%">
+          <Button
+            variant="contained"
+            onClick={onClickRegister}
+            disabled={
+              !!message ||
+              requestReason === undefined ||
+              selectedImages.length < 1
+            }
+            sx={{ height: "50px" }}
+          >
+            確定
+          </Button>
+          <Button
+            variant="contained"
+            color="inherit"
+            onClick={onClose}
+            sx={{ height: "50px" }}
+          >
+            キャンセル
+          </Button>
+        </Box>
       </Box>
     </>
   );
