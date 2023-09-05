@@ -34,9 +34,12 @@ export default function WastedReasonSelect({
   onSetDetailId,
   onSetPartIds,
 }: TProps) {
-  const currentDetail = wastedReasons
-    .find((reason: TWastedReason) => reason.id === selectedCategoryId)
-    ?.details?.find((detail: TDetail) => detail.id === selectedDetailId);
+  const currentCategory = wastedReasons.find(
+    (reason: TWastedReason) => reason.id === selectedCategoryId
+  );
+  const currentDetail = currentCategory?.details?.find(
+    (detail: TDetail) => detail.id === selectedDetailId
+  );
 
   return (
     <Box>
@@ -69,15 +72,13 @@ export default function WastedReasonSelect({
           }}
         >
           {selectedCategoryId &&
-            wastedReasons
-              .find((reason: TWastedReason) => reason.id === selectedCategoryId)
-              ?.details.map((detail: TDetail) => {
-                return (
-                  <MenuItem key={detail.id} value={detail.id}>
-                    {detail.name}
-                  </MenuItem>
-                );
-              })}
+            currentCategory?.details.map((detail: TDetail) => {
+              return (
+                <MenuItem key={detail.id} value={detail.id}>
+                  {detail.name}
+                </MenuItem>
+              );
+            })}
         </Select>
       </FormControl>
       {(currentDetail?.itemParts.length as number) > 0 && (
