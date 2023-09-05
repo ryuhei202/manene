@@ -133,7 +133,11 @@ export default function PurchaseRequestForm({
         <Button
           variant="contained"
           onClick={onClickRegister}
-          disabled={!canRegister}
+          disabled={
+            !!message ||
+            requestReason === undefined ||
+            selectedImages.length < 1
+          }
           sx={{ height: "50px" }}
         >
           確定
