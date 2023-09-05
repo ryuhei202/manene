@@ -85,6 +85,7 @@ export default function PurchaseRequestForm({
             type="file"
             hidden
             accept="image/*"
+            capture="environment"
             onChange={onChangeImage}
             multiple
           />
