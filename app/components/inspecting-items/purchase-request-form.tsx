@@ -27,7 +27,6 @@ type TProps = {
   requestReason: number;
   onChangeSelect: (e: SelectChangeEvent<number>) => void;
   onClickRegister: () => void;
-  canRegister: boolean;
   onClose: () => void;
 };
 
@@ -45,7 +44,6 @@ export default function PurchaseRequestForm({
   requestReason,
   onChangeSelect,
   onClickRegister,
-  canRegister,
   onClose,
 }: TProps) {
   return (
