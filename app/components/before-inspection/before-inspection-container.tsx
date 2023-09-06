@@ -159,6 +159,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
             onClick={(id: number) => setMisplacedItemId(id)}
             isLoading={isToMisplacedLoading}
           />
+          <Box height={150}></Box>
         </>
       )}
       <Box
@@ -206,6 +207,7 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
                     (item) => item.id === misplacedItemId
                   )?.itemInfo.itemImageUrl as string
                 }
+                divider={false}
               >
                 <ItemInfoCard
                   itemInfo={

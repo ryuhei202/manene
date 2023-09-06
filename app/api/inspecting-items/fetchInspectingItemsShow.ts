@@ -1,32 +1,24 @@
 "use client";
+import { TItemInfo } from "../before-inspections/useBeforeInspectionsCreate";
 import fetchData from "../fetchData";
 
 export type TInspectingChart = {
-  chartId: number;
-  memberId: number;
-  memberName: string;
+  id: number;
+  tMemberId: number;
+  name: string;
   rentalStartedAt: string;
 };
 
-export type TInspectingItemInfo = {
-  itemId: number;
-  size: string;
-  itemImageUrl: string;
-  category: string;
-  color: string;
-  brand: string;
-};
-
 export type TInspectingItem = {
-  inspectionItemId: number;
-  chart: TInspectingChart;
-  itemInfo: TInspectingItemInfo;
+  id: number;
+  tChart: TInspectingChart;
+  itemInfo: TItemInfo;
   status: number;
   groupNo: number;
   isChartInspected: boolean;
 };
 export type TInspectingItemsShowResponse = {
-  inspectingItem: TInspectingItem;
+  tInspectionItem: TInspectingItem;
 };
 
 type TParams = {

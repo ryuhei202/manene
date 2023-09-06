@@ -7,8 +7,8 @@ export type TImage = {
 };
 
 type TInspectingItemsToPurchaseItemResponse = {
-  encloseItemId: number;
-  inspectingItem: TInspectingItem;
+  tEncloseItemId: number;
+  tInspectionItem: TInspectingItem;
 };
 
 type TParams = {
