@@ -1,5 +1,12 @@
-import { TChart as TProps } from "@/app/api/before-inspections/useBeforeInspectionsCreate";
+import {
+  TChart,
+  TChartItem,
+} from "@/app/api/before-inspections/useBeforeInspectionsCreate";
 import { Box, Card, Typography } from "@mui/material";
+
+type TProps = Omit<TChart, "tChartItems"> & {
+  tChartItems?: TChartItem[];
+};
 
 export default function ChartCard({
   id,
@@ -31,19 +38,21 @@ export default function ChartCard({
             {name}: {tMemberId}
           </Typography>
         </Box>
-        <Box display="flex" alignItems="center">
-          <Typography
-            variant="h6"
-            color="primary.main"
-            component="span"
-            marginRight={1}
-          >
-            {tChartItems.length}
-          </Typography>
-          <Typography variant="subtitle1" component="span">
-            アイテム
-          </Typography>
-        </Box>
+        {tChartItems && (
+          <Box display="flex" alignItems="center">
+            <Typography
+              variant="h6"
+              color="primary.main"
+              component="span"
+              marginRight={1}
+            >
+              {tChartItems.length}
+            </Typography>
+            <Typography variant="subtitle1" component="span">
+              アイテム
+            </Typography>
+          </Box>
+        )}
       </Box>
     </Card>
   );
