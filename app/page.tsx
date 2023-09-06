@@ -14,7 +14,7 @@ export default function HomePage() {
       </MenuAccordion>
       <MenuAccordion title={"返却検品"}>
         <LinkButton buttonName={"返却検品登録"} path="before_inspection" />
-        <LinkButton buttonName={"返却検品中操作"} path="" />
+        <LinkButton buttonName={"返却検品中操作"} path="inspecting_items" />
         <LinkButton buttonName={"返却検品管理"} path="inspection_group" />
         <LinkButton buttonName={"忘れ物登録"} path="" />
       </MenuAccordion>
