@@ -121,7 +121,7 @@ export default function PurchaseRequestForm({
             variant="contained"
             onClick={onClickRegister}
             disabled={
-              !!message ||
+              !message ||
               requestReason === undefined ||
               selectedImages.length < 1
             }
