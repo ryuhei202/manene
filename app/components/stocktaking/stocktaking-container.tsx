@@ -15,9 +15,7 @@ import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
+
 const Button = dynamic(
   () => import("@mui/material").then((mod) => mod.Button),
   {
