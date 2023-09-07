@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import { AxiosError } from "axios";
 import { useState } from "react";
+import FooterButton from "../common/button/footer-button";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
@@ -64,27 +65,9 @@ export default function InspectionGroupContainer({
         }}
       />
       <Box height={50}></Box>
-      <Box
-        marginBottom={3}
-        position="fixed"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        bottom={0}
-        left="50%"
-        sx={{
-          width: "90%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        <Button
-          variant="contained"
-          onClick={() => setIsCreateDialogOpen(true)}
-          sx={{ height: "50px" }}
-        >
-          +検品グループ追加
-        </Button>
-      </Box>
+      <FooterButton onClick={() => setIsCreateDialogOpen(true)}>
+        +検品グループ追加
+      </FooterButton>
       <DisableBackDialog
         open={isCreateDialogOpen}
         onClose={() => setIsCreateDialogOpen(false)}

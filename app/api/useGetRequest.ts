@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 import { HostUrl } from "../model/Host-url";
 import { customAxios } from "../model/api/shared/custom-axios";
 
@@ -13,7 +14,7 @@ export const useGetRequest = <TResponse, TParams = object, THeaders = object>({
   headers?: THeaders;
   isEnabled?: boolean;
 }) => {
-  const { data, refetch, error, isLoading } = useQuery<TResponse, Error>(
+  const { data, refetch, error, isLoading } = useQuery<TResponse, AxiosError>(
     [path, params],
     () =>
       customAxios()
