@@ -1,28 +1,7 @@
 "use client";
-import dynamic from "next/dynamic";
+import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import Link from "next/link";
 import React from "react";
-const AppBar = dynamic(
-  () => import("@mui/material").then((mod) => mod.AppBar),
-  {
-    ssr: false,
-  }
-);
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
-const Button = dynamic(
-  () => import("@mui/material").then((mod) => mod.Button),
-  {
-    ssr: false,
-  }
-);
-const Toolbar = dynamic(
-  () => import("@mui/material").then((mod) => mod.Toolbar),
-  {
-    ssr: false,
-  }
-);
 
 type TProps = {
   title: string;

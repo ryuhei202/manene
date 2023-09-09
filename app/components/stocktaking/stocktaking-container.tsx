@@ -7,7 +7,7 @@ import {
 import useStocktakingsComplete from "@/app/api/stocktaking/useStocktakingsComplete";
 import useStocktakingsCreate from "@/app/api/stocktaking/useStocktakingsCreate";
 import CachedIcon from "@mui/icons-material/Cached";
-import dynamic from "next/dynamic";
+import { Button } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
@@ -15,15 +15,6 @@ import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
-const Box = dynamic(() => import("@mui/material").then((mod) => mod.Box), {
-  ssr: false,
-});
-const Button = dynamic(
-  () => import("@mui/material").then((mod) => mod.Button),
-  {
-    ssr: false,
-  }
-);
 
 type TProps = {
   locationList: TStocktakingsCurrentResponse;
