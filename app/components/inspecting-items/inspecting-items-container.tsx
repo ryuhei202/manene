@@ -8,7 +8,7 @@ import { AxiosError } from "axios";
 import React, { useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard, { INSPECTION_STATUS } from "../common/Item/item-info-card";
-import ScanButton from "../common/button/scan-button";
+import QrCodeReader from "../common/barcode/qr-code-reader";
 import ChartCard from "../common/card/chart-card";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import Header from "../common/pages/header";
@@ -69,6 +69,7 @@ export default function InspectionItemsContainer() {
   return (
     <>
       <Header title="返却検品中操作" />
+      <QrCodeReader onScan={(id: number) => handleScan(id)} isRectangle />
       {scannedInspectingItem && (
         <>
           <Box margin={2}>
@@ -152,26 +153,6 @@ export default function InspectionItemsContainer() {
           </DisableBackDialog>
         </>
       )}
-
-      <Box
-        marginBottom={3}
-        position="fixed"
-        display="flex"
-        flexDirection="column"
-        justifyContent="center"
-        bottom={0}
-        left="50%"
-        sx={{
-          width: "90%",
-          transform: "translateX(-50%)",
-        }}
-      >
-        <ScanButton
-          title="アイテムスキャン"
-          onScan={handleScan}
-          autoCloseDialog
-        />
-      </Box>
     </>
   );
 }
