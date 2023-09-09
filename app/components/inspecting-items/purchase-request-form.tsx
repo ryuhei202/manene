@@ -64,7 +64,10 @@ export default function PurchaseRequestForm({
       mutate(
         {
           memo: memo,
-          images: selectedImages,
+          images: selectedImages.map((image) => {return {
+            imageData: image.imageData.split(",")[1],
+            imageFileName: image.imageFileName,
+          }}),
           purchaseRequestReason: requestReason,
         },
         {
