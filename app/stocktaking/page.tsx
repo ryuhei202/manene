@@ -1,5 +1,11 @@
+import dynamic from "next/dynamic";
 import getStocktakingsCurrent from "../api/stocktaking/getStocktakingsCurrent";
-import StocktakingContainer from "../components/stocktaking/stocktaking-container";
+const StocktakingContainer = dynamic(
+  () => import("../components/stocktaking/stocktaking-container"),
+  {
+    ssr: false,
+  }
+);
 
 export default async function StocktakingPage() {
   const data = await getStocktakingsCurrent();
