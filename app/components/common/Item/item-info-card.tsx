@@ -7,7 +7,7 @@ type TProps = {
   itemInfo: TItemInfo & {
     mLocationName?: string;
   };
-  chartItemId: number;
+  chartItemId?: number;
   onClick?: (id: number) => void;
   isLoading?: boolean;
   isPurchased?: boolean;
@@ -44,7 +44,7 @@ export default function ItemInfoCard({
       [INSPECTION_STATUS.RETURNED]: (
         <Button
           onClick={() => {
-            if (onClick) {
+            if (onClick && chartItemId) {
               onClick(chartItemId);
             }
           }}
