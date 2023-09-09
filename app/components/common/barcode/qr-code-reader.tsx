@@ -10,7 +10,7 @@ type TProps = {
   isRectangle?: boolean;
 };
 
-export default function QrCodeReader({ onScan, isRectangle }: TProps) {
+export default function QrCodeReader({ onScan, isRectangle = false }: TProps) {
   const [isBarcodeInputOpen, setIsBarcodeInputOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState<string>("");
   const handleClickSwitchModal = () => {
@@ -42,17 +42,48 @@ export default function QrCodeReader({ onScan, isRectangle }: TProps) {
 
   return (
     <>
-      <Html5QrcodePlugin
-        fps={10}
-        qrbox={{
-          width: isRectangle ? 300 : 250,
-          height: isRectangle ? 100 : 250,
-        }}
-        disableFlip={false}
-        aspectRatio={isRectangle ? 3 : undefined}
-        qrCodeSuccessCallback={onNewScanResult}
-        facingMode={"environment"}
-      />
+      <Box
+        sx={
+          isRectangle
+            ? { position: "relative" }
+            : {
+                display: "flex",
+                flexDirection: "column",
+              }
+        }
+      >
+        <Html5QrcodePlugin
+          fps={10}
+          qrbox={{
+            width: isRectangle ? 300 : 250,
+            height: isRectangle ? 100 : 250,
+          }}
+          disableFlip={false}
+          aspectRatio={isRectangle ? 3 : undefined}
+          qrCodeSuccessCallback={onNewScanResult}
+          facingMode={"environment"}
+        />
+        <Box display="flex" justifyContent="end">
+          <Button
+            style={
+              isRectangle
+                ? {
+                    position: "absolute",
+                    bottom: "6px",
+                    right: "10px",
+                  }
+                : {
+                    marginTop: "20px",
+                    marginRight: "20px",
+                  }
+            }
+            onClick={handleClickSwitchModal}
+            variant="contained"
+          >
+            <KeyboardAltOutlinedIcon sx={{ color: "white" }} />
+          </Button>
+        </Box>
+      </Box>
       <Modal
         open={dialogMessage !== ""}
         onClose={handleCloseModal}
@@ -65,20 +96,6 @@ export default function QrCodeReader({ onScan, isRectangle }: TProps) {
           <Typography sx={{ mt: 2 }}>{dialogMessage}</Typography>
         </Box>
       </Modal>
-      <Button
-        onClick={handleClickSwitchModal}
-        sx={{
-          backgroundColor: "#1976d2",
-          position: "absolute",
-          bottom: "12vh",
-          right: "12.5vw",
-          width: "40px",
-          height: "40px",
-          minWidth: "40px",
-        }}
-      >
-        <KeyboardAltOutlinedIcon sx={{ color: "white" }} />
-      </Button>
       <BarcodeInputDialog
         onClickSetId={onScan}
         onClose={handleClickSwitchModal}
