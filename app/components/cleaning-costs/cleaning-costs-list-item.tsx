@@ -24,7 +24,7 @@ export default function CleaningCostsListItem({ item }: TProps) {
           style={{ marginLeft: 5 }}
         />
 
-        <Box marginLeft={2}>
+        <Box marginLeft={3}>
           <Typography variant="subtitle1">アイテムID:{item.id}</Typography>
           <Typography
             variant="subtitle1"
