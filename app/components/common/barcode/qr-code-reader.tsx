@@ -7,9 +7,10 @@ import BarcodeInputDialog from "./barcode-input-dialog";
 
 type TProps = {
   onScan: (id: number) => void;
+  isRectangle?: boolean;
 };
 
-export default function QrCodeReader({ onScan }: TProps) {
+export default function QrCodeReader({ onScan, isRectangle }: TProps) {
   const [isBarcodeInputOpen, setIsBarcodeInputOpen] = useState(false);
   const [dialogMessage, setDialogMessage] = useState<string>("");
   const handleClickSwitchModal = () => {
@@ -43,8 +44,12 @@ export default function QrCodeReader({ onScan }: TProps) {
     <>
       <Html5QrcodePlugin
         fps={10}
-        qrbox={{ width: 250, height: 250 }}
+        qrbox={{
+          width: isRectangle ? 300 : 250,
+          height: isRectangle ? 100 : 250,
+        }}
         disableFlip={false}
+        aspectRatio={isRectangle ? 3 : undefined}
         qrCodeSuccessCallback={onNewScanResult}
         facingMode={"environment"}
       />

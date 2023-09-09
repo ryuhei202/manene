@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import ItemCard from "../common/Item/item-card";
 import ItemInfoCard from "../common/Item/item-info-card";
-import ScanButton from "../common/button/scan-button";
+import QrCodeReader from "../common/barcode/qr-code-reader";
 import ChartCard from "../common/card/chart-card";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
@@ -127,6 +127,11 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
           グループ{inspectionGroup ? inspectionGroup.groupNo : "なし"}
         </Typography>
       </Header>
+
+      <QrCodeReader
+        onScan={(id: number) => onScanCreateBeforeInspection(id)}
+        isRectangle
+      />
       {inspectionData && (
         <Box margin={2}>
           {inspectionData.isChartInspected ? (
@@ -176,11 +181,6 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
           marginBottom: "30px",
         }}
       >
-        <ScanButton
-          onScan={(id: number) => onScanCreateBeforeInspection(id)}
-          title="アイテムスキャン"
-          autoCloseDialog
-        />
         {registeredChart && (
           <>
             <Button
