@@ -10,7 +10,7 @@ export default function LostArticlesContainer() {
   const [isOpenDialog, setIsOpenDialog] = useState<boolean>(false);
   const [lostArticleId, setLostArticleId] = useState<number>();
 
-  const { mutate, isLoading } = useLostArticlesCreate();
+  const { mutate, isLoading: isCreateLoading } = useLostArticlesCreate();
   const handleClickOk = () => {
     if (memberId && message) {
       mutate(
@@ -40,7 +40,7 @@ export default function LostArticlesContainer() {
         <LostArticlesConfirmFetcher
           memberId={memberId}
           message={message}
-          isLoading={isLoading}
+          isCreateLoading={isCreateLoading}
           onClose={() => setIsOpenDialog(false)}
           onComplete={() => {
             setIsOpenDialog(false);
