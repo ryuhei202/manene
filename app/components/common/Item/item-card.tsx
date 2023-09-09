@@ -6,7 +6,7 @@ import ExpandableImage from "../Image/expandable-image";
 
 type TProps = {
   imagePath: string;
-  isItemPicked: boolean;
+  isItemPicked?: boolean;
   children: React.ReactNode;
 };
 
@@ -29,7 +29,7 @@ export default function ItemCard({
         <CheckCircleOutlineSharpIcon sx={{ color: "primary.main", mx: 0.5 }} />
       )}
       <ExpandableImage imagePath={imagePath} />
-      <Box sx={{ ml: 1.5 }}>{children}</Box>
+      <Box sx={{ ml: 1.5, width: "300px" }}>{children}</Box>
     </Box>
   );
 }

@@ -10,17 +10,19 @@ export type TItemInfo = {
   mBrandName: string;
 };
 
+export type TChartItem = {
+  id: number;
+  itemInfo: TItemInfo;
+  purchasedFlag: boolean;
+  inspectionStatus: number;
+};
+
 export type TChart = {
   id: number;
   tMemberId: number;
   name: string;
   deliveryDate: string;
-  tChartItems: {
-    id: number;
-    itemInfo: TItemInfo;
-    purchasedFlag: boolean;
-    inspectionStatus: number;
-  }[];
+  tChartItems: TChartItem[];
 };
 
 export type TBeforeInspectionsCreateResponse = {
