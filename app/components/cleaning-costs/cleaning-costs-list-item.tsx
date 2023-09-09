@@ -15,21 +15,32 @@ type TProps = {
 export default function CleaningCostsListItem({ item }: TProps) {
   return (
     <ListItem divider>
-      <Image src={item.itemImageUrl} alt="item-image" width={70} height={125} />
-      <Box>
-        <Typography>アイテムID:{item.id}</Typography>
+      <Box display="flex" width="100%" alignItems="center">
+        <Image
+          src={item.itemImageUrl}
+          alt="item-image"
+          width={45}
+          height={70}
+          style={{ marginLeft: 5 }}
+        />
+
+        <Box marginLeft={2}>
+          <Typography variant="subtitle1">アイテムID:{item.id}</Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: item.previousCleaningDate ? "warning.dark" : "inherit",
+            }}
+          >
+            前回登録日:{item.previousCleaningDate ?? "無し"}
+          </Typography>
+        </Box>
         <Typography
+          marginLeft="auto"
+          variant="subtitle1"
+          marginTop={3}
           sx={{
-            color: item.previousCleaningDate ? "red" : "inherit"
-          }}
-        >
-          前回登録日:{item.previousCleaningDate ?? "無し"}
-        </Typography>
-      </Box>
-      <Box>
-        <Typography
-          sx={{
-            color: item.previousCleaningDate ? "red" : "inherit"
+            color: item.previousCleaningDate ? "warning.dark" : "inherit",
           }}
         >
           {item.previousCleaningCategoryName}
