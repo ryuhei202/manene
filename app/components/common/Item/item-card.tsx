@@ -8,19 +8,21 @@ type TProps = {
   imagePath: string;
   isItemPicked?: boolean;
   children: React.ReactNode;
+  divider?: boolean;
 };
 
 export default function ItemCard({
   imagePath,
   isItemPicked,
   children,
+  divider = true,
 }: TProps) {
   return (
     <Box
       sx={{
         display: "flex",
         alignItems: "center",
-        borderBottom: 1,
+        borderBottom: divider ? 1 : 0,
         p: 0.5,
         bgcolor: "background.paper",
       }}
