@@ -5,16 +5,14 @@ type TProps = {
   judgedItems: TItemsJudgeThrowAwayResponse[];
 };
 export default function JudgeThrowAwayList({ judgedItems }: TProps) {
-  return judgedItems.map((item: TItemsJudgeThrowAwayResponse) => {
-    return (
-      <JudgeThrowAwayListItem
-        key={item.item.id}
-        result={item.result}
-        item={item.item}
-        condition={item.condition}
-        repairMethod={item.repairMethod}
-        costDifference={item.costDifference}
-      />
-    );
-  });
+  return judgedItems.map((item: TItemsJudgeThrowAwayResponse) => (
+    <JudgeThrowAwayListItem
+      key={item.item.id}
+      result={item.result}
+      item={item.item}
+      condition={item.condition}
+      repairMethod={item.repairMethod}
+      costDifference={item.costDifference}
+    />
+  ));
 }
