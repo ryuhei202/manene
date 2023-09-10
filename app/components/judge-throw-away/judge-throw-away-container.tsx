@@ -80,7 +80,7 @@ export default function JudgeThrowAwayContainer({ option }: TProps) {
           </Select>
         </FormControl>
         <FormControl sx={{ width: "45%" }}>
-          <InputLabel>状態</InputLabel>
+          <InputLabel>修繕方法</InputLabel>
           <Select
             value={selectedRepairMethodId}
             label="repair-method-id"
