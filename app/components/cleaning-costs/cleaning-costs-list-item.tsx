@@ -1,7 +1,7 @@
 import { Box, ListItem, Typography } from "@mui/material";
 import Image from "next/image";
 
-type TItem = {
+export type TItem = {
   id: number;
   itemImageUrl: string;
   previousCleaningDate: string | null;
@@ -25,14 +25,14 @@ export default function CleaningCostsListItem({ item }: TProps) {
         />
 
         <Box marginLeft={3}>
-          <Typography variant="subtitle1">アイテムID:{item.id}</Typography>
+          <Typography variant="subtitle1">アイテムID: {item.id}</Typography>
           <Typography
             variant="subtitle1"
             sx={{
               color: item.previousCleaningDate ? "warning.dark" : "inherit",
             }}
           >
-            前回登録日:{item.previousCleaningDate ?? "無し"}
+            前回登録日: {item.previousCleaningDate ?? "無し"}
           </Typography>
         </Box>
         <Typography
