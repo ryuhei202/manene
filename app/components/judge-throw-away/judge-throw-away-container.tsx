@@ -22,10 +22,13 @@ type TProps = {
   option: TJudgeThrowAwayOptionsResponse;
 };
 export default function JudgeThrowAwayContainer({ option }: TProps) {
+  const CONDITION_A_ID = 1;
+  const DEODORIZE_ID = 4;
   const [itemId, setItemId] = useState<number>();
-  const [selectedConditionId, setSelectedConditionId] = useState<number>(1);
+  const [selectedConditionId, setSelectedConditionId] =
+    useState<number>(CONDITION_A_ID);
   const [selectedRepairMethodId, setSelectedRepairMethodId] =
-    useState<number>(4);
+    useState<number>(DEODORIZE_ID);
   const [judgedItems, setJudgedItems] = useState<
     TItemsJudgeThrowAwayResponse[]
   >([]);
