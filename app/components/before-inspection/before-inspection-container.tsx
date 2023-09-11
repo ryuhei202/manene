@@ -162,30 +162,27 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
             deliveryDate={registeredChart.deliveryDate}
             tChartItems={registeredChart.tChartItems}
           />
-          <Box overflow="auto" height={400}>
-            <BeforeInspectionList
-              chartItems={registeredChart.tChartItems}
-              onClick={(id: number) => setMisplacedItemId(id)}
-              isLoading={isToMisplacedLoading}
-            />
+
+          <BeforeInspectionList
+            chartItems={registeredChart.tChartItems}
+            onClick={(id: number) => setMisplacedItemId(id)}
+            isLoading={isToMisplacedLoading}
+          />
+          <Box display="flex" justifyContent="center" marginY={2}>
+            <Button
+              variant="contained"
+              sx={{
+                height: "50px",
+                backgroundColor: "primary.main",
+                width: "90%",
+              }}
+              onClick={handleClickInspect}
+              disabled={isInspectLoading}
+            >
+              即時検品する
+            </Button>
           </Box>
         </>
-      )}
-      {registeredChart && (
-        <Box display="flex" justifyContent="center" marginTop={2}>
-          <Button
-            variant="contained"
-            sx={{
-              height: "50px",
-              backgroundColor: "primary.main",
-              width: "90%",
-            }}
-            onClick={() => handleClickInspect(registeredChart.id)}
-            disabled={isInspectLoading}
-          >
-            即時検品する
-          </Button>
-        </Box>
       )}
 
       {misplacedItemId && (
