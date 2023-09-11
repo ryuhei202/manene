@@ -10,7 +10,7 @@ export default function HomePage() {
       <Header title="メニュー" />
       <MenuAccordion title="運営">
         <LinkButton buttonName="アイテムサイズ計測" path="" />
-        <LinkButton buttonName="クリーニングコスト登録" path="cleaning_costs" />
+        <LinkButton buttonName="クリーニングコスト登録" path="" />
       </MenuAccordion>
       <MenuAccordion title="返却検品">
         <LinkButton buttonName="返却検品前登録" path="before_inspection" />
