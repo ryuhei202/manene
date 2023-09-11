@@ -65,6 +65,7 @@ export default function WastedReasonContainer({
       {
         onSuccess: () => {
           alert("廃棄登録に成功しました。");
+          router.push("/wasted_reason")
         },
         onError: (error: AxiosError) => {
           alert(

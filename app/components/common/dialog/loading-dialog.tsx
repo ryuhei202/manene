@@ -6,7 +6,7 @@ type TProps = {
 
 export default function LoadingDialog({ isOpen }: TProps) {
   return (
-    <Dialog open={isOpen ?? false}>
+    <Dialog open={isOpen}>
       <Box
         display="flex"
         alignItems="center"
