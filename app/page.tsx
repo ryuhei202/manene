@@ -29,7 +29,7 @@ export default function HomePage() {
           buttonName="アイテムステータス一括変更"
           path="item_status"
         />
-        <LinkButton buttonName="廃棄登録" path="" />
+        <LinkButton buttonName="廃棄登録" path="wasted_reason" />
         <LinkButton buttonName="廃棄判定" path="" />
       </MenuAccordion>
       <MenuAccordion title="棚管理">

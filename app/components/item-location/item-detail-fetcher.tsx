@@ -2,7 +2,7 @@ import useItemsShow from "@/app/api/item-location/useItemsShow";
 import { Dialog, DialogContent } from "@mui/material";
 import { useEffect } from "react";
 import ItemDetailCardContainer from "../common/Item/item-detail-card-container";
-import LoadingPage from "../common/pages/loading-page";
+import LoadingDialog from "../common/dialog/loading-dialog";
 
 type TProps = {
   itemId: number;
@@ -19,8 +19,7 @@ export default function ItemDetailFetcher({ itemId, onClickClose }: TProps) {
   if (error) {
     alert(error.message);
   }
-  if (isLoading || !data) return <LoadingPage />;
-
+  if (isLoading || !data) return <LoadingDialog isOpen />;
   return (
     <>
       <Dialog open onClose={onClickClose}>
