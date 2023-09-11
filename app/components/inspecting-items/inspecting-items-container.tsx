@@ -17,7 +17,7 @@ import PurchaseRequestForm from "./purchase-request-form";
 
 export default function InspectionItemsContainer() {
   const [selectedImages, setSelectedImages] = useState<TImage[]>([]);
-  const [memo, setMemo] = useState<string>("");
+  const [message, setMessage] = useState<string>("");
   const [requestReason, setRequestReason] = useState<number>();
   const [scannedInspectingItem, setScannedInspectingItem] =
     useState<TInspectingItem>();
@@ -38,7 +38,7 @@ export default function InspectionItemsContainer() {
       .then((res) => {
         setScannedInspectingItem(res.tInspectionItem);
         setSelectedImages([]);
-        setMemo("");
+        setMessage("");
         setRequestReason(undefined);
       })
       .catch((error: AxiosError) =>
@@ -136,10 +136,10 @@ export default function InspectionItemsContainer() {
               itemInfo={scannedInspectingItem.itemInfo}
               selectedImages={selectedImages}
               onChangeImage={handleImageChange}
-              memo={memo}
+              message={message}
               onChangeInput={(
                 e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-              ) => setMemo(e.target.value)}
+              ) => setMessage(e.target.value)}
               requestReason={requestReason}
               onChangeSelect={(e: SelectChangeEvent<number>) =>
                 setRequestReason(e.target.value as number)
