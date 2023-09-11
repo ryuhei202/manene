@@ -19,7 +19,7 @@ export default function ItemDetailFetcher({ itemId, onClickClose }: TProps) {
   if (error) {
     alert(error.message);
   }
-  if (isLoading || !data) return <LoadingDialog />;
+  if (isLoading || !data) return <LoadingDialog isOpen />;
 
   return (
     <>

@@ -63,10 +63,9 @@ export default function ItemLocationContainer() {
     alertClosedWindow(!selectedItems);
   }, [selectedItems]);
 
-  if (isLoading) return <LoadingDialog />;
-
   return (
     <>
+      <LoadingDialog isOpen={isLoading} />
       <ItemList selectedItems={selectedItems} />
       <Box
         sx={{
