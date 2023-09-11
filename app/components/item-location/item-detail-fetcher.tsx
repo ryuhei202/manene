@@ -20,7 +20,6 @@ export default function ItemDetailFetcher({ itemId, onClickClose }: TProps) {
     alert(error.message);
   }
   if (isLoading || !data) return <LoadingDialog isOpen />;
-
   return (
     <>
       <Dialog open onClose={onClickClose}>

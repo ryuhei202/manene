@@ -1,12 +1,12 @@
 import useLostArticlesConfirm from "@/app/api/coorde_pick/lost_articles/useLostArticlesConfirm";
-import { CircularProgress, Dialog } from "@mui/material";
+import LoadingDialog from "../common/dialog/loading-dialog";
 import LostArticlesDialogs from "./lost-articles-dialogs";
 
 type TProps = {
   memberId: number;
   message: string;
   lostArticleId?: number;
-  isLoading: boolean;
+  isCreateLoading: boolean;
   onClose: () => void;
   onComplete: () => void;
   onClickOkButton: ({
@@ -22,43 +22,31 @@ export default function LostArticlesConfirmFetcher({
   memberId,
   message,
   lostArticleId,
-  isLoading,
+  isCreateLoading,
   onClose,
   onComplete,
   onClickOkButton,
 }: TProps) {
-  const { data, error } = useLostArticlesConfirm({ memberId });
+  const { data, error, isLoading } = useLostArticlesConfirm({ memberId });
   if (error) {
-    return <Dialog open>{error.message}</Dialog>;
-  }
-  if (!data) {
-    return (
-      <Dialog
-        open
-        PaperProps={{
-          style: {
-            backgroundColor: "transparent",
-            boxShadow: "none",
-            overflow: "hidden",
-          },
-        }}
-      >
-        <CircularProgress color="primary" />
-      </Dialog>
-    );
+    alert(`ユーザーが見つかりません。${error.message}`);
+    onClose();
   }
 
   return (
     <>
-      <LostArticlesDialogs
-        lostArticlesUserInfo={data}
-        message={message}
-        lostArticleId={lostArticleId}
-        isLoading={isLoading}
-        onClose={onClose}
-        onComplete={onComplete}
-        onClickOkButton={onClickOkButton}
-      />
+      <LoadingDialog isOpen={isLoading} />
+      {data && (
+        <LostArticlesDialogs
+          lostArticlesUserInfo={data}
+          message={message}
+          lostArticleId={lostArticleId}
+          isLoading={isCreateLoading}
+          onClose={onClose}
+          onComplete={onComplete}
+          onClickOkButton={onClickOkButton}
+        />
+      )}
     </>
   );
 }
