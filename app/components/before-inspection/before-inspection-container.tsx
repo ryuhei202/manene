@@ -89,29 +89,32 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
     setMisplacedItemId(undefined);
   };
 
-  const handleClickInspect = (id: number) => {
-    inspectMutate(
-      { chartId: id },
-      {
-        onSuccess(response) {
-          setInspectionData({
-            isCreatedInspectionData: response.data.isCreatedInspectionData,
-            registeredInspectionGroup: response.data.registeredInspectionGroup,
-            acceptingInspectionGroup: response.data.acceptingInspectionGroup,
-            isChartInspected: response.data.isChartInspected,
-          });
-          setRegisteredChart(response.data.tChart);
-          alert("即時検品処理を完了しました。");
-        },
-        onError(error: AxiosError) {
-          alert(
-            `即時検品に失敗しました。 ${
-              (error.response?.data as { message: string })?.message
-            }`
-          );
-        },
-      }
-    );
+  const handleClickInspect = () => {
+    if (registeredChart) {
+      inspectMutate(
+        { chartId: registeredChart?.id },
+        {
+          onSuccess(response) {
+            setInspectionData({
+              isCreatedInspectionData: response.data.isCreatedInspectionData,
+              registeredInspectionGroup:
+                response.data.registeredInspectionGroup,
+              acceptingInspectionGroup: response.data.acceptingInspectionGroup,
+              isChartInspected: response.data.isChartInspected,
+            });
+            setRegisteredChart(response.data.tChart);
+            alert("即時検品処理を完了しました。");
+          },
+          onError(error: AxiosError) {
+            alert(
+              `即時検品に失敗しました。 ${
+                (error.response?.data as { message: string })?.message
+              }`
+            );
+          },
+        }
+      );
+    }
   };
 
   useEffect(() => {
