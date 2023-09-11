@@ -159,12 +159,13 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
             deliveryDate={registeredChart.deliveryDate}
             tChartItems={registeredChart.tChartItems}
           />
-          <BeforeInspectionList
-            chartItems={registeredChart.tChartItems}
-            onClick={(id: number) => setMisplacedItemId(id)}
-            isLoading={isToMisplacedLoading}
-          />
-          <Box height={150}></Box>
+          <Box overflow="auto" height={400}>
+            <BeforeInspectionList
+              chartItems={registeredChart.tChartItems}
+              onClick={(id: number) => setMisplacedItemId(id)}
+              isLoading={isToMisplacedLoading}
+            />
+          </Box>
         </>
       )}
       <Box
