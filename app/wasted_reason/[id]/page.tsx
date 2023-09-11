@@ -17,7 +17,7 @@ type TProps = {
 export default async function WastedReasonIdPage({ params }: TProps) {
   const [itemData, wastedReasonData] = await Promise.all([
     getItemsShow(params),
-    getWastedReasonIndex(params),
+    getWastedReasonIndex({ itemId: params.id }),
   ]);
   return (
     <WastedReasonContainer
