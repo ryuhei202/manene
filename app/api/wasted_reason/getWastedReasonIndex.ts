@@ -18,11 +18,11 @@ type TWastedReasonsResponse = {
 };
 
 type TParams = {
-  id: number;
+  itemId: number;
 };
 
 export default async function getWastedReasonIndex(params: TParams) {
   return await getNoCacheData<TWastedReasonsResponse>({
-    path: `items/${params.id}/wasted_reason`,
+    path: `items/${params.itemId}/wasted_reason`,
   });
 }
