@@ -33,7 +33,7 @@ export default function JudgeThrowAwayContainer({ option }: TProps) {
     TItemsJudgeThrowAwayResponse[]
   >([]);
   const addJudgedItems = (item: TItemsJudgeThrowAwayResponse) => {
-    setJudgedItems([...judgedItems, item]);
+    setJudgedItems((prevItems) => [...prevItems, item]);
     setItemId(undefined);
   };
   return (
