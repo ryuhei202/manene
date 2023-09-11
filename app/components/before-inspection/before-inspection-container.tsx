@@ -159,77 +159,67 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
             deliveryDate={registeredChart.deliveryDate}
             tChartItems={registeredChart.tChartItems}
           />
-          <BeforeInspectionList
-            chartItems={registeredChart.tChartItems}
-            onClick={(id: number) => setMisplacedItemId(id)}
-            isLoading={isToMisplacedLoading}
-          />
-          <Box height={150}></Box>
+          <Box overflow="auto" height={400}>
+            <BeforeInspectionList
+              chartItems={registeredChart.tChartItems}
+              onClick={(id: number) => setMisplacedItemId(id)}
+              isLoading={isToMisplacedLoading}
+            />
+          </Box>
         </>
       )}
-      <Box
-        sx={{
-          position: "fixed",
-          bottom: 0,
-          width: "90%",
-          display: "flex",
-          flexDirection: "column",
-          left: "50%",
-          transform: "translateX(-50%)",
-          justifyContent: "center",
-          gap: 2,
-          marginBottom: "30px",
-        }}
-      >
-        {registeredChart && (
-          <>
-            <Button
-              variant="contained"
-              sx={{ height: "50px", backgroundColor: "primary.main" }}
-              onClick={() => handleClickInspect(registeredChart.id)}
-              disabled={isInspectLoading}
-            >
-              即時検品する
-            </Button>
-          </>
-        )}
-
-        {misplacedItemId && (
-          <DisableBackDialog
-            open={!!misplacedItemId}
-            onClose={() => setMisplacedItemId(undefined)}
+      {registeredChart && (
+        <Box display="flex" justifyContent="center" marginTop={2}>
+          <Button
+            variant="contained"
+            sx={{
+              height: "50px",
+              backgroundColor: "primary.main",
+              width: "90%",
+            }}
+            onClick={() => handleClickInspect(registeredChart.id)}
+            disabled={isInspectLoading}
           >
-            <DialogTitle>入れ忘れを登録しますか？</DialogTitle>
-            <DialogContent>
-              <ItemCard
-                imagePath={
+            即時検品する
+          </Button>
+        </Box>
+      )}
+
+      {misplacedItemId && (
+        <DisableBackDialog
+          open={!!misplacedItemId}
+          onClose={() => setMisplacedItemId(undefined)}
+        >
+          <DialogTitle>入れ忘れを登録しますか？</DialogTitle>
+          <DialogContent>
+            <ItemCard
+              imagePath={
+                registeredChart?.tChartItems.find(
+                  (item) => item.id === misplacedItemId
+                )?.itemInfo.itemImageUrl as string
+              }
+              divider={false}
+            >
+              <ItemInfoCard
+                itemInfo={
                   registeredChart?.tChartItems.find(
                     (item) => item.id === misplacedItemId
-                  )?.itemInfo.itemImageUrl as string
+                  )?.itemInfo as TItemInfo
                 }
-                divider={false}
-              >
-                <ItemInfoCard
-                  itemInfo={
-                    registeredChart?.tChartItems.find(
-                      (item) => item.id === misplacedItemId
-                    )?.itemInfo as TItemInfo
-                  }
-                  chartItemId={0}
-                />
-              </ItemCard>
-            </DialogContent>
-            <DialogActions>
-              <Button onClick={() => setMisplacedItemId(undefined)}>
-                キャンセル
-              </Button>
-              <Button onClick={() => handleClickToMisplaced(misplacedItemId)}>
-                OK
-              </Button>
-            </DialogActions>
-          </DisableBackDialog>
-        )}
-      </Box>
+                chartItemId={0}
+              />
+            </ItemCard>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={() => setMisplacedItemId(undefined)}>
+              キャンセル
+            </Button>
+            <Button onClick={() => handleClickToMisplaced(misplacedItemId)}>
+              OK
+            </Button>
+          </DialogActions>
+        </DisableBackDialog>
+      )}
     </>
   );
 }
