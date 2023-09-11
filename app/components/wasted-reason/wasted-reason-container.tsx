@@ -7,7 +7,6 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
-import Header from "../common/pages/header";
 import WastedReasonItemMediumCard, {
   TIitemInfo,
 } from "./wasted-reason-item-medium-card";
@@ -83,10 +82,9 @@ export default function WastedReasonContainer({
   return (
     <>
       <LoadingDialog isOpen={isLoading} />
-      <Header title="廃棄登録" />
       <WastedReasonItemMediumCard itemInfo={itemInfo} />
       <Box marginBottom={3}>
-        <Typography variant="h5">理由1 *必須</Typography>
+        <Typography variant="h6">理由1 *必須</Typography>
         <WastedReasonSelect
           wastedReasons={wastedReasons}
           selectedCategoryId={selectedCategoryIdFirst}
@@ -99,7 +97,7 @@ export default function WastedReasonContainer({
           onSetPartIds={(ids: number[]) => setSelectedPartIdsFirst(ids)}
         />
       </Box>
-      <Typography variant="h5">理由2 </Typography>
+      <Typography variant="h6">理由2 </Typography>
       <WastedReasonSelect
         wastedReasons={wastedReasons}
         selectedCategoryId={selectedCategoryIdSecond}
