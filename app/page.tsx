@@ -20,7 +20,10 @@ export default function HomePage() {
           buttonName="返却検品前登録"
           path="before_inspection"
         />
-        <LinkButtonListItem buttonName="返却検品中操作" path="" />
+        <LinkButtonListItem
+          buttonName="返却検品中操作"
+          path="inspecting_items"
+        />
         <LinkButtonListItem buttonName="返却検品管理" path="inspection_group" />
         <LinkButtonListItem buttonName="忘れ物登録" path="lost_articles" />
       </List>

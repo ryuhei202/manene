@@ -1,5 +1,6 @@
 "use client";
 import { TItemInfo } from "@/app/api/before-inspections/useBeforeInspectionsCreate";
+import { INSPECTION_STATUS } from "@/app/utils/functions/getStatusText";
 import { Box, Button, Typography } from "@mui/material";
 import React, { useMemo } from "react";
 
@@ -21,15 +22,6 @@ function InspectionStatusText({ children }: { children: React.ReactNode }) {
     </Typography>
   );
 }
-
-export const INSPECTION_STATUS = {
-  RETURNED: 0,
-  MISPLACED: 1,
-  INSPECTED: 2,
-  WASHING: 3,
-  PURCHASE_REQUEST: 4,
-  PURCHASE_CANDIDATE: 5,
-} as const;
 
 export default function ItemInfoCard({
   itemInfo,
