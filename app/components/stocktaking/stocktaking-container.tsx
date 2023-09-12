@@ -47,6 +47,7 @@ export default function StocktakingContainer({ locationList }: TProps) {
       onSuccess: () => {
         alert(`棚卸しを完了しました`);
         router.push("/");
+        router.refresh();
       },
       onError: (error) => {
         alert(error.message);

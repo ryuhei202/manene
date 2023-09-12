@@ -9,7 +9,7 @@ type TProps = {
 
 export default function StocktakingList({ locations, onClick }: TProps) {
   return (
-    <List>
+    <List disablePadding>
       {locations.map((location) => {
         return (
           <StocktakingRow
