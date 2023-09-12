@@ -6,8 +6,8 @@ import React from "react";
 const themeOptions: ThemeOptions = {
   palette: {
     primary: { main: "#1976d2" },
-    secondary: { main: "#bdbdbd", light: "#d3d3d3" },
-    success: { main: "#DDFFDD", dark: "#84C98B" },
+    secondary: { main: "#bdbdbd", light: "#d3d3d3", dark: "#808080" },
+    success: { main: "#DDFFDD" },
     warning: { main: "#FADBDA", dark: "#ff0000", light: "#fd7e00" },
   },
 };
