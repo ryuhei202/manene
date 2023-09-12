@@ -13,7 +13,7 @@ export default function HomePage() {
         <LinkButton buttonName={"クリーニングコスト登録"} path="" />
       </MenuAccordion>
       <MenuAccordion title={"返却検品"}>
-        <LinkButton buttonName={"返却検品登録"} path="" />
+        <LinkButton buttonName={"返却検品前登録"} path="before_inspection" />
         <LinkButton buttonName={"返却検品中操作"} path="" />
         <LinkButton buttonName={"返却検品管理"} path="inspection_group" />
         <LinkButton buttonName={"忘れ物登録"} path="" />
