@@ -126,7 +126,6 @@ export default function StocktakingLocationContainer({ location }: TProps) {
       <LoadingDialog
         isOpen={isItemScanLoading || isMoveLoading || isCompleteLoading}
       />
-
       <Box sx={{ position: "sticky", top: 0, zIndex: 1000 }}>
         <Header title="棚卸し">
           <Button
