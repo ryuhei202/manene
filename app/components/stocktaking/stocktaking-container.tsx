@@ -15,6 +15,7 @@ import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
+
 type TProps = {
   locationList: TStocktakingsCurrentResponse;
 };
