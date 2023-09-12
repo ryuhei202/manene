@@ -3,11 +3,15 @@ import fetchInspectingItemsShow, {
   TInspectingItem,
 } from "@/app/api/inspecting-items/fetchInspectingItemsShow";
 import { TImage } from "@/app/api/inspecting-items/useInspectingItemsToPurchaseItem";
+import {
+  INSPECTION_STATUS,
+  getStatusText,
+} from "@/app/utils/functions/getStatusText";
 import { Alert, Box, SelectChangeEvent, Typography } from "@mui/material";
 import { AxiosError } from "axios";
 import React, { useState } from "react";
 import ItemCard from "../common/Item/item-card";
-import ItemInfoCard, { INSPECTION_STATUS } from "../common/Item/item-info-card";
+import ItemInfoCard from "../common/Item/item-info-card";
 import QrCodeReader from "../common/barcode/qr-code-reader";
 import ChartCard from "../common/card/chart-card";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
@@ -23,15 +27,6 @@ export default function InspectionItemsContainer() {
     useState<TInspectingItem>();
   const [encloseItemId, setEncloseItemId] = useState<number>();
   const [isOpen, setIsOpen] = useState<boolean>(false);
-
-  const statusText = {
-    [INSPECTION_STATUS.RETURNED]: "検品中",
-    [INSPECTION_STATUS.MISPLACED]: "入れ忘れ",
-    [INSPECTION_STATUS.INSPECTED]: "検品済み",
-    [INSPECTION_STATUS.WASHING]: "汚れ確認中",
-    [INSPECTION_STATUS.PURCHASE_REQUEST]: "買取依頼登録済み",
-    [INSPECTION_STATUS.PURCHASE_CANDIDATE]: "買取候補",
-  }[scannedInspectingItem?.status as number];
 
   const handleScan = (itemId: number) => {
     fetchInspectingItemsShow({ id: itemId })
@@ -106,15 +101,15 @@ export default function InspectionItemsContainer() {
           >
             {scannedInspectingItem.status === INSPECTION_STATUS.MISPLACED ? (
               <Typography variant="h6" color="warning.light">
-                {statusText}
+                {getStatusText(scannedInspectingItem.status)}
               </Typography>
             ) : scannedInspectingItem.status === INSPECTION_STATUS.INSPECTED ? (
               <Typography variant="h6" color="success.dark">
-                {statusText}
+                {getStatusText(scannedInspectingItem.status)}
               </Typography>
             ) : (
               <Typography variant="h6" color="warning.dark">
-                {statusText}
+                {getStatusText(scannedInspectingItem.status)}
               </Typography>
             )}
             {encloseItemId && <Typography>ID: {encloseItemId}</Typography>}
