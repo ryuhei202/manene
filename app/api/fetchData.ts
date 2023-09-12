@@ -5,7 +5,7 @@ import { customAxios } from "../model/api/shared/custom-axios";
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: Infinity,
+      staleTime: 0,
     },
   },
 });
