@@ -14,7 +14,7 @@ export type TChartItem = {
   id: number;
   itemInfo: TItemInfo;
   purchasedFlag: boolean;
-  inspectionStatus: number;
+  inspectionStatus: number | null;
 };
 
 export type TChart = {
