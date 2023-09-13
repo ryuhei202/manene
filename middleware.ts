@@ -4,7 +4,7 @@ for (let i = 0; i < 10; i++) {
   allowedVpn.push(process.env[`NEXT_PUBLIC_VPN_${i + 1}`]);
 }
 // IPを許可するIPアドレスのリスト
-const allowedIPs: string[] = [
+export const allowedIPs: string[] = [
   process.env.NEXT_PUBLIC_KIIZAN_IP ?? "", // キーザンオフィス
   ...allowedVpn.map((VPN) => {
     return VPN ?? "";

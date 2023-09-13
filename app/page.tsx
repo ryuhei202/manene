@@ -1,7 +1,11 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+import Image from "next/image";
+import styles from "./page.module.css";
+import { allowedIPs } from "@/middleware";
 
 export default function Home() {
+  console.log(allowedIPs);
+  console.log(process.env.NODE_ENV);
   return (
     <main className={styles.main}>
       <div className={styles.description}>
@@ -15,7 +19,7 @@ export default function Home() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            By{' '}
+            By{" "}
             <Image
               src="/vercel.svg"
               alt="Vercel Logo"
@@ -91,5 +95,5 @@ export default function Home() {
         </a>
       </div>
     </main>
-  )
+  );
 }
