@@ -1,11 +1,13 @@
 "use client";
-
+import { allowedIPs } from "@/middleware";
 import { List } from "@mui/material";
 import LinkButtonListItem from "./components/common/button/link-button-list-item";
 import Header from "./components/common/pages/header";
 import SubHeader from "./components/common/pages/sub-header";
 
 export default function HomePage() {
+  console.log(allowedIPs);
+  console.log(process.env.NODE_ENV);
   return (
     <>
       <Header title="メニュー" />
