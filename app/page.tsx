@@ -1,99 +1,54 @@
 "use client";
-import Image from "next/image";
-import styles from "./page.module.css";
 import { allowedIPs } from "@/middleware";
+import { List } from "@mui/material";
+import LinkButtonListItem from "./components/common/button/link-button-list-item";
+import Header from "./components/common/pages/header";
+import SubHeader from "./components/common/pages/sub-header";
 
-export default function Home() {
+export default function HomePage() {
   console.log(allowedIPs);
   console.log(process.env.NODE_ENV);
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.tsx</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{" "}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+    <>
+      <Header title="メニュー" />
+      <SubHeader height={40}>運営</SubHeader>
+      <List disablePadding>
+        <LinkButtonListItem buttonName="アイテムサイズ計測" path="" />
+        <LinkButtonListItem buttonName="クリーニングコスト登録" path="" />
+      </List>
+      <SubHeader height={40}>返却検品</SubHeader>
+      <List disablePadding>
+        <LinkButtonListItem
+          buttonName="返却検品前登録"
+          path="before_inspection"
         />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+        <LinkButtonListItem
+          buttonName="返却検品中操作"
+          path="inspecting_items"
+        />
+        <LinkButtonListItem buttonName="返却検品管理" path="inspection_group" />
+        <LinkButtonListItem buttonName="忘れ物登録" path="lost_articles" />
+      </List>
+      <SubHeader height={40}>コーデ作成</SubHeader>
+      <List disablePadding>
+        <LinkButtonListItem buttonName="コーデピック" path="/coorde_pick" />
+      </List>
+      <SubHeader height={40}>アイテム管理</SubHeader>
+      <List disablePadding>
+        <LinkButtonListItem buttonName="アイテム登録" path="" />
+        <LinkButtonListItem buttonName="アイテム詳細表示" path="/item_detail" />
+        <LinkButtonListItem
+          buttonName="アイテムステータス一括変更"
+          path="item_status"
+        />
+        <LinkButtonListItem buttonName="廃棄登録" path="wasted_reason" />
+        <LinkButtonListItem buttonName="廃棄判定" path="" />
+      </List>
+      <SubHeader height={40}>棚管理</SubHeader>
+      <List disablePadding>
+        <LinkButtonListItem buttonName="棚移動" path="item_location" />
+        <LinkButtonListItem buttonName="棚卸し" path="stocktaking" />
+      </List>
+    </>
   );
 }
