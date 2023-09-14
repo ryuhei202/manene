@@ -10,11 +10,9 @@ export const usePostRequest = <
 >({
   path,
   params,
-  headers,
 }: {
   path: string;
   params?: TParams;
-  headers?: object;
 }) => {
   const { mutate, error, isLoading, isSuccess } = useMutation<
     AxiosResponse<TResponse>,
@@ -25,7 +23,9 @@ export const usePostRequest = <
       `${HostUrl()}/igoue_admin/app_api/${path}`,
       lateParams ?? params,
       {
-        headers: headers ?? undefined,
+        headers: {
+          "api-key": process.env.NEXT_PUBLIC_API_KEY,
+        },
       }
     )
   );

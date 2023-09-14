@@ -3,15 +3,13 @@ import { AxiosError } from "axios";
 import { HostUrl } from "../model/Host-url";
 import { customAxios } from "../model/api/shared/custom-axios";
 
-export const useGetRequest = <TResponse, TParams = object, THeaders = object>({
+export const useGetRequest = <TResponse, TParams = object>({
   path,
   params,
-  headers,
   isEnabled,
 }: {
   path: string;
   params?: TParams;
-  headers?: THeaders;
   isEnabled?: boolean;
 }) => {
   const { data, refetch, error, isLoading } = useQuery<TResponse, AxiosError>(
@@ -19,7 +17,9 @@ export const useGetRequest = <TResponse, TParams = object, THeaders = object>({
     () =>
       customAxios()
         .get(`${HostUrl()}/igoue_admin/app_api/${path}`, {
-          headers: headers ?? undefined,
+          headers: {
+            "api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
           params: {
             ...params,
           },
