@@ -27,7 +27,7 @@ type TProps = {
   itemInfo: TItemInfo;
   selectedImages: TImage[];
   onChangeImage: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  memo: string;
+  message: string;
   onChangeInput: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
@@ -48,7 +48,7 @@ export default function PurchaseRequestForm({
   itemInfo,
   selectedImages,
   onChangeImage,
-  memo,
+  message,
   onChangeInput,
   requestReason,
   onChangeSelect,
@@ -60,14 +60,16 @@ export default function PurchaseRequestForm({
     id: inspectingItemId,
   });
   const handleClickRegister = () => {
-    if (!!memo && requestReason !== undefined && selectedImages.length > 0) {
+    if (!!message && requestReason !== undefined && selectedImages.length > 0) {
       mutate(
         {
-          memo: memo,
-          images: selectedImages.map((image) => {return {
-            imageData: image.imageData.split(",")[1],
-            imageFileName: image.imageFileName,
-          }}),
+          memo: message,
+          images: selectedImages.map((image) => {
+            return {
+              imageData: image.imageData.split(",")[1],
+              imageFileName: image.imageFileName,
+            };
+          }),
           purchaseRequestReason: requestReason,
         },
         {
@@ -136,7 +138,7 @@ export default function PurchaseRequestForm({
       <SectionHeader>コメント</SectionHeader>
       <Box margin={1}>
         <TextField
-          value={memo}
+          value={message}
           fullWidth
           multiline
           rows={4}
@@ -164,7 +166,9 @@ export default function PurchaseRequestForm({
             variant="contained"
             onClick={handleClickRegister}
             disabled={
-              !memo || requestReason === undefined || selectedImages.length < 1
+              !message ||
+              requestReason === undefined ||
+              selectedImages.length < 1
             }
             sx={{ height: "50px" }}
           >

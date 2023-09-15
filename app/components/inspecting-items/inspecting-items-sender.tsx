@@ -12,7 +12,8 @@ import {
 } from "@mui/material";
 import { AxiosError } from "axios";
 import { useState } from "react";
-import { INSPECTION_STATUS } from "../common/Item/item-info-card";
+
+import { INSPECTION_STATUS } from "@/app/utils/functions/getStatusText";
 import DisableBackDialog from "../common/dialog/disable-back-dialog";
 import LoadingDialog from "../common/dialog/loading-dialog";
 

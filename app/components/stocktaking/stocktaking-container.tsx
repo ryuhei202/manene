@@ -7,7 +7,7 @@ import {
 import useStocktakingsComplete from "@/app/api/stocktaking/useStocktakingsComplete";
 import useStocktakingsCreate from "@/app/api/stocktaking/useStocktakingsCreate";
 import CachedIcon from "@mui/icons-material/Cached";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import BarcodeButton from "../common/barcode/barcode-button";
@@ -15,6 +15,7 @@ import FooterButton from "../common/button/footer-button";
 import LoadingDialog from "../common/dialog/loading-dialog";
 import Header from "../common/pages/header";
 import StocktakingList from "./stocktaking-list";
+
 type TProps = {
   locationList: TStocktakingsCurrentResponse;
 };
@@ -96,7 +97,12 @@ export default function StocktakingContainer({ locationList }: TProps) {
       </Header>
 
       {locations && (
-        <StocktakingList locations={locations} onClick={handleClickNavigate} />
+        <Box overflow="auto" height={700}>
+          <StocktakingList
+            locations={locations}
+            onClick={handleClickNavigate}
+          />
+        </Box>
       )}
       <FooterButton
         onClick={locations ? onClickComplete : onClickStart}

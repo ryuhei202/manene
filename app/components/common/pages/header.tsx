@@ -2,6 +2,7 @@
 import { AppBar, Box, Button, Toolbar } from "@mui/material";
 import Link from "next/link";
 import React from "react";
+
 type TProps = {
   title: string;
   children?: React.ReactNode;

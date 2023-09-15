@@ -89,29 +89,32 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
     setMisplacedItemId(undefined);
   };
 
-  const handleClickInspect = (id: number) => {
-    inspectMutate(
-      { chartId: id },
-      {
-        onSuccess(response) {
-          setInspectionData({
-            isCreatedInspectionData: response.data.isCreatedInspectionData,
-            registeredInspectionGroup: response.data.registeredInspectionGroup,
-            acceptingInspectionGroup: response.data.acceptingInspectionGroup,
-            isChartInspected: response.data.isChartInspected,
-          });
-          setRegisteredChart(response.data.tChart);
-          alert("即時検品処理を完了しました。");
-        },
-        onError(error: AxiosError) {
-          alert(
-            `即時検品に失敗しました。 ${
-              (error.response?.data as { message: string })?.message
-            }`
-          );
-        },
-      }
-    );
+  const handleClickInspect = () => {
+    if (registeredChart) {
+      inspectMutate(
+        { chartId: registeredChart?.id },
+        {
+          onSuccess(response) {
+            setInspectionData({
+              isCreatedInspectionData: response.data.isCreatedInspectionData,
+              registeredInspectionGroup:
+                response.data.registeredInspectionGroup,
+              acceptingInspectionGroup: response.data.acceptingInspectionGroup,
+              isChartInspected: response.data.isChartInspected,
+            });
+            setRegisteredChart(response.data.tChart);
+            alert("即時検品処理を完了しました。");
+          },
+          onError(error: AxiosError) {
+            alert(
+              `即時検品に失敗しました。 ${
+                (error.response?.data as { message: string })?.message
+              }`
+            );
+          },
+        }
+      );
+    }
   };
 
   useEffect(() => {
@@ -159,30 +162,27 @@ export default function BeforeInspectionContainer({ inspectionGroup }: TProps) {
             deliveryDate={registeredChart.deliveryDate}
             tChartItems={registeredChart.tChartItems}
           />
-          <Box overflow="auto" height={400}>
-            <BeforeInspectionList
-              chartItems={registeredChart.tChartItems}
-              onClick={(id: number) => setMisplacedItemId(id)}
-              isLoading={isToMisplacedLoading}
-            />
+
+          <BeforeInspectionList
+            chartItems={registeredChart.tChartItems}
+            onClick={(id: number) => setMisplacedItemId(id)}
+            isLoading={isToMisplacedLoading}
+          />
+          <Box display="flex" justifyContent="center" marginY={2}>
+            <Button
+              variant="contained"
+              sx={{
+                height: "50px",
+                backgroundColor: "primary.main",
+                width: "90%",
+              }}
+              onClick={handleClickInspect}
+              disabled={isInspectLoading}
+            >
+              即時検品する
+            </Button>
           </Box>
         </>
-      )}
-      {registeredChart && (
-        <Box display="flex" justifyContent="center" marginTop={2}>
-          <Button
-            variant="contained"
-            sx={{
-              height: "50px",
-              backgroundColor: "primary.main",
-              width: "90%",
-            }}
-            onClick={() => handleClickInspect(registeredChart.id)}
-            disabled={isInspectLoading}
-          >
-            即時検品する
-          </Button>
-        </Box>
       )}
 
       {misplacedItemId && (
