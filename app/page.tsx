@@ -30,7 +30,7 @@ export default function HomePage() {
           path="item_status"
         />
         <LinkButton buttonName="廃棄登録" path="" />
-        <LinkButton buttonName="廃棄判定" path="" />
+        <LinkButton buttonName="廃棄判定" path="judge_throw_away" />
       </MenuAccordion>
       <MenuAccordion title="棚管理">
         <LinkButton buttonName="棚移動" path="item_location" />
