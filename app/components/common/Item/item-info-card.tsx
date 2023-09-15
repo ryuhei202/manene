@@ -12,7 +12,7 @@ type TProps = {
   onClick?: (id: number) => void;
   isLoading?: boolean;
   isPurchased?: boolean;
-  inspectionStatus?: number;
+  inspectionStatus?: number | null;
 };
 
 function InspectionStatusText({ children }: { children: React.ReactNode }) {
