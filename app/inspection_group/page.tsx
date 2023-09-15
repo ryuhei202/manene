@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import getInspectionGroupIndex from "../api/inspection-groups/getInspectionGroupsIndex";
+import getInspectionGroupIndex from "../_api/inspection-groups/getInspectionGroupsIndex";
 const InspectionGroupContainer = dynamic(
-  () => import("../components/inspection-group/inspection-group-container"),
+  () => import("../_components/inspection-group/inspection-group-container"),
   {
     ssr: false,
   }

@@ -1,5 +1,5 @@
 import React from "react";
-import Header from "../components/common/pages/header";
+import Header from "../_components/common/pages/header";
 
 export default function LostArticlesLayout({
   children,

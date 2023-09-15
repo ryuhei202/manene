@@ -1,8 +1,8 @@
-import getItemsShow from "@/app/api/item_detail/getItemsShow";
-import getWastedReasonIndex from "@/app/api/wasted_reason/getWastedReasonIndex";
+import getItemsShow from "@/app/_api/item_detail/getItemsShow";
+import getWastedReasonIndex from "@/app/_api/wasted_reason/getWastedReasonIndex";
 import dynamic from "next/dynamic";
 const WastedReasonContainer = dynamic(
-  () => import("../../components/wasted-reason/wasted-reason-container"),
+  () => import("../../_components/wasted-reason/wasted-reason-container"),
   {
     ssr: false,
   }

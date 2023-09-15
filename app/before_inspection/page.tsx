@@ -1,8 +1,8 @@
 import dynamic from "next/dynamic";
-import getBeforeInspectionsAcceptingGroup from "../api/before-inspections/getBeforeInspectionsAcceptingGroup";
+import getBeforeInspectionsAcceptingGroup from "../_api/before-inspections/getBeforeInspectionsAcceptingGroup";
 
 const BeforeInspectionContainer = dynamic(
-  () => import("../components/before-inspection/before-inspection-container"),
+  () => import("../_components/before-inspection/before-inspection-container"),
   {
     ssr: false,
   }
