@@ -11,7 +11,10 @@ export default function HomePage() {
       <SubHeader height={40}>運営</SubHeader>
       <List disablePadding>
         <LinkButtonListItem buttonName="アイテムサイズ計測" path="" />
-        <LinkButtonListItem buttonName="クリーニングコスト登録" path="" />
+        <LinkButtonListItem
+          buttonName="クリーニングコスト登録"
+          path="cleaning_costs"
+        />
       </List>
       <SubHeader height={40}>返却検品</SubHeader>
       <List disablePadding>
