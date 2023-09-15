@@ -19,6 +19,8 @@ export default function LinkButtonListItem({
       divider
       sx={{ bgcolor: disabled ? "warning.main" : undefined }}
     >
+      <Link href={path} style={{ width: "100%" }}>
+        <Button fullWidth sx={{ justifyContent: "flex-start" }}>
           {buttonName}
         </Button>
       </Link>
