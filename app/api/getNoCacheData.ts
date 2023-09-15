@@ -22,9 +22,16 @@ export default async function getNoCacheData<TResponse, TParams = object>({
       })
       .join("&")}`;
   };
+
+  if (process.env.NEXT_PUBLIC_API_KEY === undefined)
+    throw new Error("apy_keyを指定してください");
+
   const res = await fetch(
     `${HostUrl()}/igoue_admin/app_api/${path}${getParams()}`,
     {
+      headers: {
+        "api-key": process.env.NEXT_PUBLIC_API_KEY,
+      },
       cache: "no-store",
     }
   );

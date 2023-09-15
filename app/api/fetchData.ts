@@ -10,18 +10,12 @@ const queryClient = new QueryClient({
   },
 });
 
-export default async function fetchData<
-  TResponse,
-  TParams = object,
-  THeaders = object
->({
+export default async function fetchData<TResponse, TParams = object>({
   path,
   params,
-  headers,
 }: {
   path: string;
   params?: TParams;
-  headers?: THeaders;
   isEnabled?: boolean;
 }) {
   const data: TResponse = await queryClient.fetchQuery({
@@ -29,7 +23,9 @@ export default async function fetchData<
     queryFn: () =>
       customAxios()
         .get(`${HostUrl()}/igoue_admin/app_api/${path}`, {
-          headers: headers ?? undefined,
+          headers: {
+            "api-key": process.env.NEXT_PUBLIC_API_KEY,
+          },
           params: {
             ...params,
           },

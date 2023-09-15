@@ -1,5 +1,4 @@
 "use client";
-
 import { List } from "@mui/material";
 import LinkButtonListItem from "./components/common/button/link-button-list-item";
 import Header from "./components/common/pages/header";
@@ -43,7 +42,7 @@ export default function HomePage() {
           path="item_status"
         />
         <LinkButtonListItem buttonName="廃棄登録" path="wasted_reason" />
-        <LinkButtonListItem buttonName="廃棄判定" path="" />
+        <LinkButtonListItem buttonName="廃棄判定" path="judge_throw_away" />
       </List>
       <SubHeader height={40}>棚管理</SubHeader>
       <List disablePadding>
