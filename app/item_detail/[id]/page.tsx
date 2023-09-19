@@ -1,5 +1,5 @@
-import ItemDetailCardContainer from "@/app/components/common/Item/item-detail-card-container";
-import getItemsShow from "../../api/item_detail/getItemsShow";
+import ItemDetailCardContainer from "@/app/_components/common/Item/item-detail-card-container";
+import getItemsShow from "../../_api/item_detail/getItemsShow";
 
 type TProps = {
   params: {

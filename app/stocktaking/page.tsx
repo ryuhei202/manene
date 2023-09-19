@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
-import getStocktakingsCurrent from "../api/stocktaking/getStocktakingsCurrent";
+import getStocktakingsCurrent from "../_api/stocktaking/getStocktakingsCurrent";
 const StocktakingContainer = dynamic(
-  () => import("../components/stocktaking/stocktaking-container"),
+  () => import("../_components/stocktaking/stocktaking-container"),
   {
     ssr: false,
   }

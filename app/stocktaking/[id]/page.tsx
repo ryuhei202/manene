@@ -1,5 +1,5 @@
-import getStocktakingsLocationsShow from "@/app/api/stocktaking-location/getStocktakingLocationsShow";
-import StocktakingLocationContainer from "@/app/components/stocktaking-location/stocktaking-location-container";
+import getStocktakingsLocationsShow from "@/app/_api/stocktaking-location/getStocktakingLocationsShow";
+import StocktakingLocationContainer from "@/app/_components/stocktaking-location/stocktaking-location-container";
 
 type TParams = {
   params: { id: number };
