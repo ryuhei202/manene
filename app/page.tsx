@@ -1,8 +1,8 @@
 "use client";
 import { List } from "@mui/material";
-import LinkButtonListItem from "./components/common/button/link-button-list-item";
-import Header from "./components/common/pages/header";
-import SubHeader from "./components/common/pages/sub-header";
+import LinkButtonListItem from "./_components/common/button/link-button-list-item";
+import Header from "./_components/common/pages/header";
+import SubHeader from "./_components/common/pages/sub-header";
 
 export default function HomePage() {
   return (

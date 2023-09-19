@@ -1,4 +1,4 @@
-import LoadingDialog from "./components/common/dialog/loading-dialog";
+import LoadingDialog from "./_components/common/dialog/loading-dialog";
 
 export default function Loading() {
   return <LoadingDialog isOpen />;
