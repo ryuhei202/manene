@@ -5,13 +5,22 @@ import Link from "next/link";
 type TProps = {
   buttonName: string;
   path: string;
+  disabled?: boolean;
 };
 
-export default function LinkButtonListItem({ buttonName, path }: TProps) {
+export default function LinkButtonListItem({
+  buttonName,
+  path,
+  disabled,
+}: TProps) {
   return (
-    <ListItem disablePadding divider>
-      <Link href={path}>
-        <Button fullWidth={true} sx={{ justifyContent: "flex-start" }}>
+    <ListItem
+      disablePadding
+      divider
+      sx={{ bgcolor: disabled ? "warning.main" : undefined }}
+    >
+      <Link href={path} style={{ width: "100%" }}>
+        <Button fullWidth sx={{ justifyContent: "flex-start" }}>
           {buttonName}
         </Button>
       </Link>
