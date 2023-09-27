@@ -59,9 +59,9 @@ export default function QrCodeReader({ onScan, isRectangle = false }: TProps) {
             height: isRectangle ? 100 : 250,
           }}
           disableFlip={false}
-          aspectRatio={isRectangle ? 3 : undefined}
+          aspectRatio={isRectangle ? 10 : undefined}
           qrCodeSuccessCallback={onNewScanResult}
-          facingMode={"environment"}
+          facingMode="environment"
         />
         <Box display="flex" justifyContent="end">
           <Button
