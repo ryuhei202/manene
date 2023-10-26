@@ -1,10 +1,10 @@
 'use client';
 
-import { TGetItemsShow } from '../../../../types/types';
+import { TItemsShowResponse } from '@/app/_api/items/itemsShowResponse';
 import ItemDetailCard from './item-detail-card';
 
 type TProps = {
-  itemInfo: TGetItemsShow;
+  itemInfo: TItemsShowResponse;
 };
 
 export default function ItemDetailCardContainer({ itemInfo }: TProps) {
