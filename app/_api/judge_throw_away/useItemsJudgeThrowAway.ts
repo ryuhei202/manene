@@ -1,4 +1,4 @@
-import { TGetItemsShow } from '../../../types/types';
+import { TItemsShowResponse } from '../items/itemsShowResponse';
 import { usePostRequest } from '../usePostRequest';
 
 type TParams = {
@@ -9,7 +9,7 @@ type TParams = {
 
 export type TItemsJudgeThrowAwayResponse = {
   result: number;
-  item: TGetItemsShow;
+  item: TItemsShowResponse;
   condition: string;
   repairMethod: string;
   costDifference: number;
